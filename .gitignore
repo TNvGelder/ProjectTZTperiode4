@@ -1,5 +1,7 @@
 /BackOfficeApplicatie/nbproject/private/
 /nbproject/
+/JAVA/Test/Michiel-test/nbproject/
+/JAVA/Test/Michiel-test/nbproject/*
 /PHP/Testing/nbproject/
 /PHP/Testing/nbproject/*
 /PHP/Blah/nbproject/
@@ -13,3 +15,5 @@ PHP/Testing/newEmptyPHPWebPage.php
 =======
 /PHP/Blah/nbproject/private/
 >>>>>>> origin/master
+/JAVA/Test/Michiel-test/nbproject/private/
+/JAVA/Test/Michiel-test/build/
