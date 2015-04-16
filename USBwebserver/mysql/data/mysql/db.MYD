@@ -1,0 +1,73 @@
+ÿ%                                                                                                                                                                                   test                                                                                                                                                                                                                                            ÿ%                                                                                                                                                                                   test\_%                                                                                                                                                                                                                                         2014-09-10 14:32:22 2468 [Note] Event Scheduler: Loaded 0 events
+2014-09-10 14:32:22 2468 [Note] C:\Users\Jasper\Desktop\usbwebserver/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-09-17 08:52:07 3808 [Note] Event Scheduler: Loaded 0 events
+2014-09-17 08:52:07 3808 [Note] C:\Users\Jasper\Desktop\usbwebserver/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-09-26 11:05:51 6724 [Note] Event Scheduler: Loaded 0 events
+2014-09-26 11:05:51 6724 [Note] C:\Users\Jasper\Desktop\usbwebserver/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-10-10 16:20:40 33640 [Note] Event Scheduler: Loaded 0 events
+2014-10-10 16:20:40 33640 [Note] C:\Users\Jasper\Desktop\usbwebserver/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-10-28 08:25:04 23608 [Note] Event Scheduler: Loaded 0 events
+2014-10-28 08:25:04 23608 [Note] C:\Users\Jasper\Desktop\usbwebserver/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-11-26 10:42:45 5328 [Note] Event Scheduler: Loaded 0 events
+2014-11-26 10:42:45 5328 [Note] C:\Users\Jasper\Desktop\usbwebserver/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'cond_instances' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_current' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_history' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_history_long' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_host_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_instance' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_thread_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_user_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_account_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_waits_summary_global_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'file_instances' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'file_summary_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'file_summary_by_instance' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'host_cache' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'mutex_instances' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'objects_summary_global_by_type' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'performance_timers' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'rwlock_instances' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'setup_actors' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'setup_consumers' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'setup_instruments' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'setup_objects' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'setup_timers' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'table_io_waits_summary_by_index_usage' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'table_io_waits_summary_by_table' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'table_lock_waits_summary_by_table' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'threads' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_current' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_history' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_history_long' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_summary_by_thread_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_summary_by_account_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_summary_by_user_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_summary_by_host_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_stages_summary_global_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_current' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_history' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_history_long' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_summary_by_thread_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_summary_by_account_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_summary_by_user_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_summary_by_host_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_summary_global_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'events_statements_summary_by_digest' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'users' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'accounts' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'hosts' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'socket_instances' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'socket_summary_by_instance' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'socket_summary_by_event_name' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'session_connect_attrs' has the wrong structure
+2015-04-11 20:39:00 6700 [ERROR] Native table 'performance_schema'.'session_account_connect_attrs' has the wrong structure
+2015-04-11 20:39:01 6700 [Note] Event Scheduler: Loaded 0 events
+2015-04-11 20:39:01 6700 [Note] C:\Users\Twan\Downloads\stick\USBwebserverSDZdrive/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
