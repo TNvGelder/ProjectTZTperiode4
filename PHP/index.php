@@ -11,8 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $namenman = array("Eric", "Wim", "Mike", "Jurrie", "Jurgen");
-        $namenvrouw = array("Marlou", "Anke", "Alice", "Gerrie", "Judith");
+        // put your code here
         ?>
     </body>
 </html>
