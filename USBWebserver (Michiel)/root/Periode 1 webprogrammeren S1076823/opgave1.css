@@ -1,0 +1,32 @@
+/*
+S1076823 Michiel Janssen
+Opgave 1 stylesheet
+*/
+body {
+    font-size: 16px;
+    font-family: arial;
+    background-color: lightyellow;
+}
+
+h1 {
+    text-align: center;
+    background-color: yellow;
+    font-size: 24px;
+}
+
+#copyright {
+    text-align: center;
+    font-size: 14px;
+    background-color: yellow;
+}
+
+table {
+    padding: 10px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+td {
+    border-style: solid;
+    border-width: 3px;
+}
