@@ -20,7 +20,9 @@ and open the template in the editor.
 print("Edwin was here");
 
 
-print("omdat het kan");
+print("omdat het kan\n");
+print("<Strong>Apple == FAIL</Strong>")
+
         ?>
     </body>
 </html>
