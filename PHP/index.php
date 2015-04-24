@@ -14,7 +14,13 @@ and open the template in the editor.
         echo "Test -Michiel";
         print("Het werkt -Twan");
         print("yoo yoprof hiero");
-        print("omdat het kan");
+
+        
+
+print("Edwin was here");
+
+
+print("omdat het kan");
         ?>
     </body>
 </html>
