@@ -13,6 +13,7 @@ and open the template in the editor.
         <?php
         echo "Test -Michiel";
         print("Het werkt -Twan");
+        print("yoo yoprof hiero");
         ?>
     </body>
 </html>
