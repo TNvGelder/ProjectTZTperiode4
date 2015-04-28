@@ -16,7 +16,7 @@ and open the template in the editor.
         print("yoo yoprof hiero");
 
        //Dit is een test 
-
+// OMG NOOB STFU
 print("Edwin was here");
 
 
