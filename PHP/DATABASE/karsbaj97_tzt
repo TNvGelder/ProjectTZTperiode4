@@ -1,0 +1,86 @@
+-- MySQL dump 10.13  Distrib 5.5.34, for Linux (x86_64)
+--
+-- Host: localhost    Database: karsbaj97_tzt
+-- ------------------------------------------------------
+-- Server version	5.5.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `homepagina`
+--
+
+DROP TABLE IF EXISTS `homepagina`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `homepagina` (
+  `ID` int(8) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(50) NOT NULL,
+  `Content` text NOT NULL,
+  `Author` varchar(50) NOT NULL,
+  `EditedBy` varchar(100) DEFAULT NULL,
+  `CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `EditDate` datetime DEFAULT NULL,
+  `Photo` blob,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `titel` (`Title`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `homepagina`
+--
+
+LOCK TABLES `homepagina` WRITE;
+/*!40000 ALTER TABLE `homepagina` DISABLE KEYS */;
+INSERT INTO `homepagina` VALUES (1,'Pedicure Gerda Smit','<div>Welkom op de website van Pedicure Gerda Smit te Nieuwleusen. Op deze site kunt u kennismaken met mij en met wat een pedicure voor u kan betekenen. Verder vindt u informatie over voetverzorging en specifieke behandelingen bij reuma en diabetes. Voor tarieven voor de verschillende soorten behandelingen kunt u mij mailen of bellen. <br /> <br /><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://www.karsbarendrecht.nl/images/uploads/Gerda/Gerda1.jpg\" alt=\"\" width=\"600\" height=\"289\" /></div>\r\n<div>&nbsp;</div>','Gerda Smit','Gerrit Vrieling','2014-12-09 09:43:32','2015-01-13 10:51:41',NULL);
+/*!40000 ALTER TABLE `homepagina` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `ID` int(8) NOT NULL AUTO_INCREMENT,
+  `Email` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Firstname` varchar(30) NOT NULL,
+  `Lastname` varchar(30) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `email` (`Email`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (4,'kars-93@hotmail.com','f39e7a7a9b170335306b711135df17b698d1c27a','Kars','Barendrecht'),(19,'test','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3','Test','Account');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-04-28 14:51:21
