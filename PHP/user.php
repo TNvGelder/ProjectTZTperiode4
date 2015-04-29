@@ -1,11 +1,11 @@
 <?php
 session_start();
 include 'connection/connection.php';
+error_reporting(0);
 if(isset($_SESSION["login"]) && $_SESSION["login"] != 1)
 {
 	header( 'Location: ../index.php?error=1' );
 }else{
-error_reporting(0);
 ?>
 <!DOCTYPE HTML>
 <html>
