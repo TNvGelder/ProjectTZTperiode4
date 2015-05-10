@@ -16,11 +16,11 @@ import javax.swing.JTabbedPane;
  *
  * @author Twan
  */
-public class HoofdScherm extends JFrame implements ActionListener {
+public class HoofdScherm extends JFrame {
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
-        setSize(800, 300);
+        setSize(1000, 800);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
@@ -35,11 +35,6 @@ public class HoofdScherm extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
