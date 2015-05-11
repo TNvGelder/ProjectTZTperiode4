@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 public class Uitbetalingsverzoek {
 
     private LocalDateTime datum;
-    private Double bedrag;
-    private Boolean afgehandeld;
-    private koerier Accounthouder;
+    private double bedrag;
+    private boolean afgehandeld;
+    private Accounthouder koerier;
 
     public handelAf() {
-
+        afgehandeld = true;
     }
 
     public LocalDateTime getDatum() {
@@ -29,7 +29,7 @@ public class Uitbetalingsverzoek {
         return afgehandeld;
     }
 
-    public accounthouder getKoerier() {
+    public Accounthouder getKoerier() {
         return koerier;
     }
 }
