@@ -9,10 +9,10 @@ package TZTBackOffice;
  *
  * @author Twan
  */
-public class ContactBase extends Base<Contact>{
+public class ContactManager extends Base<Contact>{
 
     
-    public ContactBase(){
+    public ContactManager(){
         super();
         
     }
@@ -22,6 +22,7 @@ public class ContactBase extends Base<Contact>{
         
     }
     
+    //deze vult de arrays op met data uit de db
     @Override
     public void haalDataOp() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -28,7 +28,6 @@ public class ContactOverzichtPanel extends JPanel{
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane1, scrollPane2);
         JLabel filler = new JLabel("ContactOverzicht");
         filler.setHorizontalAlignment(JLabel.CENTER);
-        splitPane.setOneTouchExpandable(true);
         splitPane.setPreferredSize(new Dimension(400, 200));
         scrollPane1.add(filler);
         this.add(splitPane);
