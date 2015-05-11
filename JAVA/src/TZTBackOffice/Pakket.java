@@ -10,10 +10,34 @@ package TZTBackOffice;
  * @author Twan
  */
 public class Pakket {
+    private int pakketID;
+    private double gewicht;
+    private String formaat;
+    private VerzendOrder order;
     
     
     @Override
     public String toString(){
         return "Pakket";
     }
+
+    public int getPakketID() {
+        return pakketID;
+    }
+
+    public double getGewicht() {
+        return gewicht;
+    }
+
+    public String getFormaat() {
+        return formaat;
+    }
+
+    public VerzendOrder getOrder() {
+        return order;
+    }
+    
+    
+    
+    
 }
