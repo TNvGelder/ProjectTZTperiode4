@@ -29,7 +29,7 @@ public class HoofdScherm extends JFrame {
         JComponent panel2 = new JPanel();
         JComponent panel4 = new JPanel();
         tabbedPane.addTab("Problemen", panel1);
-        tabbedPane.addTab("Pakketten", pakketPanel);
+        tabbedPane.addTab("Pakketen", panel2);
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
         tabbedPane.addTab("Uitbetalingsverzoeken", panel4);
         this.add(tabbedPane);

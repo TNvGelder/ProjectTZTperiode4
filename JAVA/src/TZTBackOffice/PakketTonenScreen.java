@@ -36,20 +36,19 @@ public class PakketTonenScreen extends JFrame implements ActionListener {
     private JButton jbTerug;
     private JTable jt;
     private Object dataType;
-//    private String[][] dataAangemeld;
-//
-//    private String[][] dataVerzonden = {{"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
+    private String[][] dataAangemeld;
+    private String[][] dataVerzonden = {{"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
 
     public PakketTonenScreen(PakketTonen PakketTonen) {
         this.pakkettonen = pakkettonen;
@@ -68,7 +67,7 @@ public class PakketTonenScreen extends JFrame implements ActionListener {
         add(jbTerug);
         jbTerug.addActionListener(this);
 
-        String[] columns = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", ""};
+        String[] columns = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald"};
 
         String[][] dataAangemeld = {{"33333", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
         {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
@@ -83,19 +82,18 @@ public class PakketTonenScreen extends JFrame implements ActionListener {
         {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
         {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
 
-        String[][] dataVerzonden = {{"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
-
+//        String[][] dataVerzonden = {{"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
+//        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+//        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+//        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
+//        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
         String[][] dataGearriveerd = {{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
         {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
         {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
@@ -109,7 +107,7 @@ public class PakketTonenScreen extends JFrame implements ActionListener {
         {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
         {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
 
-        dataType = dataVerzonden;
+//        dataType = dataVerzonden;
         System.out.println(dataType);
 
         TableModel model = new DefaultTableModel((Object[][]) dataType, columns) {
@@ -155,49 +153,49 @@ public class PakketTonenScreen extends JFrame implements ActionListener {
         switch (msg) {
             case "Aangemelde pakketten":
                 System.out.println("aangemelde");
-
+                dataType = dataAangemeld;
                 break;
             case "Verzonden pakketten":
                 System.out.println("verzonden");
-//
-//
-//                String[] columns = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", ""};
-//
-//                TableModel model = new DefaultTableModel((Object[][]) dataType, columns) {
-//                    @Override
-//                    public boolean isCellEditable(int data, int columns) {
-//                        return false;
-//                    }
-//                };
-//                JTable table = new JTable(model) {
-//
-//                    @Override
-//                    public Component prepareRenderer(TableCellRenderer r, int data, int columns) {
-//                        Component c = super.prepareRenderer(r, data, columns);
-//
-//                        if (columns % 2 == 0) {
-//                            c.setBackground(Color.WHITE);
-//                        } else {
-//                            c.setBackground(Color.LIGHT_GRAY);
-//                        }
-//
-//                        if (isCellSelected(data, columns)) {
-//                            c.setBackground(Color.ORANGE);
-//
-//                        }
-//
-//                        return c;
-//                    }
-//                };
-//
-//                RowSorter<TableModel> sorter = new TableRowSorter<>(model);
-//                table.setRowSorter(sorter);
-//                getContentPane().add(new JScrollPane(table));
-//
-//                table.setPreferredScrollableViewportSize(new Dimension(450, 140));
-//                table.setFillsViewportHeight(true);
-//
-//                setVisible(true);
+                dataType = dataVerzonden;
+                System.out.println(dataVerzonden);
+
+                String[] columns = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald"};
+
+                TableModel model = new DefaultTableModel((Object[][]) dataType, columns) {
+                    @Override
+                    public boolean isCellEditable(int data, int columns) {
+                        return false;
+                    }
+                };
+                JTable table = new JTable(model) {
+
+                    @Override
+                    public Component prepareRenderer(TableCellRenderer r, int data, int columns) {
+                        Component c = super.prepareRenderer(r, data, columns);
+
+                        if (columns % 2 == 0) {
+                            c.setBackground(Color.WHITE);
+                        } else {
+                            c.setBackground(Color.LIGHT_GRAY);
+                        }
+
+                        if (isCellSelected(data, columns)) {
+                            c.setBackground(Color.ORANGE);
+                        }
+
+                        return c;
+                    }
+                };
+
+                RowSorter<TableModel> sorter = new TableRowSorter<>(model);
+                table.setRowSorter(sorter);
+                getContentPane().add(new JScrollPane(table));
+
+                table.setPreferredScrollableViewportSize(new Dimension(450, 140));
+                table.setFillsViewportHeight(true);
+
+                setVisible(true);
 
                 break;
             case "Gearriveerde pakketten":
