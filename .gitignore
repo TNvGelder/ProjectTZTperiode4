@@ -22,4 +22,6 @@ USBwebserver/mysql/data/Twan-Laptop.err
 USBwebserver/mysql/data/Twan-Laptop.pid
 /JAVA/src/nbproject/private/
 /JAVA/src/TZTBackOffice/nbproject/private/
-/JAVA/build/
+/JAVA/build.xml
+/JAVA/manifest.mf
+/JAVA/nbbuild.xml
