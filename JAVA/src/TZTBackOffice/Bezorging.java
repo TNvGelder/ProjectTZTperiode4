@@ -5,7 +5,7 @@
  */
 package TZTBackOffice;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -13,16 +13,16 @@ import java.time.LocalDate;
  */
 public class Bezorging {
     
-    private LocalDate afhaalTijdstip;
-    private LocalDate afleverTijdstip;
+    private LocalDateTime afhaalTijdstip;
+    private LocalDateTime afleverTijdstip;
     private Contact koerier;
     
     
-    public LocalDate getAfhaalTijdstip() {
+    public LocalDateTime getAfhaalTijdstip() {
         return afhaalTijdstip;
     }
 
-    public LocalDate getAfleverTijdstip() {
+    public LocalDateTime getAfleverTijdstip() {
         return afleverTijdstip;
     }
 

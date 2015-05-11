@@ -5,7 +5,7 @@
  */
 package TZTBackOffice;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -15,8 +15,16 @@ public class Probleem {
     
     private String titel;
     private String beschrijving;
-    private LocalDate datum;
+    private LocalDateTime datum;
 
+    
+    public Probleem(String titel, String beschrijving, LocalDateTime datum) {
+        this.titel = titel;
+        this.beschrijving = beschrijving;
+        this.datum = datum;
+    }
+    
+    
     public String getTitel() {
         return titel;
     }
@@ -25,7 +33,7 @@ public class Probleem {
         return beschrijving;
     }
 
-    public LocalDate getDatum() {
+    public LocalDateTime getDatum() {
         return datum;
     }
     
