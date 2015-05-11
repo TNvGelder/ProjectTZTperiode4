@@ -9,10 +9,10 @@ package TZTBackOffice;
  *
  * @author Twan
  */
-public class ContactBase extends Base<Contact>{
+public class ContactManager extends Base<Contact>{
 
     
-    public ContactBase(){
+    public ContactManager(){
         super();
         
     }

@@ -20,8 +20,8 @@ public class HoofdScherm extends JFrame {
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
-        setSize(1000, 800);
-
+        setSize(1280, 680);
+        
         JTabbedPane tabbedPane = new JTabbedPane();
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
         JComponent panel1 = new JPanel();
