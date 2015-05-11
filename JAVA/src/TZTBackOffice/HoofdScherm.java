@@ -21,9 +21,10 @@ public class HoofdScherm extends JFrame {
     public HoofdScherm() {
         super("BackOffice Applicatie");
         setSize(1280, 680);
-        
+
         JTabbedPane tabbedPane = new JTabbedPane();
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
+        PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
         JComponent panel1 = new JPanel();
         JComponent panel2 = new JPanel();
         JComponent panel4 = new JPanel();
@@ -34,7 +35,7 @@ public class HoofdScherm extends JFrame {
         this.add(tabbedPane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        
+
     }
 
 }
