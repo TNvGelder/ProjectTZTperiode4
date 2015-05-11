@@ -9,20 +9,17 @@ package TZTBackOffice;
  *
  * @author Richard
  */
-public class ProbleemManager extends Base<Contact>{
-    
-    private Probleem problemen;
+public class UitbetalingsManager extends Base<Contact> {
 
-    public ProbleemManager() {
+    public UitbetalingsManager() {
         super();
     }
-    
-   
-    //deze vult de arrays op met data uit de db
+
+     //deze vult de arrays op met data uit de db
     @Override
     public void haalDataOp() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }  
     
     
     

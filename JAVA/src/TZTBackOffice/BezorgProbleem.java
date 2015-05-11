@@ -9,7 +9,7 @@ package TZTBackOffice;
  *
  * @author Richard
  */
-public class BezorgProbleem {
+public class BezorgProbleem{
 
     private Bezorging bezorging;
 
