@@ -16,6 +16,7 @@ public class ContactManager extends Base<Contact>{
         super();
         
     }
+
     
     //Update het contact in de database, zodat het overeenkomt met de gegevens van Contact c.
     public void wijzigContact(Contact c){

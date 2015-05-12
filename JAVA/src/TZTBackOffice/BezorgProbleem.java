@@ -5,13 +5,20 @@
  */
 package TZTBackOffice;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author Richard
  */
-public class BezorgProbleem{
+public class BezorgProbleem extends Probleem {
 
     private Bezorging bezorging;
+
+    public BezorgProbleem(Bezorging bezorging, String titel, String beschrijving, LocalDateTime datum) {
+        super(titel, beschrijving, datum);
+        this.bezorging = bezorging;
+    }
 
     public Bezorging getBezorging() {
         return bezorging;
