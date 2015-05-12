@@ -26,9 +26,7 @@ public class HoofdScherm extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane();
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
-        pakketPanel.setLayout(new CardLayout());
         JComponent panel1 = new JPanel();
-        JComponent panel2 = new JPanel();
         JComponent panel4 = new JPanel();
         tabbedPane.addTab("Problemen", panel1);
         tabbedPane.addTab("Pakketten", pakketPanel);
