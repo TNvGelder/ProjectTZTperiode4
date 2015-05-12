@@ -5,6 +5,8 @@
  */
 package TZTBackOffice;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Twan
@@ -12,7 +14,7 @@ package TZTBackOffice;
 public class ContactManager extends Base<Contact>{
 
     
-    public ContactManager(){
+    public ContactManager() throws SQLException{
         super();
         
     }
@@ -27,7 +29,12 @@ public class ContactManager extends Base<Contact>{
     @Override
     public void haalDataOp() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //query
+        //
     }
     
+    public static void main(String[] args) throws SQLException {
+        ContactManager c = new ContactManager();
+    }
     
 }
