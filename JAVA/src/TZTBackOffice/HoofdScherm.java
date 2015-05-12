@@ -33,8 +33,8 @@ public class HoofdScherm extends JFrame {
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
         tabbedPane.addTab("Uitbetalingsverzoeken", panel4);
         this.add(tabbedPane);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        
 
     }
 

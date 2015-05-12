@@ -5,6 +5,8 @@
  */
 package TZTBackOffice;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Twan
@@ -15,7 +17,11 @@ public class BackOfficeMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        DatabaseManager databaseManager = new DatabaseManager();
+        
+        
         HoofdScherm hoofdScherm = new HoofdScherm(); 
+        hoofdScherm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
 }
