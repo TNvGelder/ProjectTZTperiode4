@@ -24,24 +24,25 @@ public class HoofdScherm extends JFrame implements ActionListener {
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
-        setLayout(new FlowLayout());
+
         setSize(1280, 680);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
-
+        UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
         JComponent panel1 = new JPanel();
-        JComponent panel4 = new JPanel();
-        tabbedPane.addTab("Problemen", panel1);
-        tabbedPane.addTab("Pakketten", pakketPanel);
-        tabbedPane.addTab("Klanten & Koeriers", contactPanel);
-        tabbedPane.addTab("Uitbetalingsverzoeken", panel4);
 
-        this.add(tabbedPane);
         JButton jbRefresh = new JButton("Refresh");
         add(jbRefresh);
         jbRefresh.addActionListener(this);
+
+        tabbedPane.addTab("Problemen", panel1);
+        tabbedPane.addTab("Pakketten", pakketPanel);
+        tabbedPane.addTab("Klanten & Koeriers", contactPanel);
+        tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
+
+        this.add(tabbedPane);
 
         setVisible(true);
 
