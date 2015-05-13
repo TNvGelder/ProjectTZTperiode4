@@ -38,9 +38,7 @@ public class DatabaseManager {
     private String url;
     private String username, password;
 
-    
     // Aangemeld, verzonden, gearriveerd
-
     public DatabaseManager() {
         url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
         username = "karsbaj97_tzt";
@@ -62,14 +60,14 @@ public class DatabaseManager {
 
     }
 
-    public Contact getKoeriersDienst(int id){
+    public Contact getKoeriersDienst(int id) {
         return koeriersDiensten.get(id);
     }
-    
-    public AccountHouder getAccountHouder(int id){
+
+    public AccountHouder getAccountHouder(int id) {
         return accountHouders.get(id);
     }
-    
+
     //Haalt pakketten op uit de database en vult de array pakket objecten;
     private void haalDataOp() {
         Connection connection = null;
@@ -77,7 +75,7 @@ public class DatabaseManager {
         try {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM locatie");
+            ResultSet rs = statement.executeQuery("SELECT locatienr, straat, huisnummer, plaats, postcode FROM locatie");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
                 String straat = rs.getString(2);  // kolom ‘Naam’
@@ -85,9 +83,30 @@ public class DatabaseManager {
                 String plaats = rs.getString(4);
                 String postcode = rs.getString(5);
                 Locatie locatie = new Locatie(id, straat, huisnummer, plaats, postcode);
-              
+                locaties.put(id, locatie);
+                System.out.println(locatie);
             }
-            
+
+            rs = statement.executeQuery("SELECT stakeholderID, naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet"
+                    + ", filiaalnr, locatie, rekeningnr, o.orderID, aanmeldtijd, p.probleemID, beschrijving, p.datum, titel, p.afgehandeld"
+                    + ", k.datum, bedrag, k.isafgehandeld, k.type, beginlocatie, eindlocatie, km, prijs, extraprijs   FROM stakeholder\n"
+                    + "LEFT OUTER JOIN tarief t ON stakeholderID = koeriersID\n"
+                    + "LEFT OUTER JOIN probleem p ON stakeholderID = klantnr\n"
+                    + "LEFT OUTER JOIN verzendorder o ON stakeholderID = klantID\n"
+                    + "LEFT OUTER JOIN kredietomzetting k ON stakeholderID = treinkoerier\n"
+                    + "LEFT OUTER JOIN reis v ON stakeholderID = v.koerier "
+                    + "LEFT OUTER JOIN pakket pa ON o.orderID = pa.orderID ");
+            while (rs.next()) {
+                int id = rs.getInt(1); 	         // 1e kolom
+                String naam = rs.getString("naam");  // kolom ‘Naam’
+                String achternaam = rs.getString("achternaam"); 	   // 3e kolom
+                String email = rs.getString("emailadres");
+                String telefoonnr = rs.getString("telefoonnr");
+                String idkaart = rs.getString("idkaart");
+                String ovkaart = rs.getString("ovkaart");
+                System.out.println(id + " " + naam + " " + achternaam + " " + email + " " + telefoonnr);
+            }
+
             rs = statement.executeQuery("SELECT * FROM verzendorder");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
@@ -95,15 +114,14 @@ public class DatabaseManager {
                 Timestamp aanmeldTijd = rs.getTimestamp(3); 	   // 3e kolom
                 AccountHouder klant = getAccountHouder(id);
                 if (klant != null) {
-                    
+
                 }
                 Statement statement2 = connection.createStatement();
                 ResultSet rs2;
 
                 System.out.println(id + " " + klantID + " " + aanmeldTijd);
             }
-            
-            
+
             rs = statement.executeQuery("SELECT pakketID, gewicht, formaat, opmerking, kosten, orderID FROM pakket");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
