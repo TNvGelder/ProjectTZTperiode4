@@ -16,9 +16,14 @@ public class Bezorging {
     private LocalDateTime afhaalTijdstip;
     private LocalDateTime afleverTijdstip;
     private Contact koerier;
+
+    public Bezorging(LocalDateTime afhaalTijdstip, LocalDateTime afleverTijdstip, Contact koerier) {
+        this.afhaalTijdstip = afhaalTijdstip;
+        this.afleverTijdstip = afleverTijdstip;
+        this.koerier = koerier;
+    }
     
-    
-    public LocalDateTime getAfhaalTijdstip() {
+        public LocalDateTime getAfhaalTijdstip() {
         return afhaalTijdstip;
     }
 

@@ -5,19 +5,29 @@
  */
 package TZTBackOffice;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowSorter;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
@@ -27,195 +37,120 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Jasper
  */
-public class PakketOverzichtPanel extends JPanel implements ActionListener {
+public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
     private PakketTonen pakkettonen;
-    private JButton jbTerug;
-    private JTable jt;
-    private Object dataType;
-//    private String[][] dataAangemeld;
-//
-//    private String[][] dataVerzonden = {{"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-//    {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
+
+    JPanel cards; //a panel that uses CardLayout
+    final static String Aangemelde = "Aangemelde pakketten";
+    final static String Verzonden = "Verzonden pakketten";
+    final static String Gearriveerde = "Gearriveerde pakketten";
 
     public PakketOverzichtPanel() {
         //Layout scherm
-        setSize(700, 600);
-        setLayout(new FlowLayout());
+        String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
+        JComboBox cb = new JComboBox(comboBoxItems);
+        cb.setEditable(false);
+        cb.addItemListener((ItemListener) this);
+//        comboBoxPane.add(cb);
 
-        //Aanmaken Combobox met naamgeving en link naar actionlistener
-        String[] pakketSoorten = {"Aangemelde pakketten", "Verzonden pakketten", "Gearriveerde pakketten"};
-        JComboBox jComboPakketSoorten = new JComboBox(pakketSoorten);
-        jComboPakketSoorten.setSelectedIndex(0);
-        jComboPakketSoorten.addActionListener(this);
-        add(jComboPakketSoorten);
+        //Create the "cards".
+        JPanel card1 = new JPanel();
+        card1.add(new JButton("Button 1"));
+        card1.add(new JButton("Button 2"));
+        card1.add(new JButton("Button 3"));
 
-        //Terug knop aanmaken
-        jbTerug = new JButton("Terug");
-        add(jbTerug);
-        jbTerug.addActionListener(this);
+        JPanel card2 = new JPanel();
+        card2.add(new JTextField("TextField", 20));
 
-        //Naamgeving kolommen van de tabel
-        String[] columns = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", ""};
+        //Create the panel that contains the "cards".
+        cards = new JPanel(new CardLayout());
+        cards.add(card1, Aangemelde);
+        cards.add(card2, Verzonden);
+        add(cb);
+        add(cards, BorderLayout.CENTER);
 
-        //De 3 soorten data als array voor in de tabel, dit is dummy data, dit wordt een query
-        String[][] dataAangemeld = {{"33333", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
-
-        String[][] dataVerzonden = {{"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
-
-        String[][] dataGearriveerd = {{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"66987", "8:22 AM", "18:47 PM", "11/7/15", "Bedrijf BV", "80x700x50", "8000 g", "-"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald"}};
-
-        //Laat de data van data verzonden zien, dit is als tett
-        dataType = dataVerzonden;
-        System.out.println(dataType);
-
-        //Creeër tabel model met de hierboven naamgegeven kolommen en data volgens de veriabele dataType
-        TableModel model = new DefaultTableModel((Object[][]) dataType, columns) {
-            //Zorg dat de tabel niet te bewerken is
-            @Override
-            public boolean isCellEditable(int data, int columns) {
-                return false;
-            }
-        };
-        //Creeër tabel met model
-        JTable table = new JTable(model) {
-            //Specifieke opmaak tabel voor kleuren
-            @Override
-            public Component prepareRenderer(TableCellRenderer r, int data, int columns) {
-                Component c = super.prepareRenderer(r, data, columns);
-                //Maak een kolom om en om grijs
-                if (columns % 2 == 0) {
-                    c.setBackground(Color.WHITE);
-                } else {
-                    c.setBackground(Color.LIGHT_GRAY);
-                }
-                //Wanneer rij geselecteerd, maak rij oranje
-                if (isCellSelected(data, columns)) {
-                    c.setBackground(Color.ORANGE);
-                }
-
-                return c;
-            }
-        };
-
-        //Sorteren voor in de tabel
-        RowSorter<TableModel> sorter = new TableRowSorter<>(model);
-        table.setRowSorter(sorter);
-
-        this.add(new JScrollPane(table));
-        //Scroll mogelijkheid en dimensies van tabel
-        table.setPreferredScrollableViewportSize(new Dimension(450, 140));
-        table.setFillsViewportHeight(true);
-
+//        pane.add(comboBoxPane, BorderLayout.PAGE_START);
+//        pane.add(cards, BorderLayout.CENTER);
     }
 
-    //Actionperformed voor acties
+    public void addComponentToPane(Container pane) {
+        //Put the JComboBox in a JPanel to get a nicer look.
+        JPanel comboBoxPane = new JPanel(); //use FlowLayout
+        String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
+        JComboBox cb = new JComboBox(comboBoxItems);
+        cb.setEditable(false);
+        cb.addItemListener((ItemListener) this);
+        comboBoxPane.add(cb);
+
+        //Create the "cards".
+        JPanel card1 = new JPanel();
+        card1.add(new JButton("Button 1"));
+        card1.add(new JButton("Button 2"));
+        card1.add(new JButton("Button 3"));
+
+        JPanel card2 = new JPanel();
+        card2.add(new JTextField("TextField", 20));
+
+        JPanel card3 = new JPanel();
+        card3.add(new JTextField("3", 20));
+
+        //Create the panel that contains the "cards".
+        cards = new JPanel(new CardLayout());
+        cards.add(card1, Aangemelde);
+        cards.add(card2, Verzonden);
+
+        pane.add(comboBoxPane, BorderLayout.PAGE_START);
+        pane.add(cards, BorderLayout.CENTER);
+    }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        //defineer combobox
-        JComboBox cb = (JComboBox) e.getSource();
-        String msg = (String) cb.getSelectedItem();
-        //Doe actie als er een combobox geselecteerd is
-        switch (msg) {
-            case "Aangemelde pakketten":
-                System.out.println("aangemelde");
-                break;
-            case "Verzonden pakketten":
-                System.out.println("verzonden");
-//                dataType = dataVerzonden;
-//                System.out.println(dataVerzonden);
-//
-//                String[] columns = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", ""};
-//
-//                TableModel model = new DefaultTableModel((Object[][]) dataType, columns) {
-//                    @Override
-//                    public boolean isCellEditable(int data, int columns) {
-//                        return false;
-//                    }
-//                };
-//                JTable table = new JTable(model) {
-//
-//                    @Override
-//                    public Component prepareRenderer(TableCellRenderer r, int data, int columns) {
-//                        Component c = super.prepareRenderer(r, data, columns);
-//
-//                        if (columns % 2 == 0) {
-//                            c.setBackground(Color.WHITE);
-//                        } else {
-//                            c.setBackground(Color.LIGHT_GRAY);
-//                        }
-//
-//                        if (isCellSelected(data, columns)) {
-//                            c.setBackground(Color.ORANGE);
-//
-//                        }
-//
-//                        return c;
-//                    }
-//                };
-//
-//                RowSorter<TableModel> sorter = new TableRowSorter<>(model);
-//                table.setRowSorter(sorter);
-//                getContentPane().add(new JScrollPane(table));
-//
-//                table.setPreferredScrollableViewportSize(new Dimension(450, 140));
-//                table.setFillsViewportHeight(true);
-//
-//                setVisible(true);
-
-                break;
-            case "Gearriveerde pakketten":
-                System.out.println("gearriveerd");
-                break;
-            default:
-                System.out.println("something went wrong");
-        }
-        //Update scherm voor veranderingen zichtbaar maken
-        setVisible(true);
+    public void itemStateChanged(ItemEvent evt) {
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, (String) evt.getItem());
     }
 
+    /**
+     * Create the GUI and show it. For thread safety, this method should be
+     * invoked from the event dispatch thread.
+     */
+    private static void createAndShowGUI() {
+        //Create and set up the window.
+        JFrame frame = new JFrame("Buttons");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Create and set up the content pane.
+        PakketOverzichtPanel demo = new PakketOverzichtPanel();
+        demo.addComponentToPane(frame.getContentPane());
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        /* Use an appropriate Look and Feel */
+        try {
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        /* Turn off metal's use of bold fonts */
+        UIManager.put("swing.boldMetal", Boolean.FALSE);
+
+        //Schedule a job for the event dispatch thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
 }

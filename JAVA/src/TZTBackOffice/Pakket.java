@@ -14,8 +14,15 @@ public class Pakket {
     private double gewicht;
     private String formaat;
     private VerzendOrder order;
+
+    public Pakket(int pakketID, double gewicht, String formaat, VerzendOrder order) {
+        this.pakketID = pakketID;
+        this.gewicht = gewicht;
+        this.formaat = formaat;
+        this.order = order;
+    }
     
-    
+        
     @Override
     public String toString(){
         return "Pakket";

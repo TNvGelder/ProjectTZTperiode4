@@ -5,6 +5,7 @@
  */
 package TZTBackOffice;
 
+import java.awt.CardLayout;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,15 +27,14 @@ public class HoofdScherm extends JFrame {
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
         JComponent panel1 = new JPanel();
-        JComponent panel2 = new JPanel();
         JComponent panel4 = new JPanel();
         tabbedPane.addTab("Problemen", panel1);
         tabbedPane.addTab("Pakketten", pakketPanel);
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
         tabbedPane.addTab("Uitbetalingsverzoeken", panel4);
         this.add(tabbedPane);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        
 
     }
 

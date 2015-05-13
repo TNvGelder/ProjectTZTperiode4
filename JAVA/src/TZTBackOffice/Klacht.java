@@ -5,12 +5,20 @@
  */
 package TZTBackOffice;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author Twan
  */
-public class Klacht {
+public class Klacht extends Probleem {
     private Pakket pakket;
+
+    
+    public Klacht(Pakket pakket, String titel, String beschrijving, LocalDateTime datum) {
+        super(titel, beschrijving, datum);
+        this.pakket = pakket;
+    }
 
     
     
