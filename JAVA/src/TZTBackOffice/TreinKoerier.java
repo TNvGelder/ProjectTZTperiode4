@@ -16,8 +16,8 @@ public class TreinKoerier extends AccountHouder{
     private String idKaart;
     private String ovKaart;
 
-    public TreinKoerier(double krediet, int rekeningnr, String idKaart, String ovKaart, String voornaam, String email, String telefoonnr, int contactID, String achternaam, String huisnr, String plaats, String postcode, String wachtwoord, String straat) {
-        super(voornaam, email, telefoonnr, contactID, achternaam, huisnr, plaats, postcode, wachtwoord, straat);
+    public TreinKoerier(double krediet, int rekeningnr, String idKaart, String ovKaart, String voornaam, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
+        super(voornaam, email, telefoonnr, contactID, achternaam, locatie);
         this.krediet = krediet;
         this.rekeningnr = rekeningnr;
         this.idKaart = idKaart;
