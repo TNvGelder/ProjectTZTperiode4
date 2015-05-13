@@ -11,9 +11,9 @@ public class Uitbetalingsverzoek {
     private LocalDateTime datum;
     private double bedrag;
     private boolean afgehandeld;
-    private Accounthouder koerier;
+    // private Accounthouder koerier;
 
-    public handelAf() {
+    public void handelAf() {
         afgehandeld = true;
     }
 
@@ -29,7 +29,7 @@ public class Uitbetalingsverzoek {
         return afgehandeld;
     }
 
-    public Accounthouder getKoerier() {
-        return koerier;
-    }
+    /* public Accounthouder getKoerier() {
+     return koerier;
+     } */
 }

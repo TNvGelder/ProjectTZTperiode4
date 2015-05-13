@@ -14,12 +14,11 @@ public class Betalingscherm extends JFrame implements ActionListener {
     private int id;
     private String naam;
     private String achternaam;
-    private DateTime datum;
+    private String datum;
 
     private String uitbetaling;
 
-    public Betalingscherm()
-        ) {
+    public Betalingscherm() {
         this.uitbetaling = uitbetaling;
         setTitle("Overzicht pakketten");
         setSize(1920, 1000);
