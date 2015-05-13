@@ -3,6 +3,7 @@ package TZTBackOffice;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import javax.swing.JFrame;
 
 /**
@@ -14,7 +15,7 @@ public class Betalingscherm extends JFrame implements ActionListener {
     private int id;
     private String naam;
     private String achternaam;
-    private String datum;
+    private LocalDateTime datum;
 
     private String uitbetaling;
 
