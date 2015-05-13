@@ -148,7 +148,6 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         cl.show(cards, (String) evt.getItem());
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
