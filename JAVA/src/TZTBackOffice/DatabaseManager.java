@@ -29,6 +29,7 @@ public class DatabaseManager {
     private ArrayList<HashMap> pakketten;
     private ArrayList<HashMap> problemen;
     private ArrayList<HashMap> uitbetalingen;
+    private HashMap<Integer, Contact> koeriersDiensten;
     private HashMap<Integer, Locatie> locaties;
     private String url;
     private String username, password;
@@ -56,6 +57,10 @@ public class DatabaseManager {
 
     }
 
+    public Contact getKoeriersDienst(int id){
+        return koeriersDiensten.get(id);
+    }
+    
     //Haalt pakketten op uit de database en vult de array pakket objecten;
     private void haalDataOp() {
         Connection connection = null;
@@ -65,7 +70,7 @@ public class DatabaseManager {
             ResultSet rs = statement.executeQuery("SELECT * FROM locatie");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
-                int klantID = rs.getInt(2);  // kolom ‘Naam’
+                String klantID = rs.getString(2);  // kolom ‘Naam’
                 String ww = rs.getString(3); 	   // 3e kolom
                 
 
