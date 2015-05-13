@@ -31,13 +31,13 @@ public class HoofdScherm extends JFrame implements ActionListener {
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
         UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
-        JComponent panel1 = new JPanel();
+        JComponent probleemPanel = new ProbleemPanel();
 
         JButton jbRefresh = new JButton("Refresh");
         add(jbRefresh);
         jbRefresh.addActionListener(this);
 
-        tabbedPane.addTab("Problemen", panel1);
+        tabbedPane.addTab("Problemen", probleemPanel);
         tabbedPane.addTab("Pakketten", pakketPanel);
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
         tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
