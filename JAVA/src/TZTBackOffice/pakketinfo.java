@@ -1,13 +1,15 @@
 package TZTBackOffice;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 /**
  *
  * @author Michiel
  */
-public class pakketinfo {
+public class pakketinfo extends JDialog {
 
     private int pakketid = 21241;
     private double gewicht = 476;
@@ -27,6 +29,6 @@ public class pakketinfo {
     public pakketinfo() {
         setTitle("Pakket " + pakketid);
         setSize(1920, 1000);
-        setLayout(new GridLayout(6, 1));
+        setLayout(new FlowLayout());
     }
 }
