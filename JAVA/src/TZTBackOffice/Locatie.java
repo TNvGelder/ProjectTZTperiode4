@@ -43,6 +43,12 @@ class Locatie {
     public String getPostcode() {
         return postcode;
     }
+
+    @Override
+    public String toString() {
+        return "Locatie{" + "locatieID=" + locatieID + ", straat=" + straat + ", huisnummer=" + huisnummer + ", plaats=" + plaats + ", postcode=" + postcode + '}';
+    }
+    
     
     
 }

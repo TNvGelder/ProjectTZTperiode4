@@ -9,11 +9,11 @@ import javax.swing.JLabel;
  *
  * @author Michiel
  */
-public class PakketInfoScreen extends JDialog {
+public class PakketInfoDialoog extends JDialog {
 
     private PakketInfo pakketinfo;
 
-    public static void main(String[] args) {
+    public PakketInfoDialoog(Pakket p){
         JFrame scherm = new JFrame();
         scherm.setVisible(true);
         scherm.setTitle("Pakket " /* + pakketid*/);

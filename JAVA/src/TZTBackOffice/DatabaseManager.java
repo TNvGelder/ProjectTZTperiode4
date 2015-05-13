@@ -6,10 +6,13 @@
 package TZTBackOffice;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -30,12 +33,12 @@ public class DatabaseManager {
     private ArrayList<HashMap> problemen;
     private ArrayList<HashMap> uitbetalingen;
     private HashMap<Integer, Contact> koeriersDiensten;
+    private HashMap<Integer, AccountHouder> accountHouders;
     private HashMap<Integer, Locatie> locaties;
     private String url;
     private String username, password;
 
-    private Statement statement;
-    private Connection connection;
+    
     // Aangemeld, verzonden, gearriveerd
 
     public DatabaseManager() {
@@ -53,6 +56,8 @@ public class DatabaseManager {
         uitbetalingsManager = new UitbetalingsManager();
         probleemManager = new ProbleemManager();
         pakketten = new ArrayList();
+        accountHouders = new HashMap();
+        locaties = new HashMap();
         haalDataOp();
 
     }
@@ -61,30 +66,41 @@ public class DatabaseManager {
         return koeriersDiensten.get(id);
     }
     
+    public AccountHouder getAccountHouder(int id){
+        return accountHouders.get(id);
+    }
+    
     //Haalt pakketten op uit de database en vult de array pakket objecten;
     private void haalDataOp() {
         Connection connection = null;
+        Statement statement;
         try {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM locatie");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
-                String klantID = rs.getString(2);  // kolom ‘Naam’
-                String ww = rs.getString(3); 	   // 3e kolom
-                
-
-                System.out.println(id + " " + klantID + " " + ww);
+                String straat = rs.getString(2);  // kolom ‘Naam’
+                String huisnummer = rs.getString(3); 	   // 3e kolom
+                String plaats = rs.getString(4);
+                String postcode = rs.getString(5);
+                Locatie locatie = new Locatie(id, straat, huisnummer, plaats, postcode);
+              
             }
             
             rs = statement.executeQuery("SELECT * FROM verzendorder");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
                 int klantID = rs.getInt(2);  // kolom ‘Naam’
-                String ww = rs.getString(3); 	   // 3e kolom
-                
+                Timestamp aanmeldTijd = rs.getTimestamp(3); 	   // 3e kolom
+                AccountHouder klant = getAccountHouder(id);
+                if (klant != null) {
+                    
+                }
+                Statement statement2 = connection.createStatement();
+                ResultSet rs2;
 
-                System.out.println(id + " " + klantID + " " + ww);
+                System.out.println(id + " " + klantID + " " + aanmeldTijd);
             }
             
             
@@ -115,14 +131,6 @@ public class DatabaseManager {
 
     private void haalContactenOp() {
 
-    }
-
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }
