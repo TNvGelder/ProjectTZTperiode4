@@ -29,13 +29,12 @@ import javax.swing.table.DefaultTableModel;
 public class UitbetalingsPanel extends JPanel implements ItemListener {
 
     JPanel cards; //a panel that uses CardLayout
-    final static String Aangemelde = "Aangemelde pakketten";
-    final static String Verzonden = "Verzonden pakketten";
-    final static String Gearriveerde = "Gearriveerde pakketten";
+    final static String Openstaand = "Openstaande aanvragen";
+    final static String Afgehandeld = "Afgehandelde aanvragen";
 
     public UitbetalingsPanel() {
         //Layout scherm
-        String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
+        String comboBoxItems[] = {Openstaand, Afgehandeld};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
@@ -46,7 +45,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 
         DefaultTableModel dmAangemeld = new DefaultTableModel();
 
-        dmAangemeld.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Aangemeld BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+        dmAangemeld.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Openstaand BV", "30x40x10", "476 g", "Betaald", "Meer info"},
         {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
         {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
         {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
@@ -65,7 +64,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         JPanel card2 = new JPanel();
         DefaultTableModel dmVerzonden = new DefaultTableModel();
 
-        dmVerzonden.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Verzonden BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+        dmVerzonden.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Afgehandeld BV", "30x40x10", "476 g", "Betaald", "Meer info"},
         {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
         {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
         {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
@@ -81,30 +80,10 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         JScrollPane scrollVerzonden = new JScrollPane(tableVerzonden);
         card2.add(scrollVerzonden);
 
-        JPanel card3 = new JPanel();
-        DefaultTableModel dmGearriveerd = new DefaultTableModel();
-
-        dmGearriveerd.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Gearriveerd BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
-                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
-
-        JTable tableGearriveerd = new JTable(dmGearriveerd);
-        tableGearriveerd.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        tableGearriveerd.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
-        tableGearriveerd.setPreferredScrollableViewportSize(new Dimension(800, 140));
-        JScrollPane scrollGearriveerd = new JScrollPane(tableGearriveerd);
-        card3.add(scrollGearriveerd);
-
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add(card1, Aangemelde);
-        cards.add(card2, Verzonden);
-        cards.add(card3, Gearriveerde);
+        cards.add(card1, Openstaand);
+        cards.add(card2, Afgehandeld);
         add(cb);
         add(cards, BorderLayout.CENTER);
 
@@ -117,7 +96,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
     public void addComponentToPane(Container pane) {
         //Put the JComboBox in a JPanel to get a nicer look.
         JPanel comboBoxPane = new JPanel(); //use FlowLayout
-        String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
+        String comboBoxItems[] = {Openstaand, Afgehandeld};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
@@ -135,8 +114,8 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add(card1, Aangemelde);
-        cards.add(card2, Verzonden);
+        cards.add(card1, Openstaand);
+        cards.add(card2, Afgehandeld);
 
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
