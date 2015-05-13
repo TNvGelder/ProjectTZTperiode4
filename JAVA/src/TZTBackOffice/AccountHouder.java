@@ -11,46 +11,21 @@ package TZTBackOffice;
  */
 public class AccountHouder extends Contact {
     private String achternaam;
-    private String huisnr;
-    private String plaats;
-    private String postcode;
-    private String wachtwoord;
-    private String straat;
+    private Locatie locatie;
 
-    public AccountHouder(String voornaam, String email, String telefoonnr, int contactID, String achternaam, String huisnr, String plaats, String postcode, String wachtwoord, String straat) {
+    public AccountHouder(String voornaam, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
         super(voornaam, email, telefoonnr, contactID);
         this.achternaam = achternaam;
-        this.huisnr = huisnr;
-        this.plaats = plaats;
-        this.postcode = postcode;
-        this.wachtwoord = wachtwoord;
-        this.straat = straat;
+        this.locatie = locatie;
     }
 
     public String getAchternaam() {
         return achternaam;
     }
 
-    public String getHuisnr() {
-        return huisnr;
+    public Locatie getLocatie(){
+        return locatie;
     }
-
-    public String getPlaats() {
-        return plaats;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public String getWachtwoord() {
-        return wachtwoord;
-    }
-
-    public String getStraat() {
-        return straat;
-    }
-    
     
     
 }

@@ -29,6 +29,7 @@ public class DatabaseManager {
     private ArrayList<HashMap> pakketten;
     private ArrayList<HashMap> problemen;
     private ArrayList<HashMap> uitbetalingen;
+    private HashMap<Integer, Locatie> locaties;
     private String url;
     private String username, password;
 
@@ -51,19 +52,41 @@ public class DatabaseManager {
         uitbetalingsManager = new UitbetalingsManager();
         probleemManager = new ProbleemManager();
         pakketten = new ArrayList();
+        haalDataOp();
 
     }
 
     //Haalt pakketten op uit de database en vult de array pakket objecten;
-    private void haalPakkettenOp() {
+    private void haalDataOp() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM pakket");
+            ResultSet rs = statement.executeQuery("SELECT * FROM locatie");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
-                String naam = rs.getString("naam");  // kolom ‘Naam’
+                int klantID = rs.getInt(2);  // kolom ‘Naam’
+                String ww = rs.getString(3); 	   // 3e kolom
+                
+
+                System.out.println(id + " " + klantID + " " + ww);
+            }
+            
+            rs = statement.executeQuery("SELECT * FROM verzendorder");
+            while (rs.next()) {
+                int id = rs.getInt(1); 	         // 1e kolom
+                int klantID = rs.getInt(2);  // kolom ‘Naam’
+                String ww = rs.getString(3); 	   // 3e kolom
+                
+
+                System.out.println(id + " " + klantID + " " + ww);
+            }
+            
+            
+            rs = statement.executeQuery("SELECT pakketID, gewicht, formaat, opmerking, kosten, orderID FROM pakket");
+            while (rs.next()) {
+                int id = rs.getInt(1); 	         // 1e kolom
+                String naam = rs.getString("opmerking");  // kolom ‘Naam’
                 String ww = rs.getString(3); 	   // 3e kolom
 
                 System.out.println(id + " " + naam + " " + ww);
