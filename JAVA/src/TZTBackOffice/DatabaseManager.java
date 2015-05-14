@@ -87,15 +87,15 @@ public class DatabaseManager {
                 System.out.println(locatie);
             }
 
-            rs = statement.executeQuery("SELECT stakeholderID, naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet"
-                    + ", filiaalnr, locatie, rekeningnr, o.orderID, aanmeldtijd, p.probleemID, beschrijving, p.datum, titel, p.afgehandeld"
-                    + ", k.datum, bedrag, k.isafgehandeld, k.type, beginlocatie, eindlocatie, km, prijs, extraprijs   FROM stakeholder\n"
+            rs = statement.executeQuery("SELECT stakeholderID, (SELECT typenaam FROM stakeholdertype ty WHERE ty.typeID = s.type) typenaam ,naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet\n"
+                    + ", filiaalnr, locatie, rekeningnr, o.orderID, aanmeldtijd, pakketID, p.probleemID, beschrijving, p.datum, titel, p.afgehandeld\n"
+                    + ", k.datum, bedrag, k.isafgehandeld, k.type, beginlocatie, eindlocatie, km, prijs, extraprijs   FROM stakeholder s\n"
                     + "LEFT OUTER JOIN tarief t ON stakeholderID = koeriersID\n"
                     + "LEFT OUTER JOIN probleem p ON stakeholderID = klantnr\n"
                     + "LEFT OUTER JOIN verzendorder o ON stakeholderID = klantID\n"
                     + "LEFT OUTER JOIN kredietomzetting k ON stakeholderID = treinkoerier\n"
-                    + "LEFT OUTER JOIN reis v ON stakeholderID = v.koerier "
-                    + "LEFT OUTER JOIN pakket pa ON o.orderID = pa.orderID ");
+                    + "LEFT OUTER JOIN reis v ON stakeholderID = v.koerier \n"
+                    + "LEFT OUTER JOIN pakket pa ON o.orderID = pa.orderID ORDER BY stakeholderID DESC, p.probleemID DESC, pakketID DESC;");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom
                 String naam = rs.getString("naam");  // kolom ‘Naam’
@@ -104,6 +104,11 @@ public class DatabaseManager {
                 String telefoonnr = rs.getString("telefoonnr");
                 String idkaart = rs.getString("idkaart");
                 String ovkaart = rs.getString("ovkaart");
+                Double krediet = rs.getDouble("krediet");
+                int filiaalnr = rs.getInt("filiaalnr");
+                int locatie = rs.getInt("locatie");
+                String rekeningnr = rs.getString("rekeningnr");
+
                 System.out.println(id + " " + naam + " " + achternaam + " " + email + " " + telefoonnr);
             }
 
