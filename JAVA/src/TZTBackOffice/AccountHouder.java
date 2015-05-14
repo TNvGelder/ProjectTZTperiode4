@@ -26,6 +26,11 @@ public class AccountHouder extends Contact {
     public Locatie getLocatie(){
         return locatie;
     }
+
+    @Override
+    public String toString() {
+        return "AccountHouder{" + super.toString() + "achternaam=" + achternaam + ", locatie=" + locatie + '}';
+    }
     
     
 }

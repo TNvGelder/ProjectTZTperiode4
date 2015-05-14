@@ -24,19 +24,17 @@ import java.util.logging.Logger;
  */
 public class DatabaseManager {
 
-    private ContactManager contactManager;
-    private PakketManager pakketManager;
-    private UitbetalingsManager uitbetalingsManager;
-    private ProbleemManager probleemManager;
-    private ArrayList<HashMap> contacten;
-    private ArrayList<HashMap> pakketten;
-    private ArrayList<HashMap> problemen;
-    private ArrayList<HashMap> uitbetalingen;
-    private HashMap<Integer, Contact> koeriersDiensten;
-    private HashMap<Integer, AccountHouder> accountHouders;
+    
     private HashMap<Integer, Locatie> locaties;
     private String url;
     private String username, password;
+    private ArrayList<Contact> koeriersDiensten;
+    private ArrayList<TreinKoerier> treinKoeriers;
+    private ArrayList<AccountHouder> accountHouders;
+    private ArrayList<UitbetalingsVerzoek> uitbetalingsVerzoeken;
+    private ArrayList<BezorgProbleem> bezorgProblemen;
+    private ArrayList<Klacht> klachten;
+    private ArrayList<Pakket> pakketten;
 
     // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
@@ -49,24 +47,48 @@ public class DatabaseManager {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        contactManager = new ContactManager();
-        pakketManager = new PakketManager();
-        uitbetalingsManager = new UitbetalingsManager();
-        probleemManager = new ProbleemManager();
         pakketten = new ArrayList();
-        accountHouders = new HashMap();
+        treinKoeriers = new ArrayList();
+        accountHouders = new ArrayList();
+        koeriersDiensten = new ArrayList();
         locaties = new HashMap();
         haalDataOp();
 
     }
 
-    public Contact getKoeriersDienst(int id) {
-        return koeriersDiensten.get(id);
+    public ArrayList<Contact> getKoeriersDiensten() {
+        return koeriersDiensten;
     }
 
-    public AccountHouder getAccountHouder(int id) {
-        return accountHouders.get(id);
+    public ArrayList<TreinKoerier> getTreinKoeriers() {
+        return treinKoeriers;
     }
+
+    public ArrayList<AccountHouder> getAccountHouders() {
+        return accountHouders;
+    }
+
+    public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
+        return uitbetalingsVerzoeken;
+    }
+
+    public ArrayList<BezorgProbleem> getBezorgProblemen() {
+        return bezorgProblemen;
+    }
+
+    public ArrayList<Klacht> getKlachten() {
+        return klachten;
+    }
+
+    public ArrayList<Pakket> getPakketten() {
+        return pakketten;
+    }
+    
+    
+    private void maakUitbetalingsVerzoek(TreinKoerier koerier, ResultSet r){
+        
+    }
+    
 
     //Haalt pakketten op uit de database en vult de array pakket objecten;
     private void haalDataOp() {
@@ -96,20 +118,54 @@ public class DatabaseManager {
                     + "LEFT OUTER JOIN kredietomzetting k ON stakeholderID = treinkoerier\n"
                     + "LEFT OUTER JOIN reis v ON stakeholderID = v.koerier \n"
                     + "LEFT OUTER JOIN pakket pa ON o.orderID = pa.orderID ORDER BY stakeholderID DESC, p.probleemID DESC, pakketID DESC;");
+            
+            int contactID = 0;
             while (rs.next()) {
-                int id = rs.getInt(1); 	         // 1e kolom
-                String naam = rs.getString("naam");  // kolom ‘Naam’
-                String achternaam = rs.getString("achternaam"); 	   // 3e kolom
-                String email = rs.getString("emailadres");
-                String telefoonnr = rs.getString("telefoonnr");
-                String idkaart = rs.getString("idkaart");
-                String ovkaart = rs.getString("ovkaart");
-                Double krediet = rs.getDouble("krediet");
-                int filiaalnr = rs.getInt("filiaalnr");
-                int locatie = rs.getInt("locatie");
-                String rekeningnr = rs.getString("rekeningnr");
+                int newContactID = rs.getInt(1);
+                String typenaam = rs.getString("typenaam");
+                if (newContactID != contactID){
+                    contactID = newContactID;
+                    String naam = rs.getString("naam");   
+                    String email = rs.getString("emailadres");
+                    String telefoonnr = rs.getString("telefoonnr");
+                    if ("gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)){
+                        String achternaam = rs.getString("achternaam");
+                        Locatie locatie = locaties.get(rs.getInt("locatie"));
+                        
+                        if ("geverifieerd".equals(typenaam)){
+                            String ovkaart = rs.getString("ovkaart");
+                            Double krediet = rs.getDouble("krediet");
+                            String idkaart = rs.getString("idkaart");
+                            String rekeningnr = rs.getString("rekeningnr");
+                            TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, idkaart, ovkaart, naam, email, telefoonnr, contactID, achternaam, locatie);
+                            treinKoeriers.add(koerier);
+                            System.out.println(typenaam + " "+ koerier);
+                        }else{
+                            AccountHouder klant = new AccountHouder(naam, email, telefoonnr, contactID, achternaam, locatie);
+                            accountHouders.add(klant);
+                            System.out.println(typenaam + " "+ klant);
+                        }
+                        
+                    }else{
+                        Contact contact = new Contact(naam, email, telefoonnr, contactID);
+                        koeriersDiensten.add(contact);
+                        System.out.println(typenaam + " "+ contact);
+                    }
+                }
+                
+                if ("geverifieerd".equals(typenaam)){
+                    TreinKoerier koerier;
+                    
+                    if (treinKoeriers.isEmpty() || treinKoeriers.get(treinKoeriers.size()-1).getContactID() != contactID){
+                        koerier = treinKoeriers.get(treinKoeriers.size()-1);
+                    }else{
+                        
+                    }
+                    
+                    
+                }
 
-                System.out.println(id + " " + naam + " " + achternaam + " " + email + " " + telefoonnr);
+                
             }
 
             rs = statement.executeQuery("SELECT * FROM verzendorder");

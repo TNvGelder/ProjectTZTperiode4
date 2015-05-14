@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  *
  * @author Michiel
  */
-public class Uitbetalingsverzoek {
+public class UitbetalingsVerzoek {
 
     private LocalDateTime datum;
     private double bedrag;
