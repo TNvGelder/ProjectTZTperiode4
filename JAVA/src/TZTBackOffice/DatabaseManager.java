@@ -139,6 +139,7 @@ public class DatabaseManager {
                             String rekeningnr = rs.getString("rekeningnr");
                             TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, idkaart, ovkaart, naam, email, telefoonnr, contactID, achternaam, locatie);
                             treinKoeriers.add(koerier);
+                            accountHouders.add(koerier);
                             System.out.println(typenaam + " "+ koerier);
                         }else{
                             AccountHouder klant = new AccountHouder(naam, email, telefoonnr, contactID, achternaam, locatie);
@@ -173,10 +174,6 @@ public class DatabaseManager {
                 int id = rs.getInt(1); 	         // 1e kolom
                 int klantID = rs.getInt(2);  // kolom ‘Naam’
                 Timestamp aanmeldTijd = rs.getTimestamp(3); 	   // 3e kolom
-                AccountHouder klant = getAccountHouder(id);
-                if (klant != null) {
-
-                }
                 Statement statement2 = connection.createStatement();
                 ResultSet rs2;
 
