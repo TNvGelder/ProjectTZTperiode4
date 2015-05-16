@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
  *
  * @author Michiel
  */
-public class Uitbetalingsverzoek {
+public class UitbetalingsVerzoek {
 
     private LocalDateTime datum;
     private double bedrag;
     private boolean afgehandeld;
     private AccountHouder koerier;
 
-    public handelAf() {
+    public void handelAf() {
         afgehandeld = true;
     }
 
@@ -29,7 +29,7 @@ public class Uitbetalingsverzoek {
         return afgehandeld;
     }
 
-    public Accounthouder getKoerier() {
+    public AccountHouder getKoerier() {
         return koerier;
     }
 }

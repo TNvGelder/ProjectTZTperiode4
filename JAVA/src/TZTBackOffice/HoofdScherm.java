@@ -5,9 +5,13 @@
  */
 package TZTBackOffice;
 
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -16,26 +20,37 @@ import javax.swing.JTabbedPane;
  *
  * @author Twan
  */
-public class HoofdScherm extends JFrame {
+public class HoofdScherm extends JFrame implements ActionListener {
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
+
         setSize(1280, 680);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         ContactOverzichtPanel contactPanel = new ContactOverzichtPanel();
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
-        JComponent panel1 = new JPanel();
-        JComponent panel2 = new JPanel();
-        JComponent panel4 = new JPanel();
-        tabbedPane.addTab("Problemen", panel1);
+        UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
+        JComponent probleemPanel = new ProbleemPanel();
+
+        JButton jbRefresh = new JButton("Refresh");
+        add(jbRefresh);
+        jbRefresh.addActionListener(this);
+
+        tabbedPane.addTab("Problemen", probleemPanel);
         tabbedPane.addTab("Pakketten", pakketPanel);
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
-        tabbedPane.addTab("Uitbetalingsverzoeken", panel4);
+        tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
+
         this.add(tabbedPane);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setVisible(true);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class ContactManager extends Base<Contact>{
 
     
-    public ContactManager() throws SQLException{
+    public ContactManager(){
         super();
         
     }

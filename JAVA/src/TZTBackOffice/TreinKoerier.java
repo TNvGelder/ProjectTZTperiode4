@@ -12,12 +12,12 @@ package TZTBackOffice;
 public class TreinKoerier extends AccountHouder{
     
     private double krediet;
-    private int rekeningnr;
+    private String rekeningnr;
     private String idKaart;
     private String ovKaart;
 
-    public TreinKoerier(double krediet, int rekeningnr, String idKaart, String ovKaart, String voornaam, String email, String telefoonnr, int contactID, String achternaam, String huisnr, String plaats, String postcode, String wachtwoord, String straat) {
-        super(voornaam, email, telefoonnr, contactID, achternaam, huisnr, plaats, postcode, wachtwoord, straat);
+    public TreinKoerier(double krediet, String rekeningnr, String idKaart, String ovKaart, String voornaam, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
+        super(voornaam, email, telefoonnr, contactID, achternaam, locatie);
         this.krediet = krediet;
         this.rekeningnr = rekeningnr;
         this.idKaart = idKaart;
@@ -28,7 +28,7 @@ public class TreinKoerier extends AccountHouder{
         return krediet;
     }
 
-    public int getRekeningnr() {
+    public String getRekeningnr() {
         return rekeningnr;
     }
 
@@ -38,6 +38,11 @@ public class TreinKoerier extends AccountHouder{
 
     public String getOvKaart() {
         return ovKaart;
+    }
+
+    @Override
+    public String toString() {
+        return "TreinKoerier{" + super.toString()  + "krediet=" + krediet + ", rekeningnr=" + rekeningnr + ", idKaart=" + idKaart + ", ovKaart=" + ovKaart + '}';
     }
     
     

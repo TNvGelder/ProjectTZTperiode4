@@ -26,6 +26,11 @@ USBwebserver/mysql/data/Twan-Laptop.pid
 /JAVA/manifest.mf
 /JAVA/nbbuild.xml
 /JAVA/build/
+<<<<<<< HEAD
 /GUI_oefenen/nbproject/private/
 /GUI_oefenen/build/
 /GUI_oefenen/dist/
+=======
+/PakketTest/nbproject/private/
+/PakketInfoScreen/nbproject/private/
+>>>>>>> fc014ddb3b819da0e2875ca25534bc0bdb6de4c6

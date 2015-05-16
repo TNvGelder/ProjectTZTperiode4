@@ -5,6 +5,7 @@
  */
 package TZTBackOffice;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -15,17 +16,24 @@ import java.time.LocalDateTime;
 class VerzendOrder {
     
     private AccountHouder klant;
-    private LocalDateTime aanmeldTijd;
+    private Timestamp aanmeldTijd;
 
-   
-    
+    public VerzendOrder(AccountHouder klant, Timestamp aanmeldTijd) {
+        this.klant = klant;
+        this.aanmeldTijd = aanmeldTijd;
+    }
+
     public AccountHouder getKlant() {
         return klant;
     }
 
-    public LocalDateTime getAanmeldTijd() {
+    public Timestamp getAanmeldTijd() {
         return aanmeldTijd;
     }
+
+    
+   
+   
     
     
     
