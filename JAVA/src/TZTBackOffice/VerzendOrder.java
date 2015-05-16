@@ -17,12 +17,18 @@ class VerzendOrder {
     
     private AccountHouder klant;
     private Timestamp aanmeldTijd;
+    private int orderID;
 
-    public VerzendOrder(AccountHouder klant, Timestamp aanmeldTijd) {
+    public VerzendOrder(int orderID, AccountHouder klant, Timestamp aanmeldTijd) {
+        this.orderID = orderID;
         this.klant = klant;
         this.aanmeldTijd = aanmeldTijd;
     }
 
+    public int getOrderID() {
+        return orderID;
+    }
+    
     public AccountHouder getKlant() {
         return klant;
     }
