@@ -22,11 +22,6 @@ public class Pakket {
         this.order = order;
     }
     
-        
-    @Override
-    public String toString(){
-        return "Pakket";
-    }
 
     public int getPakketID() {
         return pakketID;
@@ -42,6 +37,11 @@ public class Pakket {
 
     public VerzendOrder getOrder() {
         return order;
+    }
+
+    @Override
+    public String toString() {
+        return "Pakket{" + "pakketID=" + pakketID + ", gewicht=" + gewicht + ", formaat=" + formaat + ", order=" + order + '}';
     }
     
     
