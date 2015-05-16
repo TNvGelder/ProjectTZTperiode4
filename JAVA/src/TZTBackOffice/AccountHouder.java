@@ -13,8 +13,8 @@ public class AccountHouder extends Contact {
     private String achternaam;
     private Locatie locatie;
 
-    public AccountHouder(String voornaam, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
-        super(voornaam, email, telefoonnr, contactID);
+    public AccountHouder(String voornaam, String type, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
+        super(voornaam, type, email, telefoonnr, contactID);
         this.achternaam = achternaam;
         this.locatie = locatie;
     }

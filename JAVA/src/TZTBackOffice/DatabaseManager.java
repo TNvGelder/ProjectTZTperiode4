@@ -164,13 +164,13 @@ public class DatabaseManager {
                             Double krediet = rs.getDouble("krediet");
                             String idkaart = rs.getString("idkaart");
                             String rekeningnr = rs.getString("rekeningnr");
-                            TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, idkaart, ovkaart, naam, email, telefoonnr, contactID, achternaam, locatie);
+                            TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, idkaart, ovkaart, naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
                             treinKoeriers.add(koerier);
                             accountHouders.add(koerier);
                             klant = koerier;
                             System.out.println(typenaam + " " + koerier);
                         } else {
-                            klant = new AccountHouder(naam, email, telefoonnr, contactID, achternaam, locatie);
+                            klant = new AccountHouder(naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
                             accountHouders.add(klant);
                             System.out.println(typenaam + " " + klant);
                         }
@@ -178,7 +178,7 @@ public class DatabaseManager {
                         contact = klant;
 
                     } else {
-                        contact = new Contact(naam, email, telefoonnr, contactID);
+                        contact = new Contact(naam, typenaam, email, telefoonnr, contactID);
                         koeriersDiensten.add(contact);
                         System.out.println(typenaam + " " + contact);
                     }
