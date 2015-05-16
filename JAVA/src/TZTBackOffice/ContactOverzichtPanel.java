@@ -26,16 +26,22 @@ public class ContactOverzichtPanel extends JPanel implements ActionListener{
     
     public ContactOverzichtPanel(){
         
+//        jb1 = new JButton("Toevoegen");
+//        jb1.addActionListener((ActionListener) this);
+//        jb1.setBounds(100, 50, 200, 30);
+//        add(jb1);
+        
         jb1 = new JButton("Toevoegen");
-        jb1.addActionListener((ActionListener) this);
-        jb1.setBounds(100, 50, 200, 30);
-        add(jb1);
+        jb1.setBounds(0, 0, 100, 100);
+        //jb1.addActionListener((ActionListener) this);
         
         JScrollPane scrollPane1 = new JScrollPane();
         JScrollPane scrollPane2 = new JScrollPane();
         this.setLayout(new GridLayout());
         scrollPane1.setMinimumSize(new Dimension(100,200));
-                        
+                
+        scrollPane1.add(jb1);
+                
         scrollPane2.setMinimumSize(new Dimension(100,200));
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane1, scrollPane2);
         JLabel filler = new JLabel("ContactOverzicht");
