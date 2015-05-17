@@ -28,7 +28,8 @@ public class DatabaseManager {
     private String url;
     private String username, password;
     private HashMap<Integer, Contact> contacten;
-    private ArrayList<Contact> koeriersDiensten;
+    private HashMap<Integer, Probleem> problemen;
+    private ArrayList<KoeriersDienst> koeriersDiensten;
     private ArrayList<TreinKoerier> treinKoeriers;
     private ArrayList<AccountHouder> accountHouders;
     private ArrayList<UitbetalingsVerzoek> uitbetalingsVerzoeken;
@@ -57,7 +58,7 @@ public class DatabaseManager {
 
     }
 
-    public ArrayList<Contact> getKoeriersDiensten() {
+    public ArrayList<KoeriersDienst> getKoeriersDiensten() {
         return koeriersDiensten;
     }
 
@@ -90,31 +91,22 @@ public class DatabaseManager {
     }
 
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
-        int pakketID = r.getInt("pa.pakketID");
+        int pakketID = r.getInt("p.pakketID");
         Double gewicht = r.getDouble("gewicht");
         String formaat = r.getString("formaat");
         String opmerking = r.getString("opmerking");
         String status = r.getString("status");
-        Pakket pakket = new Pakket(pakketID, gewicht, formaat, order);
+        Pakket pakket = new Pakket(pakketID, gewicht, formaat, order, opmerking, status);
         pakketten.add(pakket);
         System.out.println(pakket);
     }
 
-    private void maakOrder(AccountHouder klant, ResultSet r) throws SQLException {
-        int orderID = r.getInt("o.orderID");
-        boolean definitief = r.getBoolean("definitief");
-        //Check of er een definitieve order is die nog niet is toegevoegd.
-        if (definitief) {
-            if (pakketten.isEmpty() || (orderID == pakketten.get(pakketten.size() - 1).getOrder().getOrderID())) {
-                Timestamp aanmeldTijd = r.getTimestamp("aanmeldtijd");
-                VerzendOrder order = new VerzendOrder(orderID, klant, aanmeldTijd);
-                maakPakket(order, r);
-            } else {
-                VerzendOrder order = pakketten.get(pakketten.size() - 1).getOrder();
-                maakPakket(order, r);
-            }
-        }
-
+    public void maakTarief(KoeriersDienst koeriersDienst, ResultSet rs) throws SQLException {
+        int km = rs.getInt("km");
+        Double prijs = rs.getDouble("prijs");
+        Double extraPrijs = rs.getDouble("extraPrijs");
+        Tarief tarief = new Tarief(koeriersDienst, km, prijs, extraPrijs);
+        koeriersDienst.voegTariefToe(tarief);
     }
 
     //Haalt pakketten op uit de database en vult de array pakket objecten;
@@ -137,13 +129,9 @@ public class DatabaseManager {
             }
 
             rs = statement.executeQuery("SELECT stakeholderID, (SELECT typenaam FROM stakeholdertype ty WHERE ty.typeID = s.type) typenaam ,naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet\n"
-                    + ", locatie, rekeningnr, o.orderID, definitief, aanmeldtijd, pa.pakketID, gewicht, formaat, opmerking, status\n"
-                    + ", k.datum, bedrag, k.isafgehandeld, k.type, v.beginlocatie, v.eindlocatie, km, prijs, extraprijs   FROM stakeholder s\n"
+                    + ", locatie, rekeningnr,  km, prijs, extraprijs   FROM stakeholder s\n"
                     + "LEFT OUTER JOIN tarief t ON stakeholderID = koeriersID\n"
-                    + "LEFT OUTER JOIN verzendorder o ON stakeholderID = klantID\n"
-                    + "LEFT OUTER JOIN kredietomzetting k ON stakeholderID = treinkoerier\n"
-                    + "LEFT OUTER JOIN reis v ON stakeholderID = v.koerierID \n"
-                    + "LEFT OUTER JOIN pakket pa ON o.orderID = pa.orderID ORDER BY stakeholderID DESC, pakketID DESC;");
+                    + "ORDER BY stakeholderID DESC;");
 
             int contactID = 0;
             while (rs.next()) {
@@ -174,33 +162,46 @@ public class DatabaseManager {
                             accountHouders.add(klant);
                             System.out.println(typenaam + " " + klant);
                         }
-                        maakOrder(klant, rs);
                         contact = klant;
 
                     } else {
-                        contact = new Contact(naam, typenaam, email, telefoonnr, contactID);
-                        koeriersDiensten.add(contact);
-                        System.out.println(typenaam + " " + contact);
+                        KoeriersDienst koeriersDienst = new KoeriersDienst(naam, typenaam, email, telefoonnr, contactID);
+                        koeriersDiensten.add(koeriersDienst);
+                        maakTarief(koeriersDienst, rs);
+                        System.out.println(typenaam + " " + koeriersDienst);
+                        contact = koeriersDienst;
                     }
                     contacten.put(contact.getContactID(), contact);
-                } else if ("gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)) {
-                    AccountHouder klant = accountHouders.get(accountHouders.size() - 1);
-                    maakOrder(klant, rs);
+                } else if (!"gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)) {
+                    KoeriersDienst koeriersDienst = koeriersDiensten.get(koeriersDiensten.size() - 1);
+                    maakTarief(koeriersDienst, rs);
                 }
 
             }
 
-            rs = statement.executeQuery("SELECT * FROM verzendorder");
+            
+            
+            rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, pakketID, gewicht, formaat, opmerking, status FROM verzendorder v\n"
+                    + "JOIN pakket p ON v.orderID = p.orderID ORDER BY pakketID DESC;");
             while (rs.next()) {
-                int id = rs.getInt(1); 	         // 1e kolom
-                int klantID = rs.getInt(2);  // kolom ‘Naam’
-                Timestamp aanmeldTijd = rs.getTimestamp(3); 	   // 3e kolom
-                Statement statement2 = connection.createStatement();
-                ResultSet rs2;
-
-                System.out.println(id + " " + klantID + " " + aanmeldTijd);
+                int orderID = rs.getInt("v.orderID");
+                boolean definitief = rs.getBoolean("definitief");
+                //Check of er een definitieve order is die nog niet is toegevoegd.
+                if (definitief) {
+                    if (pakketten.isEmpty() || (orderID == pakketten.get(pakketten.size() - 1).getOrder().getOrderID())) {
+                        int klantID = rs.getInt("v.klantID");
+                        AccountHouder klant = (AccountHouder) contacten.get(klantID);
+                        Timestamp aanmeldTijd = rs.getTimestamp("aanmeldtijd");
+                        VerzendOrder order = new VerzendOrder(orderID, klant, aanmeldTijd);
+                        maakPakket(order, rs);
+                    } else {
+                        VerzendOrder order = pakketten.get(pakketten.size() - 1).getOrder();
+                        maakPakket(order, rs);
+                    }
+                }
             }
 
+            
             rs = statement.executeQuery("SELECT pakketID, gewicht, formaat, opmerking, kosten, orderID FROM pakket");
             while (rs.next()) {
                 int id = rs.getInt(1); 	         // 1e kolom

@@ -14,12 +14,16 @@ public class Pakket {
     private double gewicht;
     private String formaat;
     private VerzendOrder order;
+    private String opmerking;
+    private String status;
 
-    public Pakket(int pakketID, double gewicht, String formaat, VerzendOrder order) {
+    public Pakket(int pakketID, double gewicht, String formaat, VerzendOrder order, String opmerking, String status) {
         this.pakketID = pakketID;
         this.gewicht = gewicht;
         this.formaat = formaat;
         this.order = order;
+        this.opmerking = opmerking;
+        this.status = status;
     }
     
 
@@ -39,10 +43,21 @@ public class Pakket {
         return order;
     }
 
+    public String getOpmerking() {
+        return opmerking;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    
+
     @Override
     public String toString() {
-        return "Pakket{" + "pakketID=" + pakketID + ", gewicht=" + gewicht + ", formaat=" + formaat + ", order=" + order + '}';
+        return "Pakket{" + "pakketID=" + pakketID + ", gewicht=" + gewicht + ", formaat=" + formaat + ", order=" + order + ", opmerking=" + opmerking + ", status=" + status + '}';
     }
+    
     
     
     
