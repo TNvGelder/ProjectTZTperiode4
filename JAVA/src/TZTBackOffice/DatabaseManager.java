@@ -105,6 +105,7 @@ public class DatabaseManager {
                 Locatie eindlocatie = locaties.get(r.getInt("eindlocatie"));
                 Contact koerier = contacten.get(r.getInt("r.koerierID"));
                 vorigTraject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier);
+                p.voegTrajectToe(vorigTraject);
                 System.out.println(vorigTraject);
             }
             int probleemID = r.getInt("pr1.probleemID");
