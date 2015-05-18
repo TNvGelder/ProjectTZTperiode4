@@ -93,6 +93,10 @@ public class DatabaseManager {
         return pakketten;
     }
 
+    private void maakKoeriersDienst() {
+
+    }
+
     private void maakTraject(Pakket p, ResultSet r) throws SQLException {
         //t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
         int trajectID = r.getInt("t.trajectID");
@@ -273,11 +277,11 @@ public class DatabaseManager {
                 Double bedrag = rs.getDouble("bedrag");
                 Boolean isafgehandeld = rs.getBoolean("isafgehandeld");
                 Boolean goedgekeurd = rs.getBoolean("goedgekoeurd");
-                UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek( datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
+                UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek(datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
                 System.out.println(verzoek);
-                if (verzoek.isAfgehandeld()){
+                if (verzoek.isAfgehandeld()) {
                     afgehandeldeVerzoeken.add(verzoek);
-                }else{
+                } else {
                     nietAfgehandeldeVerzoeken.add(verzoek);
                 }
             }
