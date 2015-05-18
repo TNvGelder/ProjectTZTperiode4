@@ -46,6 +46,9 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         l4 = new JLabel("E-mail adres:");
         l5 = new JLabel("Tarieven:");
         l6 = new JLabel("");
+        l6.setForeground(Color.blue);
+        l6.setFont(new Font("Serif", Font.BOLD, 20));
+        
         
 
         tf1 = new JTextField();
@@ -108,8 +111,12 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     
    public class event implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-        String text = ta1.getText();
-        l1.setText(text);
+        String text = tf1.getText();
+        if ("".equals(text)){
+            l1.setText("Vul wat in");
+        }
+        
+        l6.setText(text);
         
         
 //        if (e.getSource() == btn1) {

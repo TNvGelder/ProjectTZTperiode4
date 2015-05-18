@@ -37,6 +37,7 @@ public class DatabaseManager {
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
 
+    private Traject vorigTraject;
     // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
         url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
@@ -90,15 +91,33 @@ public class DatabaseManager {
 
     }
 
+    private void maakBezorging(Pakket p, ResultSet r) throws SQLException {
+        //t.trajectID, afhaaltijd, aflevertijd, t.reisID, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
+        int trajectID = r.getInt("t.trajectID");
+        String trajectProbleem = r.getString("pr1.probleemID");
+        int koerierID = r.getInt("r.koerierID");
+        if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID ){
+            
+        }
+        
+    }
+
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
+
         int pakketID = r.getInt("p.pakketID");
-        Double gewicht = r.getDouble("gewicht");
-        String formaat = r.getString("formaat");
-        String opmerking = r.getString("opmerking");
-        String status = r.getString("status");
-        Pakket pakket = new Pakket(pakketID, gewicht, formaat, order, opmerking, status);
-        pakketten.add(pakket);
-        System.out.println(pakket);
+        if (pakketten.isEmpty() || pakketten.get(pakketten.size() - 1).getPakketID() != pakketID) {
+            Double gewicht = r.getDouble("gewicht");
+            String formaat = r.getString("formaat");
+            String opmerking = r.getString("opmerking");
+            String status = r.getString("status");
+            Pakket pakket = new Pakket(pakketID, gewicht, formaat, order, opmerking, status);
+            pakketten.add(pakket);
+            maakBezorging(pakket, r);
+            System.out.println(pakket);
+        } else {
+            Pakket pakket = pakketten.get(pakketten.size() - 1);
+            maakBezorging(pakket, r);
+        }
     }
 
     public void maakTarief(KoeriersDienst koeriersDienst, ResultSet rs) throws SQLException {
@@ -113,19 +132,41 @@ public class DatabaseManager {
     private void haalDataOp() {
         Connection connection = null;
         Statement statement;
+        vorigTraject = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT locatienr, straat, huisnummer, plaats, postcode FROM locatie");
             while (rs.next()) {
-                int id = rs.getInt(1); 	         // 1e kolom
-                String straat = rs.getString(2);  // kolom ‘Naam’
-                String huisnummer = rs.getString(3); 	   // 3e kolom
+                int id = rs.getInt(1);
+                String straat = rs.getString(2);
+                String huisnummer = rs.getString(3);
                 String plaats = rs.getString(4);
                 String postcode = rs.getString(5);
                 Locatie locatie = new Locatie(id, straat, huisnummer, plaats, postcode);
                 locaties.put(id, locatie);
                 System.out.println(locatie);
+            }
+
+            rs = statement.executeQuery("SELECT probleemID, beschrijving, datum, titel, afgehandeld, pakketID, trajectID FROM probleem");
+            while (rs.next()) {
+                int probleemID = rs.getInt("probleemID");
+                String beschrijving = rs.getString("beschrijving");
+                Timestamp datum = rs.getTimestamp("datum");
+                String titel = rs.getString("titel");
+                boolean afgehandeld = rs.getBoolean("afgehandeld");
+                int trajectID = rs.getInt("trajectID");
+                Probleem probleem;
+                if (trajectID != 0) {
+                    Klacht klacht = new Klacht(probleemID, titel, beschrijving, datum, afgehandeld);
+                    klachten.add(klacht);
+                    probleem = klacht;
+                } else {
+                    BezorgProbleem bezorgprobleem = new BezorgProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
+                    bezorgProblemen.add(bezorgprobleem);
+                    probleem = bezorgprobleem;
+                }
+                problemen.put(probleemID, probleem);
             }
 
             rs = statement.executeQuery("SELECT stakeholderID, (SELECT typenaam FROM stakeholdertype ty WHERE ty.typeID = s.type) typenaam ,naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet\n"
@@ -179,10 +220,13 @@ public class DatabaseManager {
 
             }
 
-            
-            
-            rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, pakketID, gewicht, formaat, opmerking, status FROM verzendorder v\n"
-                    + "JOIN pakket p ON v.orderID = p.orderID ORDER BY pakketID DESC;");
+            rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, p.pakketID, gewicht, formaat, opmerking, status\n"
+                    + ", t.trajectID, afhaaltijd, aflevertijd, t.reisID, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
+                    + "LEFT OUTER JOIN pakket p ON v.orderID = p.orderID\n"
+                    + "LEFT OUTER JOIN traject t ON  p.pakketID = t.pakketID\n"
+                    + "LEFT OUTER JOIN reis r ON t.reisID = r.reisID\n"
+                    + "LEFT OUTER JOIN probleem pr1 ON pr1.trajectID = t.trajectID\n"
+                    + "LEFT OUTER JOIN probleem pr2 ON pr2.pakketID = p.pakketID ORDER BY trajectID ASC, pakketID DESC;");
             while (rs.next()) {
                 int orderID = rs.getInt("v.orderID");
                 boolean definitief = rs.getBoolean("definitief");
@@ -201,12 +245,11 @@ public class DatabaseManager {
                 }
             }
 
-            
             rs = statement.executeQuery("SELECT pakketID, gewicht, formaat, opmerking, kosten, orderID FROM pakket");
             while (rs.next()) {
-                int id = rs.getInt(1); 	         // 1e kolom
-                String naam = rs.getString("opmerking");  // kolom ‘Naam’
-                String ww = rs.getString(3); 	   // 3e kolom
+                int id = rs.getInt(1);
+                String naam = rs.getString("opmerking");
+                String ww = rs.getString(3);
 
                 System.out.println(id + " " + naam + " " + ww);
             }
@@ -225,10 +268,6 @@ public class DatabaseManager {
                 }
             }
         }
-    }
-
-    private void haalContactenOp() {
-
     }
 
 }

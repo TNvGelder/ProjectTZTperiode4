@@ -5,7 +5,7 @@
  */
 package TZTBackOffice;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,17 +13,23 @@ import java.time.LocalDateTime;
  */
 public class Probleem {
     
+    private int probleemID;
     private String titel;
     private String beschrijving;
-    private LocalDateTime datum;
-
+    private Timestamp datum;
+    private boolean afgehandeld;
     
-    public Probleem(String titel, String beschrijving, LocalDateTime datum) {
+    public Probleem(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
+        this.probleemID = probleemID;
         this.titel = titel;
         this.beschrijving = beschrijving;
         this.datum = datum;
+        this.afgehandeld = afgehandeld;
     }
-    
+
+    public int getProbleemID() {
+        return probleemID;
+    }
     
     public String getTitel() {
         return titel;
@@ -33,11 +39,16 @@ public class Probleem {
         return beschrijving;
     }
 
-    public LocalDateTime getDatum() {
+    public Timestamp getDatum() {
         return datum;
     }
+
+    public boolean isAfgehandeld() {
+        return afgehandeld;
+    }
+
+    public void setAfgehandeld(boolean afgehandeld) {
+        this.afgehandeld = afgehandeld;
+    }
     
-    
-    
-     
 }
