@@ -11,11 +11,11 @@ import java.sql.Timestamp;
  *
  * @author Richard
  */
-public class BezorgProbleem extends Probleem {
+public class TrajectProbleem extends Probleem {
 
     private Traject bezorging;
 
-    public BezorgProbleem(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
+    public TrajectProbleem(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
         super(probleemID, titel, beschrijving, datum, afgehandeld);
     }
     

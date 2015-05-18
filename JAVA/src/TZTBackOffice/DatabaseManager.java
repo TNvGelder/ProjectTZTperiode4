@@ -32,12 +32,14 @@ public class DatabaseManager {
     private ArrayList<KoeriersDienst> koeriersDiensten;
     private ArrayList<TreinKoerier> treinKoeriers;
     private ArrayList<AccountHouder> accountHouders;
-    private ArrayList<UitbetalingsVerzoek> uitbetalingsVerzoeken;
-    private ArrayList<BezorgProbleem> bezorgProblemen;
+    private ArrayList<UitbetalingsVerzoek> afgehandeldeVerzoeken;
+    private ArrayList<UitbetalingsVerzoek> nietAfgehandeldeVerzoeken;
+    private ArrayList<TrajectProbleem> bezorgProblemen;
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
 
     private Traject vorigTraject;
+
     // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
         url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
@@ -71,11 +73,15 @@ public class DatabaseManager {
         return accountHouders;
     }
 
-    public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
-        return uitbetalingsVerzoeken;
+    public ArrayList<UitbetalingsVerzoek> getAfgehandeldeUitbetalingsVerzoeken() {
+        return afgehandeldeVerzoeken;
     }
 
-    public ArrayList<BezorgProbleem> getBezorgProblemen() {
+    public ArrayList<UitbetalingsVerzoek> getNietAfgehandeldeVerzoeken() {
+        return nietAfgehandeldeVerzoeken;
+    }
+
+    public ArrayList<TrajectProbleem> getBezorgProblemen() {
         return bezorgProblemen;
     }
 
@@ -87,36 +93,50 @@ public class DatabaseManager {
         return pakketten;
     }
 
-    private void maakUitbetalingsVerzoek(TreinKoerier koerier, ResultSet r) {
-
-    }
-
-    private void maakBezorging(Pakket p, ResultSet r) throws SQLException {
-        //t.trajectID, afhaaltijd, aflevertijd, t.reisID, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
+    private void maakTraject(Pakket p, ResultSet r) throws SQLException {
+        //t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
         int trajectID = r.getInt("t.trajectID");
-        String trajectProbleem = r.getString("pr1.probleemID");
-        int koerierID = r.getInt("r.koerierID");
-        if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID ){
-            
+        if (trajectID != 0) {
+            int koerierID = r.getInt("r.koerierID");
+            if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID) {
+                Timestamp afhaaltijd = r.getTimestamp("afhaaltijd");
+                Timestamp aflevertijd = r.getTimestamp("aflevertijd");
+                Locatie beginlocatie = locaties.get(r.getInt("beginlocatie"));
+                Locatie eindlocatie = locaties.get(r.getInt("eindlocatie"));
+                Contact koerier = contacten.get(r.getInt("r.koerierID"));
+                vorigTraject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier);
+                System.out.println(vorigTraject);
+            }
+            int probleemID = r.getInt("pr1.probleemID");
+            if (probleemID != 0) {
+                TrajectProbleem trajectProbleem = (TrajectProbleem) problemen.get(probleemID);
+                trajectProbleem.setBezorging(vorigTraject);
+            }
         }
-        
+
     }
 
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
 
         int pakketID = r.getInt("p.pakketID");
+        Pakket pakket;
         if (pakketten.isEmpty() || pakketten.get(pakketten.size() - 1).getPakketID() != pakketID) {
             Double gewicht = r.getDouble("gewicht");
             String formaat = r.getString("formaat");
             String opmerking = r.getString("opmerking");
             String status = r.getString("status");
-            Pakket pakket = new Pakket(pakketID, gewicht, formaat, order, opmerking, status);
+            pakket = new Pakket(pakketID, gewicht, formaat, order, opmerking, status);
             pakketten.add(pakket);
-            maakBezorging(pakket, r);
+            maakTraject(pakket, r);
             System.out.println(pakket);
         } else {
-            Pakket pakket = pakketten.get(pakketten.size() - 1);
-            maakBezorging(pakket, r);
+            pakket = pakketten.get(pakketten.size() - 1);
+            maakTraject(pakket, r);
+        }
+        int probleemID = r.getInt("pr2.probleemID");
+        if (probleemID != 0) {
+            Klacht klacht = (Klacht) problemen.get(r.getInt(probleemID));
+            klacht.setPakket(pakket);
         }
     }
 
@@ -162,10 +182,11 @@ public class DatabaseManager {
                     klachten.add(klacht);
                     probleem = klacht;
                 } else {
-                    BezorgProbleem bezorgprobleem = new BezorgProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
+                    TrajectProbleem bezorgprobleem = new TrajectProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
                     bezorgProblemen.add(bezorgprobleem);
                     probleem = bezorgprobleem;
                 }
+                System.out.println(probleem);
                 problemen.put(probleemID, probleem);
             }
 
@@ -221,7 +242,7 @@ public class DatabaseManager {
             }
 
             rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, p.pakketID, gewicht, formaat, opmerking, status\n"
-                    + ", t.trajectID, afhaaltijd, aflevertijd, t.reisID, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
+                    + ", t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
                     + "LEFT OUTER JOIN pakket p ON v.orderID = p.orderID\n"
                     + "LEFT OUTER JOIN traject t ON  p.pakketID = t.pakketID\n"
                     + "LEFT OUTER JOIN reis r ON t.reisID = r.reisID\n"
@@ -245,13 +266,20 @@ public class DatabaseManager {
                 }
             }
 
-            rs = statement.executeQuery("SELECT pakketID, gewicht, formaat, opmerking, kosten, orderID FROM pakket");
+            rs = statement.executeQuery("SELECT treinkoerier, datum, bedrag, isafgehandeld, goedgekeurd FROM kredietomzetting");
             while (rs.next()) {
-                int id = rs.getInt(1);
-                String naam = rs.getString("opmerking");
-                String ww = rs.getString(3);
-
-                System.out.println(id + " " + naam + " " + ww);
+                TreinKoerier treinKoerier = (TreinKoerier) contacten.get(rs.getInt("treinkoerier"));
+                Timestamp datum = rs.getTimestamp("datum");
+                Double bedrag = rs.getDouble("bedrag");
+                Boolean isafgehandeld = rs.getBoolean("isafgehandeld");
+                Boolean goedgekeurd = rs.getBoolean("goedgekoeurd");
+                UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek( datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
+                System.out.println(verzoek);
+                if (verzoek.isAfgehandeld()){
+                    afgehandeldeVerzoeken.add(verzoek);
+                }else{
+                    nietAfgehandeldeVerzoeken.add(verzoek);
+                }
             }
 
             statement.close();
