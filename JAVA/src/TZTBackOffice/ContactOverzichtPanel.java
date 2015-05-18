@@ -102,6 +102,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener {
         cl.show(cards, (String) evt.getItem());
 
     }
+}
 
 //public class ContactOverzichtPanel extends JPanel implements ActionListener{
 //
