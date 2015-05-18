@@ -27,21 +27,26 @@ public class PakketInfoDialoog extends JDialog {
     private final static String newline = "\n";
 
     public PakketInfoDialoog(Pakket p) {
+
+        //Haal de orderinfo van het pakket uit de database op
+        VerzendOrder o = p.getOrder();
+
+        //Maak het scherm
         JFrame scherm = new JFrame();
         scherm.setVisible(true);
-        scherm.setTitle("Pakket " /* + pakketid*/);
+        scherm.setTitle("Pakket " + p.getPakketID());
         scherm.setSize(1280, 720);
         scherm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //J-dingen maken
-        pakket = new JLabel("Pakket: ");
+        pakket = new JLabel("Pakket " + p.getPakketID());
 
-        aanmeldtijd = new JLabel("Aanmeldtijd: ");
+        aanmeldtijd = new JLabel("Aanmeldtijd: " + o.getAanmeldTijd());
         aflevertijd = new JLabel("Aflevertijd: ");
         datum = new JLabel("Datum: ");
-        afzender = new JLabel("Afzender: ");
-        formaat = new JLabel("Formaat: ");
-        gewicht = new JLabel("Gewicht: ");
+        afzender = new JLabel("Afzender: " + o.getKlant());
+        formaat = new JLabel("Formaat: " + p.getFormaat());
+        gewicht = new JLabel("Gewicht: " + p.getGewicht() + "g");
         betaald = new JLabel("Betaald: ");
 
         koerier1 = new JLabel("Koerier 1: ");
