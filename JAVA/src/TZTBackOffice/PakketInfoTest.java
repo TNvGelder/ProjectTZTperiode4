@@ -15,7 +15,7 @@ public class PakketInfoTest {
         AccountHouder klant = new AccountHouder("Piet", "gebruiker", "Piet@gmail.com", "03342023423", 1, "Pietersen", locatie);
         LocalDate localDateTime = LocalDate.now();
         VerzendOrder verzendOrder = new VerzendOrder(1, klant, new Timestamp(1));
-        Pakket p = new Pakket(1, 200, "30x20x15", verzendOrder);
+        Pakket p = new Pakket(1, 200, "30x20x15", verzendOrder, "breekbaar", "onderweg");
         
         PakketInfoDialoog pakketInfo = new PakketInfoDialoog(p);
         JFrame testScherm = new JFrame();

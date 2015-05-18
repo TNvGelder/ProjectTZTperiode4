@@ -5,7 +5,7 @@
  */
 package TZTBackOffice;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,16 +15,16 @@ public class Klacht extends Probleem {
     private Pakket pakket;
 
     
-    public Klacht(Pakket pakket, String titel, String beschrijving, LocalDateTime datum) {
-        super(titel, beschrijving, datum);
-        this.pakket = pakket;
+    public Klacht(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
+        super(probleemID, titel, beschrijving, datum, afgehandeld);
     }
 
-    
-    
     public Pakket getPakket() {
         return pakket;
     }
-    
+
+    public void setPakket(Pakket pakket) {
+        this.pakket = pakket;
+    }
     
 }
