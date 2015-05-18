@@ -57,7 +57,7 @@ public class ProbleemPanel extends JPanel
         lijst2.addListSelectionListener(this);
         
         JPanel lijstPanel = new JPanel();
-        lijstPanel.setLayout(null);
+        lijstPanel.setLayout(new BorderLayout());
         
         String comboBoxItems[] = {"Problemen", "Afgehandelde Problemen"};
         JComboBox cb = new JComboBox(comboBoxItems);
@@ -66,24 +66,33 @@ public class ProbleemPanel extends JPanel
         lijsten = new JPanel(new CardLayout());
         lijsten.add(lijst1, "Problemen");
         lijsten.add(lijst2, "Afgehandelde Problemen");
-        lijstPanel.add(cb, BorderLayout.NORTH);
-        lijstPanel.add(lijsten, BorderLayout.SOUTH);
-        JScrollPane listScrollPane = new JScrollPane(lijstPanel);
+        //cb.setBounds(0,0,100, 30);
+        //lijsten.setBounds(0,30,200,100);
+        lijsten.validate();
+        lijsten.setPreferredSize(lijst1.getPreferredSize());
+        lijstPanel.setPreferredSize(lijst1.getPreferredSize());
+       
+        
+        JScrollPane lijstScrollPane = new JScrollPane(lijsten);
         picture = new JLabel();
         picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
         picture.setHorizontalAlignment(JLabel.CENTER);
 
+        
+        lijstPanel.add(cb, BorderLayout.NORTH);
+        lijstPanel.add(lijstScrollPane);
+        
         JScrollPane pictureScrollPane = new JScrollPane(picture);
 
         //Create a split pane with the two scroll panes in it.
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                listScrollPane, pictureScrollPane);
+        lijstPanel, pictureScrollPane);
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(150);
 
         //Provide minimum sizes for the two components in the split pane.
         Dimension minimumSize = new Dimension(100, 50);
-        listScrollPane.setMinimumSize(minimumSize);
+        lijstScrollPane.setMinimumSize(minimumSize);
         pictureScrollPane.setMinimumSize(minimumSize);
 
         //Provide a preferred size for the split pane.
@@ -122,13 +131,7 @@ public class ProbleemPanel extends JPanel
      * Returns an ImageIcon, or null if the path was invalid.
      */
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = ProbleemPanel.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
+        return null;
     }
 
     /**
