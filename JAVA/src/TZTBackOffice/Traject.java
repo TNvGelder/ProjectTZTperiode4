@@ -40,6 +40,12 @@ public class Traject {
     public Contact getKoerier() {
         return koerier;
     }
+
+    @Override
+    public String toString() {
+        return "Traject{" + "afhaalTijdstip=" + afhaalTijdstip + ", afleverTijdstip=" + afleverTijdstip + ", koerier=" + koerier + ", trajectID=" + trajectID + '}';
+    }
+    
     
         
 }
