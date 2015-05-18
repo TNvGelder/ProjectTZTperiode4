@@ -46,5 +46,11 @@ public class UitbetalingsVerzoek {
     public boolean isGoedgekeurd() {
         return goedgekeurd;
     }
+
+    @Override
+    public String toString() {
+        return "UitbetalingsVerzoek{" + "datum=" + datum + ", bedrag=" + bedrag + ", afgehandeld=" + afgehandeld + ", koerier=" + koerier + ", goedgekeurd=" + goedgekeurd + '}';
+    }
+    
     
 }

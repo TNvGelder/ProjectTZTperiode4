@@ -50,5 +50,12 @@ public class Probleem {
     public void setAfgehandeld(boolean afgehandeld) {
         this.afgehandeld = afgehandeld;
     }
+
+    @Override
+    public String toString() {
+        return "Probleem{" + "probleemID=" + probleemID + ", titel=" + titel + ", beschrijving=" + beschrijving + ", datum=" + datum + ", afgehandeld=" + afgehandeld + '}';
+    }
+    
+    
     
 }
