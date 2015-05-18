@@ -33,12 +33,14 @@ public class DatabaseManager {
     private ArrayList<TreinKoerier> treinKoeriers;
     private ArrayList<AccountHouder> accountHouders;
     private ArrayList<UitbetalingsVerzoek> uitbetalingsVerzoeken;
-    private ArrayList<BezorgProbleem> bezorgProblemen;
+    private ArrayList<TrajectProbleem> bezorgProblemen;
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
 
     private Traject vorigTraject;
+
     // Aangemeld, verzonden, gearriveerd
+
     public DatabaseManager() {
         url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
         username = "karsbaj97_tzt";
@@ -75,7 +77,7 @@ public class DatabaseManager {
         return uitbetalingsVerzoeken;
     }
 
-    public ArrayList<BezorgProbleem> getBezorgProblemen() {
+    public ArrayList<TrajectProbleem> getBezorgProblemen() {
         return bezorgProblemen;
     }
 
@@ -92,14 +94,19 @@ public class DatabaseManager {
     }
 
     private void maakBezorging(Pakket p, ResultSet r) throws SQLException {
-        //t.trajectID, afhaaltijd, aflevertijd, t.reisID, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
+        //t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
         int trajectID = r.getInt("t.trajectID");
         String trajectProbleem = r.getString("pr1.probleemID");
         int koerierID = r.getInt("r.koerierID");
-        if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID ){
-            
+        if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID) {
+            Timestamp afhaaltijd = r.getTimestamp("afhaaltijd");
+            Timestamp aflevertijd = r.getTimestamp("aflevertijd");
+            Locatie beginlocatie = locaties.get(r.getInt("beginlocatie"));
+            Locatie eindlocatie = locaties.get(r.getInt("eindlocatie"));
+            Contact koerier = contacten.get(r.getInt("r.koerierID"));
+            Traject traject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier);
         }
-        
+
     }
 
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
@@ -162,7 +169,7 @@ public class DatabaseManager {
                     klachten.add(klacht);
                     probleem = klacht;
                 } else {
-                    BezorgProbleem bezorgprobleem = new BezorgProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
+                    TrajectProbleem bezorgprobleem = new TrajectProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
                     bezorgProblemen.add(bezorgprobleem);
                     probleem = bezorgprobleem;
                 }
@@ -221,7 +228,7 @@ public class DatabaseManager {
             }
 
             rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, p.pakketID, gewicht, formaat, opmerking, status\n"
-                    + ", t.trajectID, afhaaltijd, aflevertijd, t.reisID, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
+                    + ", t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
                     + "LEFT OUTER JOIN pakket p ON v.orderID = p.orderID\n"
                     + "LEFT OUTER JOIN traject t ON  p.pakketID = t.pakketID\n"
                     + "LEFT OUTER JOIN reis r ON t.reisID = r.reisID\n"
