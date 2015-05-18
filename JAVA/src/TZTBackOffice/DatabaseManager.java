@@ -74,7 +74,7 @@ public class DatabaseManager {
     }
 
     public ArrayList<UitbetalingsVerzoek> getAfgehandeldeUitbetalingsVerzoeken() {
-        return afgehandeldeUitbetalingsVerzoeken;
+        return afgehandeldeVerzoeken;
     }
 
     public ArrayList<UitbetalingsVerzoek> getNietAfgehandeldeVerzoeken() {
