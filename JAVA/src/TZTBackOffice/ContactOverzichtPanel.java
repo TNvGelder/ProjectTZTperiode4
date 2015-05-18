@@ -34,11 +34,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Twan
  */
-public class ContactOverzichtPanel extends JPanel implements ItemListener {
+public class ContactOverzichtPanel extends JPanel implements ItemListener, ActionListener {
 
     JPanel cards; //a panel that uses CardLayout
     final static String Accounthouders = "Accounthouders";
     final static String ProfKoeriers = "Prof. Koeriers";
+    private JButton jbNieuwKoerier;
 
     public ContactOverzichtPanel() {
         //Layout scherm
@@ -47,6 +48,11 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener {
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
 //        comboBoxPane.add(cb);
+
+        jbNieuwKoerier = new JButton("Nieuwe prof. Koerier");
+        jbNieuwKoerier.addActionListener(this);
+        jbNieuwKoerier.setBounds(100, 50, 200, 30);
+        add(jbNieuwKoerier);
 
         //Create the "cards".
         JPanel card1 = new JPanel();
@@ -101,6 +107,14 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, (String) evt.getItem());
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == jbNieuwKoerier) {
+            KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog();
+            dialoog.setVisible(true);
+        }
     }
 }
 

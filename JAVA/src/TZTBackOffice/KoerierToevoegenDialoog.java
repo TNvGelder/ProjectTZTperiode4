@@ -32,8 +32,10 @@ JTextArea textarea;
     private JButton btn1, btn2;
     private JTextArea ta1;
 
-    public KoerierToevoegenDialoog() {
-       
+    public KoerierToevoegenDialoog(DatabaseManager databasemanager) {
+        this.databasemanager = databasemanager;
+        
+        
         setTitle("Toevoegen Professionele treinkoerier");
         setSize(600, 400);
         setLayout(null);
@@ -57,6 +59,7 @@ JTextArea textarea;
         tf3 = new JTextField();
         
         ta1 = new JTextArea(5, 30);
+         
 
         btn1 = new JButton("Toevoegen");
         btn2 = new JButton("Voeg tekst in");
@@ -75,9 +78,9 @@ JTextArea textarea;
         tf2.setBounds(180, 110, 200, 30);
         tf3.setBounds(180, 150, 200, 30);
         
-        ta1.setBounds(180, 190, 200, 30);
+        ta1.setBounds(180, 190, 200, 120);
         
-        btn1.setBounds(228, 230, 150, 20);
+        btn1.setBounds(228, 315, 150, 20);
 
         add(l1);
         add(l2);

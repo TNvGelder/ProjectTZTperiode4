@@ -24,7 +24,6 @@ public class KlachtenScherm extends JFrame {
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //---> geeft een foutmelding bij in gebruik neming
         
-        
         labelHead = new JLabel("Laat");
         labelHead.setForeground(Color.blue);
         labelHead.setFont(new Font("Serif", Font.BOLD, 30));

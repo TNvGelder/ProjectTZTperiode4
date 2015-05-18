@@ -73,13 +73,13 @@ public class ProbleemPanel extends JPanel
 
     //Renders the selected image
     protected void updateLabel(String name) {
-        ImageIcon icon = createImageIcon("images/" + name + ".gif");
-        picture.setIcon(icon);
-        if (icon != null) {
-            picture.setText(null);
-        } else {
-            picture.setText("Image not found");
-        }
+//        ImageIcon icon = createImageIcon("images/" + name + ".gif");
+//        picture.setIcon(icon);
+//        if (icon != null) {
+//            picture.setText(null);
+//        } else {
+//            picture.setText("Image not found");
+//        }
     }
 
     //Used by SplitPaneDemo2
