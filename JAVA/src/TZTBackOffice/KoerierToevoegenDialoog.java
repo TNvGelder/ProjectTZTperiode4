@@ -70,7 +70,7 @@ JTextArea textarea;
         l3.setBounds(80, 110, 200, 30);
         l4.setBounds(80, 150, 200, 30);
         l5.setBounds(80, 190, 200, 30);
-        l6.setBounds(80,250,200,30);
+        l6.setBounds(180,70,500,30);
         tf1.setBounds(180, 70, 200, 30);
         tf2.setBounds(180, 110, 200, 30);
         tf3.setBounds(180, 150, 200, 30);
