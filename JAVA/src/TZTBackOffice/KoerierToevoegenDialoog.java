@@ -33,7 +33,9 @@ JTextArea textarea;
     private JTextArea ta1;
 
     public KoerierToevoegenDialoog() {
-       
+        //DatabaseManager databasemanager
+//       this.databasemanager = databasemanager;
+        
         setTitle("Toevoegen Professionele treinkoerier");
         setSize(600, 400);
         setLayout(null);
