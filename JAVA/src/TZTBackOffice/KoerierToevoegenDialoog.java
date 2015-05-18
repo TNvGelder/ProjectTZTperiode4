@@ -41,6 +41,8 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //---> geeft een foutmelding bij in gebruik neming
 
+        System.out.println(databasemanager.getKoeriersDiensten());
+
         l1 = new JLabel("Registratie formulier");
         l1.setForeground(Color.blue);
         l1.setFont(new Font("Serif", Font.BOLD, 20));
