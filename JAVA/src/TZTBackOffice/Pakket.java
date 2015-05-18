@@ -5,6 +5,8 @@
  */
 package TZTBackOffice;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Twan
@@ -16,6 +18,7 @@ public class Pakket {
     private VerzendOrder order;
     private String opmerking;
     private String status;
+    private ArrayList<Traject> trajecten;
 
     public Pakket(int pakketID, double gewicht, String formaat, VerzendOrder order, String opmerking, String status) {
         this.pakketID = pakketID;
@@ -51,7 +54,13 @@ public class Pakket {
         return status;
     }
 
+    public ArrayList<Traject> getTrajecten() {
+        return trajecten;
+    }
     
+    public void voegTrajectToe(Traject traject){
+        trajecten.add(traject);
+    }
 
     @Override
     public String toString() {
