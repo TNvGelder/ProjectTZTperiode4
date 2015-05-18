@@ -22,7 +22,7 @@ import javax.swing.JSplitPane;
  */
 public class ContactOverzichtPanel extends JPanel implements ActionListener{
     
-    private JButton jb1;
+    //private JButton jb1;
     
     public ContactOverzichtPanel(){
         
@@ -31,8 +31,8 @@ public class ContactOverzichtPanel extends JPanel implements ActionListener{
 //        jb1.setBounds(100, 50, 200, 30);
 //        add(jb1);
         
-        jb1 = new JButton("Toevoegen");
-        jb1.setBounds(0, 0, 100, 100);
+//        jb1 = new JButton("Toevoegen");
+//        jb1.setBounds(0, 0, 100, 100);
         //jb1.addActionListener((ActionListener) this);
         
         JScrollPane scrollPane1 = new JScrollPane();
@@ -40,7 +40,7 @@ public class ContactOverzichtPanel extends JPanel implements ActionListener{
         this.setLayout(new GridLayout());
         scrollPane1.setMinimumSize(new Dimension(100,200));
                 
-        scrollPane1.add(jb1);
+        //scrollPane1.add(jb1);
                 
         scrollPane2.setMinimumSize(new Dimension(100,200));
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane1, scrollPane2);
@@ -56,16 +56,16 @@ public class ContactOverzichtPanel extends JPanel implements ActionListener{
     
         
     
-    public static void main(String[] args) {
-        ContactOverzichtPanel cop = new ContactOverzichtPanel();
-        cop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+//    public static void main(String[] args) {
+//        ContactOverzichtPanel cop = new ContactOverzichtPanel();
+//        cop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//    }
 
     public void actionPerformed(ActionEvent ae) {
         // code voor afhandeling knop
 
-        KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog();
-        dialoog.setVisible(true);
+//        KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog();
+//        dialoog.setVisible(true);
 
     }
 
