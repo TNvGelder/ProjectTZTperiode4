@@ -5,7 +5,7 @@
  */
 package TZTBackOffice;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
  */
 public class Traject {
     
-    private LocalDateTime afhaalTijdstip;
-    private LocalDateTime afleverTijdstip;
+    private Timestamp afhaalTijdstip;
+    private Timestamp afleverTijdstip;
     private Contact koerier;
     private int trajectID;
 
-    public Traject(int trajectID, LocalDateTime afhaalTijdstip, LocalDateTime afleverTijdstip, Contact koerier) {
+    public Traject(int trajectID, Timestamp afhaalTijdstip, Timestamp afleverTijdstip, Contact koerier) {
         this.afhaalTijdstip = afhaalTijdstip;
         this.afleverTijdstip = afleverTijdstip;
         this.koerier = koerier;
@@ -29,17 +29,23 @@ public class Traject {
         return trajectID;
     }
     
-    public LocalDateTime getAfhaalTijdstip() {
+    public Timestamp getAfhaalTijdstip() {
         return afhaalTijdstip;
     }
 
-    public LocalDateTime getAfleverTijdstip() {
+    public Timestamp getAfleverTijdstip() {
         return afleverTijdstip;
     }
 
     public Contact getKoerier() {
         return koerier;
     }
+
+    @Override
+    public String toString() {
+        return "Traject{" + "afhaalTijdstip=" + afhaalTijdstip + ", afleverTijdstip=" + afleverTijdstip + ", koerier=" + koerier + ", trajectID=" + trajectID + '}';
+    }
+    
     
         
 }

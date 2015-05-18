@@ -50,7 +50,6 @@ public class ButtonEditor extends DefaultCellEditor {
             //
             //
             JOptionPane.showMessageDialog(button, label + ": Pakket gedoe!");
-            // System.out.println(label + ": Ouch!");
         }
         isPushed = false;
         return new String(label);

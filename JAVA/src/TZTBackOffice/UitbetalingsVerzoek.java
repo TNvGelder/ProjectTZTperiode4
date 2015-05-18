@@ -1,6 +1,7 @@
 package TZTBackOffice;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -8,16 +9,25 @@ import java.time.LocalDateTime;
  */
 public class UitbetalingsVerzoek {
 
-    private LocalDateTime datum;
+    private Timestamp datum;
     private double bedrag;
     private boolean afgehandeld;
     private AccountHouder koerier;
+    private boolean goedgekeurd;
+
+    public UitbetalingsVerzoek(Timestamp datum, double bedrag, boolean afgehandeld, AccountHouder koerier, boolean isGoedgekeurd) {
+        this.datum = datum;
+        this.bedrag = bedrag;
+        this.afgehandeld = afgehandeld;
+        this.koerier = koerier;
+        this.goedgekeurd = isGoedgekeurd;
+    }
 
     public void handelAf() {
         afgehandeld = true;
     }
 
-    public LocalDateTime getDatum() {
+    public Timestamp getDatum() {
         return datum;
     }
 
@@ -32,4 +42,15 @@ public class UitbetalingsVerzoek {
     public AccountHouder getKoerier() {
         return koerier;
     }
+
+    public boolean isGoedgekeurd() {
+        return goedgekeurd;
+    }
+
+    @Override
+    public String toString() {
+        return "UitbetalingsVerzoek{" + "datum=" + datum + ", bedrag=" + bedrag + ", afgehandeld=" + afgehandeld + ", koerier=" + koerier + ", goedgekeurd=" + goedgekeurd + '}';
+    }
+    
+    
 }
