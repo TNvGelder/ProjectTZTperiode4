@@ -7,31 +7,21 @@ package TZTBackOffice;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowSorter;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -45,8 +35,12 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     final static String Aangemelde = "Aangemelde pakketten";
     final static String Verzonden = "Verzonden pakketten";
     final static String Gearriveerde = "Gearriveerde pakketten";
+    private ArrayList pakketten;
+    private final DatabaseManager databasemanager;
 
-    public PakketOverzichtPanel() {
+    public PakketOverzichtPanel(DatabaseManager databasemanager) {
+        this.databasemanager = databasemanager;
+
         //Layout scherm
         String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
         JComboBox cb = new JComboBox(comboBoxItems);
@@ -56,19 +50,33 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
         //Create the "cards".
         JPanel card1 = new JPanel();
+        System.out.println("De pakketten:");
+        System.out.println(databasemanager.getPakketten());
 
+        pakketten = databasemanager.getPakketten();
+//        Object[][] res = new Object[pakketten.size()][];
+//        pakketten.toArray(res);
+//        pakketten.ind
+        System.out.println("De inhoud van die dingen:");
+
+        JTable tableAangemeld = new JTable();
         DefaultTableModel dmAangemeld = new DefaultTableModel();
 
-        dmAangemeld.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Aangemeld BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
-                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
+        tableAangemeld.setModel(dmAangemeld);
+        dmAangemeld.setColumnIdentifiers(new String[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
 
-        JTable tableAangemeld = new JTable(dmAangemeld);
+// Populate the JTable (TableModel) with data from ArrayList
+        int i = 0;
+        for (Object s : pakketten) {
+            dmAangemeld.addRow(new Object[]{pakketten.get(i)});
+            i++;
+        }
+
+//        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
+//                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
+//
+//
+//        JTable tableAangemeld = new JTable(dmAangemeld);
         tableAangemeld.getColumn("Details").setCellRenderer(new ButtonRenderer());
         tableAangemeld.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
         tableAangemeld.setPreferredScrollableViewportSize(new Dimension(800, 140));
