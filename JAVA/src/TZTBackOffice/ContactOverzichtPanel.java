@@ -10,11 +10,18 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+<<<<<<< HEAD
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+>>>>>>> 3e5869ec2e280d2fa10aaf7a2af1652483a3954c
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Twan
  */
+<<<<<<< HEAD
 public class ContactOverzichtPanel extends JPanel implements ItemListener {
 
     JPanel cards; //a panel that uses CardLayout
@@ -93,6 +101,59 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener {
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, (String) evt.getItem());
+=======
+public class ContactOverzichtPanel extends JPanel implements ActionListener{
+    
+    private JButton jb1;
+    
+    public ContactOverzichtPanel(){
+        
+//        jb1 = new JButton("Toevoegen");
+//        jb1.addActionListener((ActionListener) this);
+//        jb1.setBounds(100, 50, 200, 30);
+//        add(jb1);
+        
+        jb1 = new JButton("Toevoegen");
+        jb1.setBounds(0, 0, 100, 100);
+        //jb1.addActionListener((ActionListener) this);
+        
+        JScrollPane scrollPane1 = new JScrollPane();
+        JScrollPane scrollPane2 = new JScrollPane();
+        this.setLayout(new GridLayout());
+        scrollPane1.setMinimumSize(new Dimension(100,200));
+                
+        scrollPane1.add(jb1);
+                
+        scrollPane2.setMinimumSize(new Dimension(100,200));
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane1, scrollPane2);
+        JLabel filler = new JLabel("ContactOverzicht");
+        filler.setHorizontalAlignment(JLabel.CENTER);
+        splitPane.setPreferredSize(new Dimension(400, 200));
+        scrollPane1.add(filler);
+        this.add(splitPane);
+        
+        
+        
+    }
+    
+        
+    
+    public static void main(String[] args) {
+        ContactOverzichtPanel cop = new ContactOverzichtPanel();
+        cop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        // code voor afhandeling knop
+
+        KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog();
+        dialoog.setVisible(true);
+
+    }
+
+    private void setDefaultCloseOperation(int EXIT_ON_CLOSE) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+>>>>>>> 3e5869ec2e280d2fa10aaf7a2af1652483a3954c
     }
 }
 

@@ -11,7 +11,7 @@ import javax.swing.JLabel;
  */
 public class PakketInfoDialoog extends JDialog {
 
-    private PakketInfo pakketinfo;
+    private PakketInfoTest pakketinfo;
 
     public PakketInfoDialoog(Pakket p){
         JFrame scherm = new JFrame();
@@ -34,7 +34,7 @@ public class PakketInfoDialoog extends JDialog {
         JLabel treinkoerier = new JLabel("Treinkoerier");
         JLabel beschrijving = new JLabel("Beschrijving");
 
-        PakketInfo pakketInfo = new PakketInfo();
+        PakketInfoTest pakketInfo = new PakketInfoTest();
         //pakketInfo.getKl pakket
         //.setText("Pakket ");
         pakket.setFont(pakket.getFont().deriveFont(32.0f));

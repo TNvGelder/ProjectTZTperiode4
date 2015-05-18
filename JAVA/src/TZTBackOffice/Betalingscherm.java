@@ -19,7 +19,12 @@ public class Betalingscherm extends JFrame implements ActionListener {
 
     private String uitbetaling;
 
-    public Betalingscherm() {
+//<<<<<<< HEAD
+    public Betalingscherm()
+         {
+//=======
+  //  public Betalingscherm() {
+//>>>>>>> fc014ddb3b819da0e2875ca25534bc0bdb6de4c6
         this.uitbetaling = uitbetaling;
         setTitle("Overzicht pakketten");
         setSize(1920, 1000);
@@ -31,3 +36,5 @@ public class Betalingscherm extends JFrame implements ActionListener {
 
     }
 }
+
+//@Michiel, niet meer met ERRORS pullen A.U.B.

@@ -24,6 +24,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
+        setLayout(new GridLayout());
 
         setSize(1280, 680);
 
@@ -32,25 +33,23 @@ public class HoofdScherm extends JFrame implements ActionListener {
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel();
         UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
         JComponent probleemPanel = new ProbleemPanel();
-
-        JButton jbRefresh = new JButton("Refresh");
-        add(jbRefresh);
-        jbRefresh.addActionListener(this);
-
         tabbedPane.addTab("Problemen", probleemPanel);
         tabbedPane.addTab("Pakketten", pakketPanel);
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
         tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
-
         this.add(tabbedPane);
 
+//        JButton jbRefresh = new JButton("Refresh");
+//        add(jbRefresh);
+//        jbRefresh.addActionListener(this);
         setVisible(true);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.repaint();
+        this.revalidate();
     }
 
 }
