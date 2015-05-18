@@ -17,10 +17,10 @@ import javax.swing.JDialog;
 public class KoerierToevoegenTest extends JFrame implements ActionListener {
 
     private JButton jb1;
-     
+    private DatabaseManager databasemanager;
 
     public KoerierToevoegenTest() {
-        
+
         setTitle("Hoofdscherm");
         setSize(400, 200);
         setLayout(null);
@@ -30,10 +30,10 @@ public class KoerierToevoegenTest extends JFrame implements ActionListener {
         jb1.addActionListener(this);
         jb1.setBounds(100, 50, 200, 30);
         add(jb1);
-       
-        setVisible (true);
+
+        setVisible(true);
     }
-    
+
     public static void main(String[] args) {
         KoerierToevoegenTest gh = new KoerierToevoegenTest();
         gh.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,19 +42,9 @@ public class KoerierToevoegenTest extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         // code voor afhandeling knop
 
-        KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog();
+        KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databasemanager);
         dialoog.setVisible(true);
 
     }
-    
-    
-    
-  
-    
-    
-    
-    
-    
 
-    
 }

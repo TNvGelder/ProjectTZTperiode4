@@ -40,8 +40,10 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     final static String Accounthouders = "Accounthouders";
     final static String ProfKoeriers = "Prof. Koeriers";
     private JButton jbNieuwKoerier;
+    private DatabaseManager databasemanager;
 
-    public ContactOverzichtPanel() {
+    public ContactOverzichtPanel(DatabaseManager databasemanager) {
+        this.databasemanager = databasemanager;
         //Layout scherm
         String comboBoxItems[] = {Accounthouders, ProfKoeriers};
         JComboBox cb = new JComboBox(comboBoxItems);
@@ -112,7 +114,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbNieuwKoerier) {
-            KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog();
+            KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databasemanager);
             dialoog.setVisible(true);
         }
     }
