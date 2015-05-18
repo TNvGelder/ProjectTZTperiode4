@@ -33,6 +33,7 @@ public class PakketInfoDialoog extends JDialog {
         scherm.setSize(1280, 720);
         scherm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        //J-dingen maken
         pakket = new JLabel("Pakket: ");
 
         aanmeldtijd = new JLabel("Aanmeldtijd: ");
@@ -55,20 +56,23 @@ public class PakketInfoDialoog extends JDialog {
         station2 = new JLabel();
         locatie2 = new JLabel();
 
-        beschrijvingsveld = new JTextArea();
-        beschrijvingsveld.setColumns(20);
-        beschrijvingsveld.setRows(10);
+        beschrijvingsveld = new JTextArea(1, 1);
         beschrijvingsveld.setEditable(false);
-        beschrijvingsveld.append("Test" + newline + "Enzo" + newline);
+        //beschrijvingsveld.setLineWrap(true); - Zorgt dat de knop 'herbereken' het hele scherm overneemt. Misschien omdat de X van beschrijvingsveld die van 'herbereken' zou raken als hij niet gewrapt zou zijn?
 
+        beschrijvingsveld.append("Test dsa;lkjads;lkjasd;lfkjae;oijewapoijaeoiaesjopieajopiaejaopeijadsfokjasdfl;kjadsl;kadsj;lkasdj;lksadj;lksjad;lkadsj;ladskjasdl;kja Bob");
+
+        //Actionlistener
         event e = new event();
         herbereken = new JButton("Herbereken Route");
         herbereken.addActionListener(e);
 
+        //Dingen uit database halen
         PakketInfoTest pakketInfo = new PakketInfoTest();
 
         //pakketInfo.getKl pakket
         //.setText("Pakket ");
+        //Font setten
         pakket.setFont(pakket.getFont().deriveFont(32.0f));
 
         aanmeldtijd.setFont(aanmeldtijd.getFont().deriveFont(20.0f));
@@ -91,10 +95,11 @@ public class PakketInfoDialoog extends JDialog {
         station2.setFont(station2.getFont().deriveFont(20.0f));
         locatie2.setFont(locatie2.getFont().deriveFont(20.0f));
 
-        locatie1.setText("Diestraat 14" + "");
+        //Locaties voor routeberekening
+        locatie1.setText("Diestraat 14" + "Zwolle");
         station1.setText("Station " + "Zwolle" + "");
         station2.setText("Station " + "Deventer" + " (Onderweg)");
-        locatie2.setText("Dieanderestraat 58" + "");
+        locatie2.setText("Dieanderestraat 58" + "Deventer");
 
         locatie1.setForeground(Color.GREEN);
         station1.setForeground(Color.GREEN);
@@ -105,28 +110,28 @@ public class PakketInfoDialoog extends JDialog {
         pakket.setBounds(575, 20, 1000, 30);
 
         scherm.add(aanmeldtijd);
-        aanmeldtijd.setBounds(50, 80, 400, 30);
+        aanmeldtijd.setBounds(50, 80, 600, 30);
         scherm.add(aflevertijd);
-        aflevertijd.setBounds(50, 105, 400, 30);
+        aflevertijd.setBounds(50, 105, 600, 30);
         scherm.add(datum);
-        datum.setBounds(50, 130, 400, 30);
+        datum.setBounds(50, 130, 600, 30);
         scherm.add(afzender);
-        afzender.setBounds(50, 155, 400, 30);
+        afzender.setBounds(50, 155, 600, 30);
         scherm.add(formaat);
-        formaat.setBounds(50, 180, 400, 30);
+        formaat.setBounds(50, 180, 600, 30);
         scherm.add(gewicht);
-        gewicht.setBounds(50, 205, 400, 30);
+        gewicht.setBounds(50, 205, 600, 30);
         scherm.add(betaald);
-        betaald.setBounds(50, 230, 400, 30);
+        betaald.setBounds(50, 230, 600, 30);
 
         scherm.add(koerier1);
-        koerier1.setBounds(50, 270, 400, 30);
+        koerier1.setBounds(50, 270, 600, 30);
         scherm.add(koerier2);
-        koerier2.setBounds(50, 295, 400, 30);
+        koerier2.setBounds(50, 295, 600, 30);
         scherm.add(treinkoerier);
-        treinkoerier.setBounds(50, 320, 400, 30);
+        treinkoerier.setBounds(50, 320, 600, 30);
         scherm.add(beschrijving);
-        beschrijving.setBounds(50, 345, 400, 30);
+        beschrijving.setBounds(50, 345, 600, 30);
         scherm.add(beschrijvingsveld);
         beschrijvingsveld.setBounds(50, 380, 450, 275);
 
@@ -134,13 +139,13 @@ public class PakketInfoDialoog extends JDialog {
         route.setBounds(700, 80, 400, 30);
 
         scherm.add(locatie1);
-        locatie1.setBounds(700, 115, 400, 30);
+        locatie1.setBounds(700, 115, 550, 30);
         scherm.add(station1);
-        station1.setBounds(700, 140, 400, 30);
+        station1.setBounds(700, 140, 550, 30);
         scherm.add(station2);
-        station2.setBounds(700, 165, 400, 30);
+        station2.setBounds(700, 165, 550, 30);
         scherm.add(locatie2);
-        locatie2.setBounds(700, 190, 400, 30);
+        locatie2.setBounds(700, 190, 550, 30);
         scherm.add(herbereken);
         herbereken.setBounds(700, 225, 175, 30);
 
