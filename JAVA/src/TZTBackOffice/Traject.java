@@ -11,19 +11,25 @@ import java.time.LocalDateTime;
  *
  * @author Richard
  */
-public class Bezorging {
+public class Traject {
     
     private LocalDateTime afhaalTijdstip;
     private LocalDateTime afleverTijdstip;
     private Contact koerier;
+    private int trajectID;
 
-    public Bezorging(LocalDateTime afhaalTijdstip, LocalDateTime afleverTijdstip, Contact koerier) {
+    public Traject(int trajectID, LocalDateTime afhaalTijdstip, LocalDateTime afleverTijdstip, Contact koerier) {
         this.afhaalTijdstip = afhaalTijdstip;
         this.afleverTijdstip = afleverTijdstip;
         this.koerier = koerier;
+        this.trajectID = trajectID;
+    }
+
+    public int getTrajectID() {
+        return trajectID;
     }
     
-        public LocalDateTime getAfhaalTijdstip() {
+    public LocalDateTime getAfhaalTijdstip() {
         return afhaalTijdstip;
     }
 

@@ -5,7 +5,7 @@
  */
 package TZTBackOffice;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,15 +13,18 @@ import java.time.LocalDateTime;
  */
 public class BezorgProbleem extends Probleem {
 
-    private Bezorging bezorging;
+    private Traject bezorging;
 
-    public BezorgProbleem(Bezorging bezorging, String titel, String beschrijving, LocalDateTime datum) {
-        super(titel, beschrijving, datum);
-        this.bezorging = bezorging;
+    public BezorgProbleem(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
+        super(probleemID, titel, beschrijving, datum, afgehandeld);
+    }
+    
+    public Traject getBezorging() {
+        return bezorging;
     }
 
-    public Bezorging getBezorging() {
-        return bezorging;
+    public void setBezorging(Traject bezorging) {
+        this.bezorging = bezorging;
     }
 
 }
