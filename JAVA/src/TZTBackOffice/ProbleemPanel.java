@@ -5,10 +5,14 @@
  */
 package TZTBackOffice;
 
+import static TZTBackOffice.ContactOverzichtPanel.Accounthouders;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -18,30 +22,53 @@ import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  *
  * @author Jasper
  */
 public class ProbleemPanel extends JPanel
-        implements ListSelectionListener {
+        implements ListSelectionListener, ItemListener {
 
     private JLabel picture;
-    private JList list;
+    private JList lijst1;
+    private JList lijst2;
     private JSplitPane splitPane;
+    private JPanel lijsten;
     private String[] imageNames = {"254 Niet Gearriveerd", "253 Te laat", "252 Niet Gearriveerd", "251 Niet Gearriveerd", "250 Niet Gearriveerd", "249 Niet Gearriveerd",
+        "248 Te laat", "247 Te laat", "246 Niet Gearriveerd", "245 Niet Gearriveerd", "244 Niet Gearriveerd", "243 Niet Gearriveerd"};
+    private String[] afgehandeld = {"254 pakket foetsie", "253 pakket stuk", "252 pakket niet gearriveerd", "251 Niet Gearriveerd", "250 Niet Gearriveerd", "249 Niet Gearriveerd",
         "248 Te laat", "247 Te laat", "246 Niet Gearriveerd", "245 Niet Gearriveerd", "244 Niet Gearriveerd", "243 Niet Gearriveerd"};
 
     public ProbleemPanel() {
         this.setLayout(new GridLayout(1, 1));
 
         //Create the list of images and put it in a scroll pane.
-        list = new JList(imageNames);
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setSelectedIndex(0);
-        list.addListSelectionListener(this);
-
-        JScrollPane listScrollPane = new JScrollPane(list);
+        lijst1 = new JList(imageNames);
+        lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lijst1.setSelectedIndex(0);
+        lijst1.addListSelectionListener(this);
+        
+        lijst2 = new JList(afgehandeld);
+        lijst2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lijst2.setSelectedIndex(0);
+        lijst2.addListSelectionListener(this);
+        
+        JPanel lijstPanel = new JPanel();
+        lijstPanel.setLayout(null);
+        
+        String comboBoxItems[] = {"Problemen", "Afgehandelde Problemen"};
+        JComboBox cb = new JComboBox(comboBoxItems);
+        cb.setEditable(false);
+        cb.addItemListener((ItemListener) this);
+        lijsten = new JPanel(new CardLayout());
+        lijsten.add(lijst1, "Problemen");
+        lijsten.add(lijst2, "Afgehandelde Problemen");
+        lijstPanel.add(cb, BorderLayout.NORTH);
+        lijstPanel.add(lijsten, BorderLayout.SOUTH);
+        JScrollPane listScrollPane = new JScrollPane(lijstPanel);
         picture = new JLabel();
         picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
         picture.setHorizontalAlignment(JLabel.CENTER);
@@ -61,7 +88,7 @@ public class ProbleemPanel extends JPanel
 
         //Provide a preferred size for the split pane.
         splitPane.setPreferredSize(new Dimension(800, 200));
-        updateLabel(imageNames[list.getSelectedIndex()]);
+        updateLabel(imageNames[lijst1.getSelectedIndex()]);
         add(splitPane);
     }
 
@@ -84,7 +111,7 @@ public class ProbleemPanel extends JPanel
 
     //Used by SplitPaneDemo2
     public JList getImageList() {
-        return list;
+        return lijst1;
     }
 
     public JSplitPane getSplitPane() {
@@ -129,6 +156,12 @@ public class ProbleemPanel extends JPanel
                 createAndShowGUI();
             }
         });
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        CardLayout cl = (CardLayout) (lijsten.getLayout());
+        cl.show(lijsten, (String) e.getItem());
     }
 
 }
