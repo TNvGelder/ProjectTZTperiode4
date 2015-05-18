@@ -22,15 +22,18 @@ import javax.swing.JTextField;
  * @author Richard
  */
 public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
+
+JTextArea textarea;
+    JButton button;
+    JLabel label;
     
-    private JLabel l1, l2, l3, l4, l5, l6;
+     private JLabel l1, l2, l3, l4, l5, l6;
     private JTextField tf1, tf2, tf3, tf4;
     private JButton btn1, btn2;
     private JTextArea ta1;
-   
-    
-    public KoerierToevoegenDialoog(){
-        
+
+    public KoerierToevoegenDialoog() {
+       
         setTitle("Toevoegen Professionele treinkoerier");
         setSize(600, 400);
         setLayout(null);
@@ -46,11 +49,9 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         l4 = new JLabel("E-mail adres:");
         l5 = new JLabel("Tarieven:");
         l6 = new JLabel("");
-        l6.setForeground(Color.blue);
+        l6.setForeground(Color.red);
         l6.setFont(new Font("Serif", Font.BOLD, 20));
         
-        
-
         tf1 = new JTextField();
         tf2 = new JTextField();
         tf3 = new JTextField();
@@ -60,15 +61,16 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         btn1 = new JButton("Toevoegen");
         btn2 = new JButton("Voeg tekst in");
         
-        event e = new event();
-        btn2.addActionListener(e);
+//        event e = new event();
+//        btn2.addActionListener(e);
         
-        btn1.addActionListener(this);
+        //btn1.addActionListener(this);
         l1.setBounds(80, 30, 400, 30);
         l2.setBounds(80, 70, 200, 30);
         l3.setBounds(80, 110, 200, 30);
         l4.setBounds(80, 150, 200, 30);
         l5.setBounds(80, 190, 200, 30);
+        l6.setBounds(80,250,200,30);
         tf1.setBounds(180, 70, 200, 30);
         tf2.setBounds(180, 110, 200, 30);
         tf3.setBounds(180, 150, 200, 30);
@@ -91,14 +93,11 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         add(btn2);
         
         add(ta1);
-
-        setVisible(true);
         
-    }
-    
-    //boolean isOk;
+        event e = new event();
+        btn1.addActionListener(e);
 
-    KoerierToevoegenDialoog (ContactOverzichtPanel ae) {
+        //setVisible(true);
         
     }
 
@@ -106,38 +105,24 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+      
     
-    
-    
-   public class event implements ActionListener {
+    public class event implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String text = tf1.getText();
         if ("".equals(text)){
-            l1.setText("Vul wat in");
-        }
+            l6.setText("Vul naam in!");
+        } else
         
-        l6.setText(text);
-        
-        
-//        if (e.getSource() == btn1) {
-//            isOk = true;
-//        } else {
-//            isOk = false;
-//        }
-//        setVisible(false);
-//    }
-//   }
-//    public boolean getIsOk() {
-//        return isOk;
+        //l6.setText(text);
+        dispose();//tijdelijk
+    }
     }
     
-
-    
-    
-    
-    
-    
-    
-    
-   }
+      public static void main(String[] args) {
+        KoerierToevoegenDialoog gui = new KoerierToevoegenDialoog();
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setSize(600, 400);
+        gui.setVisible(true);
+    }
 }
