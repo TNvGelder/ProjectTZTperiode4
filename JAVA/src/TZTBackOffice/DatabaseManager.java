@@ -94,7 +94,8 @@ public class DatabaseManager {
         return pakketten;
     }
 
-    public void voegKoeriersdienstToe() {
+    public void voegKoeriersdienstToe(Contact contact1) {
+
         Connection connection = null;
         Statement statement;
         //Probeer de statement uit te voeren
@@ -111,10 +112,10 @@ public class DatabaseManager {
 
             preparedStmt.setNull(1, java.sql.Types.INTEGER);
             preparedStmt.setInt(2, 4);
-            preparedStmt.setString(3, "Henkie");
+            preparedStmt.setString(3, contact1.getNaam());
             preparedStmt.setNull(4, java.sql.Types.VARCHAR);
-            preparedStmt.setString(5, "henkie@gmail.com");
-            preparedStmt.setNull(6, java.sql.Types.VARCHAR);
+            preparedStmt.setString(5, contact1.getEmail());
+            preparedStmt.setString(6, contact1.getTelefoonnr());
             preparedStmt.setNull(7, java.sql.Types.VARCHAR);
             preparedStmt.setNull(8, java.sql.Types.VARCHAR);
             preparedStmt.setNull(9, java.sql.Types.DOUBLE);

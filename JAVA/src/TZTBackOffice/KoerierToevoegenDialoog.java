@@ -27,10 +27,10 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     JButton button;
     JLabel label;
 
-    private JLabel l1, l2, l3, l4, l5, l6;
-    private JTextField tf1, tf2, tf3, tf4;
+    private JLabel jlHead, jlNaam, jlTelnummer, jlEmail, jlTarieven, l6;
+    private JTextField jtfNaam, jtfTelnummer, jtfEmail, tf4;
     private JButton jbToevoegen, btn2;
-    private JTextArea ta1;
+    private JTextArea jtaTarieven;
     private DatabaseManager databasemanager;
 
     public KoerierToevoegenDialoog(DatabaseManager databasemanager) {
@@ -43,23 +43,23 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
         System.out.println(databasemanager.getKoeriersDiensten());
 
-        l1 = new JLabel("Registratie formulier");
-        l1.setForeground(Color.blue);
-        l1.setFont(new Font("Serif", Font.BOLD, 20));
+        jlHead = new JLabel("Registratie formulier");
+        jlHead.setForeground(Color.blue);
+        jlHead.setFont(new Font("Serif", Font.BOLD, 20));
 
-        l2 = new JLabel("Naam:");
-        l3 = new JLabel("Tel. Nummer:");
-        l4 = new JLabel("E-mail adres:");
-        l5 = new JLabel("Tarieven:");
+        jlNaam = new JLabel("Naam:");
+        jlTelnummer = new JLabel("Tel. Nummer:");
+        jlEmail = new JLabel("E-mail adres:");
+        jlTarieven = new JLabel("Tarieven:");
         l6 = new JLabel("");
         l6.setForeground(Color.red);
         l6.setFont(new Font("Serif", Font.BOLD, 20));
 
-        tf1 = new JTextField();
-        tf2 = new JTextField();
-        tf3 = new JTextField();
+        jtfNaam = new JTextField();
+        jtfTelnummer = new JTextField();
+        jtfEmail = new JTextField();
 
-        ta1 = new JTextArea(5, 30);
+        jtaTarieven = new JTextArea(5, 30);
 
         jbToevoegen = new JButton("Toevoegen");
         btn2 = new JButton("Voeg tekst in");
@@ -67,34 +67,34 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 //        event e = new event();
 //        btn2.addActionListener(e);
         //btn1.addActionListener(this);
-        l1.setBounds(80, 30, 400, 30);
-        l2.setBounds(80, 70, 200, 30);
-        l3.setBounds(80, 110, 200, 30);
-        l4.setBounds(80, 150, 200, 30);
-        l5.setBounds(80, 190, 200, 30);
+        jlHead.setBounds(80, 30, 400, 30);
+        jlNaam.setBounds(80, 70, 200, 30);
+        jlTelnummer.setBounds(80, 110, 200, 30);
+        jlEmail.setBounds(80, 150, 200, 30);
+        jlTarieven.setBounds(80, 190, 200, 30);
         l6.setBounds(180, 70, 500, 30);
-        tf1.setBounds(180, 70, 200, 30);
-        tf2.setBounds(180, 110, 200, 30);
-        tf3.setBounds(180, 150, 200, 30);
+        jtfNaam.setBounds(180, 70, 200, 30);
+        jtfTelnummer.setBounds(180, 110, 200, 30);
+        jtfEmail.setBounds(180, 150, 200, 30);
 
-        ta1.setBounds(180, 190, 200, 120);
+        jtaTarieven.setBounds(180, 190, 200, 120);
 
         jbToevoegen.setBounds(228, 315, 150, 20);
 
-        add(l1);
-        add(l2);
-        add(l3);
-        add(l4);
-        add(l5);
+        add(jlHead);
+        add(jlNaam);
+        add(jlTelnummer);
+        add(jlEmail);
+        add(jlTarieven);
         add(l6);
-        add(tf1);
-        add(tf2);
-        add(tf3);
+        add(jtfNaam);
+        add(jtfTelnummer);
+        add(jtfEmail);
 
         add(jbToevoegen);
         add(btn2);
 
-        add(ta1);
+        add(jtaTarieven);
 
         event e = new event();
         jbToevoegen.addActionListener(e);
@@ -111,10 +111,21 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == jbToevoegen) {
+                String strNaam = jtfNaam.getText();
+                String strTelnummer = jtfTelnummer.getText();
+                String strEmail = jtfEmail.getText();
+                String strTarieven = jtaTarieven.getText();
+                String strType = "4";
 
-                databasemanager.voegKoeriersdienstToe();
+                Contact contact1 = new Contact(strNaam, strType, strEmail, strTelnummer, 120);
+                KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, 120);
+                contact1.setNaam(strNaam);
+                contact1.setEmail(strEmail);
+                contact1.setTelefoonnr(strTelnummer);
+
+                databasemanager.voegKoeriersdienstToe(koeriersdienst1);
             }
-//            String text = tf1.getText();
+//            String text = jtfNaam.getText();
 //            if ("".equals(text)) {
 //                l6.setText("Vul naam in!");
 //            } else //l6.setText(text);

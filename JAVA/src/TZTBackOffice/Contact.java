@@ -10,6 +10,7 @@ package TZTBackOffice;
  * @author Twan
  */
 public class Contact {
+
     private String naam;
     private String email;
     private String telefoonnr;
@@ -31,7 +32,6 @@ public class Contact {
     public String getType() {
         return type;
     }
-    
 
     public String getEmail() {
         return email;
@@ -49,8 +49,25 @@ public class Contact {
     public String toString() {
         return "Contact{" + "naam=" + naam + ", email=" + email + ", telefoonnr=" + telefoonnr + ", contactID=" + contactID + '}';
     }
-    
-    
-    
-    
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelefoonnr(String telefoonnr) {
+        this.telefoonnr = telefoonnr;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
+    }
+
 }
