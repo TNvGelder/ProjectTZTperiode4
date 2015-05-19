@@ -47,7 +47,7 @@ public class PakketInfoDialoog extends JDialog {
         //J-dingen maken
         JPanel knop = new JPanel();
         knop.setLayout(null);
-        
+
         pakket = new JLabel("Pakket " + p.getPakketID());
 
         aanmeldtijd = new JLabel("Aangemeld: " + order.getAanmeldTijd());
@@ -56,14 +56,14 @@ public class PakketInfoDialoog extends JDialog {
         formaat = new JLabel("Formaat: " + p.getFormaat());
         gewicht = new JLabel("Gewicht: " + p.getGewicht() + "g");
 
-        koerier1 = new JLabel("Koerier 1: ");
+        koerier1 = new JLabel("Koerier 1: "/* + trajectlijst.get(0).getKoerier()*/);
         koerier2 = new JLabel("Koerier 2: ");
         treinkoerier = new JLabel("Treinkoerier: ");
         beschrijving = new JLabel("Beschrijving: ");
 
         route = new JLabel("Route");
 
-        //Kijken naar trajecten en begin en eindlocatie opzoeken + kleur goed krijgen
+        //Kijken naar trajecten en begin en eindlocatie opzoeken + kleur goed krijgen + koerier opzoeken
         //Groen als de huidige tijd later is dan de aflevertijd
         //Oranje als de tijd later is dan de verzendtijd maar er nog geen aflevertijd is. Er komt ook '(onderweg)' achter de locatienaam.
         //Rood als de tijd eerder is dan de verzendtijd
@@ -153,24 +153,18 @@ public class PakketInfoDialoog extends JDialog {
         scherm.add(beschrijvingsveld);
         beschrijvingsveld.setBounds(50, 330, 450, 325);
 
-        
         knop.setBounds(300, 200, 100, 30);
-        knop.setLocation(300,200);
-        knop.setPreferredSize(new Dimension(300,300));
+        knop.setLocation(300, 200);
+        knop.setPreferredSize(new Dimension(300, 300));
         scherm.add(knop);
-        //scherm.add(route);
-        route.setBounds(700, 80, 400, 30);
 
-        //scherm.add(locatie1);
+        route.setBounds(700, 80, 400, 30);
         locatie1.setBounds(700, 115, 550, 30);
-        //scherm.add(station1);
         station1.setBounds(700, 140, 550, 30);
-        //scherm.add(station2);
         station2.setBounds(700, 165, 550, 30);
-        //scherm.add(locatie2);
         locatie2.setBounds(700, 190, 550, 30);
-        herbereken.setBounds(700, 250, 175, 30);
-        
+        herbereken.setBounds(700, 220, 175, 30);
+
     }
 
     public class event implements ActionListener {
