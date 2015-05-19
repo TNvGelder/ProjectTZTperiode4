@@ -61,6 +61,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private ArrayList<AccountHouder> accountHouders;
     private ArrayList<TreinKoerier> treinKoeriers;
     private JPanel infoPanel;
+    private Contact geselecteerdContact;
 
     public ContactOverzichtPanel(DatabaseManager databaseManager) {
         
@@ -109,13 +110,15 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         
         lijst1 = new JList(lijstModel);
         lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lijst1.setSelectedIndex(0);
+        
         lijst1.addListSelectionListener(this);
+        
         
         lijst2 = new JList(lijstModel2);
         lijst2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lijst2.setSelectedIndex(0);
         lijst2.addListSelectionListener(this);
+        
         
         lijst3 = new JList(lijstModel3);
         lijst3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -148,8 +151,8 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         Dimension minimumSize = new Dimension(100, 50);
         lijstScrollPane.setMinimumSize(minimumSize);
         infoScrollPane.setMinimumSize(minimumSize);
-        infoPanel.add(new KoeriersInfoPanel(k));
-
+        
+        lijst1.setSelectedIndex(0);
         splitPane.setPreferredSize(new Dimension(800, 200));
         add(splitPane);
     }
@@ -171,9 +174,18 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
 
     public void toonContactInfo(Contact c){
         infoPanel.removeAll();
-        if (c instanceof KoeriersDienst){
+        if (c instanceof AccountHouder){
+            infoPanel.add(new AccountHoudersInfoPanel((AccountHouder) c));
+        }else if(c instanceof TreinKoerier){
+            infoPanel.add(new TreinKoeriersInfoPanel((TreinKoerier) c));
+        }
+        else if (c instanceof KoeriersDienst){
             infoPanel.add(new KoeriersInfoPanel((KoeriersDienst) c));
         }
+        
+        
+        infoPanel.validate();
+        infoPanel.repaint();
     }
     
     @Override
@@ -187,8 +199,12 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         } else {
             c = koeriersDiensten.get(list.getSelectedIndex());
         }
+        if (c != geselecteerdContact){
+            geselecteerdContact = c;
+            System.out.println(c);
+            toonContactInfo(c);
+        }
         
-        toonContactInfo(c);
     }
 }
 
