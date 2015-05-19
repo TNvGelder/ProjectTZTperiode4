@@ -60,6 +60,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private ArrayList<KoeriersDienst> koeriersDiensten;
     private ArrayList<AccountHouder> accountHouders;
     private ArrayList<TreinKoerier> treinKoeriers;
+    private JPanel infoPanel;
 
     public ContactOverzichtPanel(DatabaseManager databaseManager) {
         
@@ -128,32 +129,27 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         lijsten.add(lijst1, comboBoxItem1);
         lijsten.add(lijst2, comboBoxItem2);
         lijsten.add(lijst3, comboBoxItem3);
-        //cb.setBounds(0,0,100, 30);
-        //lijsten.setBounds(0,30,200,100);
        
         
         JScrollPane lijstScrollPane = new JScrollPane(lijsten);
-        JPanel picture = new JPanel();
+        infoPanel = new JPanel();
 
         
         lijstPanel.add(sorteerPanel, BorderLayout.NORTH);
         lijstPanel.add(lijstScrollPane);
         
-        JScrollPane pictureScrollPane = new JScrollPane(picture);
+        JScrollPane infoScrollPane = new JScrollPane(infoPanel);
 
-        //Create a split pane with the two scroll panes in it.
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        lijstPanel, pictureScrollPane);
+        lijstPanel, infoScrollPane);
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(320);
 
-        //Provide minimum sizes for the two components in the split pane.
         Dimension minimumSize = new Dimension(100, 50);
         lijstScrollPane.setMinimumSize(minimumSize);
-        pictureScrollPane.setMinimumSize(minimumSize);
-        picture.add(new KoeriersInfoPanel(k));
+        infoScrollPane.setMinimumSize(minimumSize);
+        infoPanel.add(new KoeriersInfoPanel(k));
 
-        //Provide a preferred size for the split pane.
         splitPane.setPreferredSize(new Dimension(800, 200));
         add(splitPane);
     }
@@ -173,9 +169,26 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         }
     }
 
+    public void toonContactInfo(Contact c){
+        infoPanel.removeAll();
+        if (c instanceof KoeriersDienst){
+            infoPanel.add(new KoeriersInfoPanel((KoeriersDienst) c));
+        }
+    }
+    
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JList list = (JList) e.getSource();
+        Contact c;
+        if (list == lijst1){
+            c = accountHouders.get(list.getSelectedIndex());
+        }else if(list == lijst2){
+            c = treinKoeriers.get(list.getSelectedIndex());
+        } else {
+            c = koeriersDiensten.get(list.getSelectedIndex());
+        }
+        
+        toonContactInfo(c);
     }
 }
 
