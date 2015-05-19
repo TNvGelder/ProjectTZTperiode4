@@ -5,19 +5,24 @@
  */
 package TZTBackOffice;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Richard
  */
-public class AccounthoudersInfoPanel {
+public class AccountHoudersInfoPanel extends JPanel {
     
-    public AccounthoudersInfoPanel(){
+    public AccountHoudersInfoPanel(AccountHouder accountHouder){
     
         
+        add(new JButton(accountHouder.getNaam()));
+        Locatie locatie = accountHouder.getLocatie();
         
     
     
     
-}
+    }
     
 }
