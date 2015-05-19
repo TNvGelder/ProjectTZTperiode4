@@ -85,7 +85,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
             String strFormaat = pakketten.get(i).getFormaat();
             double strGewicht = pakketten.get(i).getGewicht();
 //            int strBetaald = pakketten.get(i).get
-            String strDetails = "Details";
+            String strDetails = "Meer info";
             String strAanmeldtijd = "14";
             String strAflevertijd = "18";
             String strDatum = "23-47-2015";
