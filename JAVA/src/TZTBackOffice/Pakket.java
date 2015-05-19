@@ -27,6 +27,7 @@ public class Pakket {
         this.order = order;
         this.opmerking = opmerking;
         this.status = status;
+        trajecten = new ArrayList();
     }
     
 
