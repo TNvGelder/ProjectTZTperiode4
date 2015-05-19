@@ -27,7 +27,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     JButton button;
     JLabel label;
 
-    private JLabel jlHead, jlNaam, jlTelnummer, jlEmail, jlTarieven, l6;
+    private JLabel jlHead, jlNaam, jlTelnummer, jlEmail, jlTarieven, jlNaamError, jlEmailError;
     private JTextField jtfNaam, jtfTelnummer, jtfEmail, tf4;
     private JButton jbToevoegen, btn2;
     private JTextArea jtaTarieven;
@@ -36,6 +36,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     public KoerierToevoegenDialoog(DatabaseManager databasemanager) {
         this.databasemanager = databasemanager;
 
+        //Opmaak van JDialoog
         setTitle("Toevoegen Professionele treinkoerier");
         setSize(600, 400);
         setLayout(null);
@@ -43,6 +44,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
         System.out.println(databasemanager.getKoeriersDiensten());
 
+        //Inhoud scherm
         jlHead = new JLabel("Registratie formulier");
         jlHead.setForeground(Color.blue);
         jlHead.setFont(new Font("Serif", Font.BOLD, 20));
@@ -51,9 +53,13 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jlTelnummer = new JLabel("Tel. Nummer:");
         jlEmail = new JLabel("E-mail adres:");
         jlTarieven = new JLabel("Tarieven:");
-        l6 = new JLabel("");
-        l6.setForeground(Color.red);
-        l6.setFont(new Font("Serif", Font.BOLD, 20));
+        jlNaamError = new JLabel("");
+        jlNaamError.setForeground(Color.red);
+        jlNaamError.setFont(new Font("Serif", Font.BOLD, 20));
+
+        jlEmailError = new JLabel("");
+        jlEmailError.setForeground(Color.red);
+        jlEmailError.setFont(new Font("Serif", Font.BOLD, 20));
 
         jtfNaam = new JTextField();
         jtfTelnummer = new JTextField();
@@ -72,7 +78,8 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jlTelnummer.setBounds(80, 110, 200, 30);
         jlEmail.setBounds(80, 150, 200, 30);
         jlTarieven.setBounds(80, 190, 200, 30);
-        l6.setBounds(180, 70, 500, 30);
+        jlNaamError.setBounds(180, 70, 500, 30);
+        jlEmailError.setBounds(180, 70, 500, 30);
         jtfNaam.setBounds(180, 70, 200, 30);
         jtfTelnummer.setBounds(180, 110, 200, 30);
         jtfEmail.setBounds(180, 150, 200, 30);
@@ -81,15 +88,17 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
         jbToevoegen.setBounds(228, 315, 150, 20);
 
+        //Inhoud toevoegen
         add(jlHead);
         add(jlNaam);
         add(jlTelnummer);
         add(jlEmail);
         add(jlTarieven);
-        add(l6);
+        add(jlNaamError);
         add(jtfNaam);
         add(jtfTelnummer);
         add(jtfEmail);
+        add(jlEmailError);
 
         add(jbToevoegen);
         add(btn2);
@@ -110,28 +119,36 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     public class event implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
+            //Actionperformed voor Toevoegen knop
             if (e.getSource() == jbToevoegen) {
+                //Zet JTextField data om in Strings
                 String strNaam = jtfNaam.getText();
                 String strTelnummer = jtfTelnummer.getText();
                 String strEmail = jtfEmail.getText();
                 String strTarieven = jtaTarieven.getText();
                 String strType = "4";
 
-                Contact contact1 = new Contact(strNaam, strType, strEmail, strTelnummer, 120);
-                KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, 120);
-                contact1.setNaam(strNaam);
-                contact1.setEmail(strEmail);
-                contact1.setTelefoonnr(strTelnummer);
+                //Check of Naam en Email zijn ingevuld
+                if (jtfNaam.getText().isEmpty()) {
+                    jlNaamError.setText("Vul naam in!");
+                    System.out.println("%naam invullen%");
+                } else if (jtfEmail.getText().isEmpty()) {
+                    jlEmailError.setText("Vul Email in!");
+                    System.out.println("%email invullen%");
+                } else {
+                    //Maak contact en koerier aan
+                    Contact contact1 = new Contact(strNaam, strType, strEmail, strTelnummer, 1);
+                    KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, 1);
+                    contact1.setNaam(strNaam);
+                    contact1.setEmail(strEmail);
+                    contact1.setTelefoonnr(strTelnummer);
 
-                databasemanager.voegKoeriersdienstToe(koeriersdienst1);
+                    //Voeg de koerier toe in de DB
+                    databasemanager.voegKoeriersdienstToe(koeriersdienst1);
+                    dispose();
+                }
+
             }
-//            String text = jtfNaam.getText();
-//            if ("".equals(text)) {
-//                l6.setText("Vul naam in!");
-//            } else //l6.setText(text);
-//            {
-//                dispose();//tijdelijk
-//            }
         }
     }
 
