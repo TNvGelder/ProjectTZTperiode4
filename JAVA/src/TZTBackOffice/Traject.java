@@ -25,6 +25,8 @@ public class Traject {
         this.afleverTijdstip = afleverTijdstip;
         this.koerier = koerier;
         this.trajectID = trajectID;
+        this.beginLocatie = beginLocatie;
+        this.eindLocatie = eindLocatie;
     }
 
     public int getTrajectID() {
