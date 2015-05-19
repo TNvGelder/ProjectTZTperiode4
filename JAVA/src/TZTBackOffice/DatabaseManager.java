@@ -8,6 +8,7 @@ package TZTBackOffice;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -91,6 +92,48 @@ public class DatabaseManager {
 
     public ArrayList<Pakket> getPakketten() {
         return pakketten;
+    }
+
+    public void voegKoeriersdienstToe() {
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+
+            //Insert statement maken
+            String query = " INSERT INTO stakeholder (stakeholderID, type, naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet, wachtwoord, locatie, snelheid, rekeningnr)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setNull(1, java.sql.Types.INTEGER);
+            preparedStmt.setInt(2, 4);
+            preparedStmt.setString(3, "Henkie");
+            preparedStmt.setNull(4, java.sql.Types.VARCHAR);
+            preparedStmt.setString(5, "henkie@gmail.com");
+            preparedStmt.setNull(6, java.sql.Types.VARCHAR);
+            preparedStmt.setNull(7, java.sql.Types.VARCHAR);
+            preparedStmt.setNull(8, java.sql.Types.VARCHAR);
+            preparedStmt.setNull(9, java.sql.Types.DOUBLE);
+            preparedStmt.setNull(10, java.sql.Types.VARCHAR);
+            preparedStmt.setNull(11, java.sql.Types.INTEGER);
+            preparedStmt.setNull(12, java.sql.Types.DOUBLE);
+            preparedStmt.setNull(13, java.sql.Types.VARCHAR);
+
+            //Voer preparedstatement uit
+            preparedStmt.execute();
+            System.out.println("koerier aangemaakt");
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan met de functie voegKoeriersdienstToe");
+            System.out.println(e);
+        }
     }
 
     private void maakTraject(Pakket p, ResultSet r) throws SQLException {
@@ -274,11 +317,11 @@ public class DatabaseManager {
                 Double bedrag = rs.getDouble("bedrag");
                 Boolean isafgehandeld = rs.getBoolean("isafgehandeld");
                 Boolean goedgekeurd = rs.getBoolean("goedgekoeurd");
-                UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek( datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
+                UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek(datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
                 System.out.println(verzoek);
-                if (verzoek.isAfgehandeld()){
+                if (verzoek.isAfgehandeld()) {
                     afgehandeldeVerzoeken.add(verzoek);
-                }else{
+                } else {
                     nietAfgehandeldeVerzoeken.add(verzoek);
                 }
             }

@@ -29,7 +29,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
     private JLabel l1, l2, l3, l4, l5, l6;
     private JTextField tf1, tf2, tf3, tf4;
-    private JButton btn1, btn2;
+    private JButton jbToevoegen, btn2;
     private JTextArea ta1;
     private DatabaseManager databasemanager;
 
@@ -61,7 +61,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
         ta1 = new JTextArea(5, 30);
 
-        btn1 = new JButton("Toevoegen");
+        jbToevoegen = new JButton("Toevoegen");
         btn2 = new JButton("Voeg tekst in");
 
 //        event e = new event();
@@ -79,7 +79,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
         ta1.setBounds(180, 190, 200, 120);
 
-        btn1.setBounds(228, 315, 150, 20);
+        jbToevoegen.setBounds(228, 315, 150, 20);
 
         add(l1);
         add(l2);
@@ -91,13 +91,13 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         add(tf2);
         add(tf3);
 
-        add(btn1);
+        add(jbToevoegen);
         add(btn2);
 
         add(ta1);
 
         event e = new event();
-        btn1.addActionListener(e);
+        jbToevoegen.addActionListener(e);
 
         //setVisible(true);
     }
@@ -110,13 +110,17 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     public class event implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            String text = tf1.getText();
-            if ("".equals(text)) {
-                l6.setText("Vul naam in!");
-            } else //l6.setText(text);
-            {
-                dispose();//tijdelijk
+            if (e.getSource() == jbToevoegen) {
+
+                databasemanager.voegKoeriersdienstToe();
             }
+//            String text = tf1.getText();
+//            if ("".equals(text)) {
+//                l6.setText("Vul naam in!");
+//            } else //l6.setText(text);
+//            {
+//                dispose();//tijdelijk
+//            }
         }
     }
 
