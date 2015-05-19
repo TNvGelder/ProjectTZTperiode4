@@ -16,10 +16,11 @@ public class KoeriersInfoPanel extends JPanel {
     
     public KoeriersInfoPanel() {
 
+    
         
    
     
-}
+    }
     
     
     
