@@ -145,10 +145,10 @@ public class DatabaseManager {
             if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID) {
                 Timestamp afhaaltijd = r.getTimestamp("afhaaltijd");
                 Timestamp aflevertijd = r.getTimestamp("aflevertijd");
-                Locatie beginlocatie = locaties.get(r.getInt("beginlocatie"));
-                Locatie eindlocatie = locaties.get(r.getInt("eindlocatie"));
+                Locatie beginLocatie = locaties.get(r.getInt("beginlocatie"));
+                Locatie eindLocatie = locaties.get(r.getInt("eindlocatie"));
                 Contact koerier = contacten.get(r.getInt("r.koerierID"));
-                vorigTraject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier);
+                vorigTraject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier, beginLocatie, eindLocatie);
                 p.voegTrajectToe(vorigTraject);
                 System.out.println(vorigTraject);
             }

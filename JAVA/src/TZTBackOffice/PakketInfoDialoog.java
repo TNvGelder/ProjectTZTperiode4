@@ -6,6 +6,7 @@ import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ import javax.swing.JTextField;
 public class PakketInfoDialoog extends JDialog {
 
     private PakketInfoTest pakketinfo;
-    private JLabel pakket, aanmeldtijd, aflevertijd, datum, afzender, formaat, gewicht, betaald, koerier1, koerier2, treinkoerier, beschrijving, route, locatie1, station1, station2, locatie2;
+    private JLabel pakket, aanmeldtijd, aflevertijd, afzender, formaat, gewicht, koerier1, koerier2, treinkoerier, beschrijving, route, locatie1, station1, station2, locatie2;
     private JButton herbereken;
     private JTextArea beschrijvingsveld;
 
@@ -30,6 +31,8 @@ public class PakketInfoDialoog extends JDialog {
 
         //Haal de orderinfo van het pakket uit de database op
         VerzendOrder o = p.getOrder();
+        AccountHouder a = o.getKlant();
+        ArrayList<Traject> t = p.getTrajecten();
 
         //Maak het scherm
         JFrame scherm = new JFrame();
@@ -41,13 +44,11 @@ public class PakketInfoDialoog extends JDialog {
         //J-dingen maken
         pakket = new JLabel("Pakket " + p.getPakketID());
 
-        aanmeldtijd = new JLabel("Aanmeldtijd: " + o.getAanmeldTijd());
-        aflevertijd = new JLabel("Aflevertijd: ");
-        datum = new JLabel("Datum: ");
-        afzender = new JLabel("Afzender: " + o.getKlant());
+        aanmeldtijd = new JLabel("Aangemeld: " + o.getAanmeldTijd());
+        aflevertijd = new JLabel("Afgeleverd: ");
+        afzender = new JLabel("Afzender: " + a.getNaam() + " " + a.getAchternaam());
         formaat = new JLabel("Formaat: " + p.getFormaat());
         gewicht = new JLabel("Gewicht: " + p.getGewicht() + "g");
-        betaald = new JLabel("Betaald: ");
 
         koerier1 = new JLabel("Koerier 1: ");
         koerier2 = new JLabel("Koerier 2: ");
@@ -56,7 +57,12 @@ public class PakketInfoDialoog extends JDialog {
 
         route = new JLabel("Route");
 
-        locatie1 = new JLabel();
+        /*for (int i = 0; i < t.size(); i++) {
+         t.get(i);
+         if (i = 0) {
+         locatie1 = new JLabel("");
+         }
+         }*/
         station1 = new JLabel();
         station2 = new JLabel();
         locatie2 = new JLabel();
@@ -82,11 +88,9 @@ public class PakketInfoDialoog extends JDialog {
 
         aanmeldtijd.setFont(aanmeldtijd.getFont().deriveFont(20.0f));
         aflevertijd.setFont(aflevertijd.getFont().deriveFont(20.0f));
-        datum.setFont(datum.getFont().deriveFont(20.0f));
         afzender.setFont(afzender.getFont().deriveFont(20.0f));
         formaat.setFont(formaat.getFont().deriveFont(20.0f));
         gewicht.setFont(gewicht.getFont().deriveFont(20.0f));
-        betaald.setFont(betaald.getFont().deriveFont(20.0f));
 
         koerier1.setFont(koerier1.getFont().deriveFont(20.0f));
         koerier2.setFont(koerier2.getFont().deriveFont(20.0f));
@@ -101,10 +105,10 @@ public class PakketInfoDialoog extends JDialog {
         locatie2.setFont(locatie2.getFont().deriveFont(20.0f));
 
         //Locaties voor routeberekening
-        locatie1.setText("Diestraat 14" + "Zwolle");
+        locatie1.setText("Diestraat 14 " + "Zwolle");
         station1.setText("Station " + "Zwolle" + "");
         station2.setText("Station " + "Deventer" + " (Onderweg)");
-        locatie2.setText("Dieanderestraat 58" + "Deventer");
+        locatie2.setText("Dieanderestraat 58 " + "Deventer");
 
         locatie1.setForeground(Color.GREEN);
         station1.setForeground(Color.GREEN);
@@ -118,27 +122,23 @@ public class PakketInfoDialoog extends JDialog {
         aanmeldtijd.setBounds(50, 80, 600, 30);
         scherm.add(aflevertijd);
         aflevertijd.setBounds(50, 105, 600, 30);
-        scherm.add(datum);
-        datum.setBounds(50, 130, 600, 30);
         scherm.add(afzender);
-        afzender.setBounds(50, 155, 600, 30);
+        afzender.setBounds(50, 130, 600, 30);
         scherm.add(formaat);
-        formaat.setBounds(50, 180, 600, 30);
+        formaat.setBounds(50, 155, 600, 30);
         scherm.add(gewicht);
-        gewicht.setBounds(50, 205, 600, 30);
-        scherm.add(betaald);
-        betaald.setBounds(50, 230, 600, 30);
+        gewicht.setBounds(50, 180, 600, 30);
 
         scherm.add(koerier1);
-        koerier1.setBounds(50, 270, 600, 30);
+        koerier1.setBounds(50, 220, 600, 30);
         scherm.add(koerier2);
-        koerier2.setBounds(50, 295, 600, 30);
+        koerier2.setBounds(50, 245, 600, 30);
         scherm.add(treinkoerier);
-        treinkoerier.setBounds(50, 320, 600, 30);
+        treinkoerier.setBounds(50, 270, 600, 30);
         scherm.add(beschrijving);
-        beschrijving.setBounds(50, 345, 600, 30);
+        beschrijving.setBounds(50, 295, 600, 30);
         scherm.add(beschrijvingsveld);
-        beschrijvingsveld.setBounds(50, 380, 450, 275);
+        beschrijvingsveld.setBounds(50, 330, 450, 325);
 
         scherm.add(route);
         route.setBounds(700, 80, 400, 30);

@@ -5,7 +5,6 @@
  */
 package TZTBackOffice;
 
-import static TZTBackOffice.ContactOverzichtPanel.Accounthouders;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -45,7 +44,6 @@ public class ProbleemPanel extends JPanel
     public ProbleemPanel() {
         this.setLayout(new GridLayout(1, 1));
 
-        //Create the list of images and put it in a scroll pane.
         lijst1 = new JList(imageNames);
         lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lijst1.setSelectedIndex(0);
@@ -118,47 +116,8 @@ public class ProbleemPanel extends JPanel
 //        }
     }
 
-    //Used by SplitPaneDemo2
-    public JList getImageList() {
-        return lijst1;
-    }
-
     public JSplitPane getSplitPane() {
         return splitPane;
-    }
-
-    /**
-     * Returns an ImageIcon, or null if the path was invalid.
-     */
-    protected static ImageIcon createImageIcon(String path) {
-        return null;
-    }
-
-    /**
-     * Create the GUI and show it. For thread safety, this method should be
-     * invoked from the event-dispatching thread.
-     */
-    private static void createAndShowGUI() {
-
-        //Create and set up the window.
-        JFrame frame = new JFrame("SplitPaneDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ProbleemPanel splitPaneDemo = new ProbleemPanel();
-        frame.getContentPane().add(splitPaneDemo.getSplitPane());
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
     }
 
     @Override
