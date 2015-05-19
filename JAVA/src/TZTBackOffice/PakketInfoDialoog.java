@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -24,15 +25,16 @@ public class PakketInfoDialoog extends JDialog {
     private JLabel pakket, aanmeldtijd, aflevertijd, afzender, formaat, gewicht, koerier1, koerier2, treinkoerier, beschrijving, route, locatie1, station1, station2, locatie2;
     private JButton herbereken;
     private JTextArea beschrijvingsveld;
+    private JPanel knop;
 
     private final static String newline = "\n";
 
     public PakketInfoDialoog(Pakket p) {
 
         //Haal de orderinfo van het pakket uit de database op
-        VerzendOrder o = p.getOrder();
-        AccountHouder a = o.getKlant();
-        ArrayList<Traject> t = p.getTrajecten();
+        VerzendOrder order = p.getOrder();
+        AccountHouder accounthouder = order.getKlant();
+        ArrayList<Traject> trajectlijst = p.getTrajecten();
 
         //Maak het scherm
         JFrame scherm = new JFrame();
@@ -42,11 +44,12 @@ public class PakketInfoDialoog extends JDialog {
         scherm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //J-dingen maken
+        JPanel knop = new JPanel();
         pakket = new JLabel("Pakket " + p.getPakketID());
 
-        aanmeldtijd = new JLabel("Aangemeld: " + o.getAanmeldTijd());
+        aanmeldtijd = new JLabel("Aangemeld: " + order.getAanmeldTijd());
         aflevertijd = new JLabel("Afgeleverd: ");
-        afzender = new JLabel("Afzender: " + a.getNaam() + " " + a.getAchternaam());
+        afzender = new JLabel("Afzender: " + accounthouder.getNaam() + " " + accounthouder.getAchternaam());
         formaat = new JLabel("Formaat: " + p.getFormaat());
         gewicht = new JLabel("Gewicht: " + p.getGewicht() + "g");
 
@@ -57,19 +60,19 @@ public class PakketInfoDialoog extends JDialog {
 
         route = new JLabel("Route");
 
-        /*for (int i = 0; i < t.size(); i++) {
-         t.get(i);
-         if (i = 0) {
-         locatie1 = new JLabel("");
-         }
-         }*/
+        //Kijken naar trajecten en begin en eindlocatie opzoeken + kleur goed krijgen
+        //Groen als de huidige tijd later is dan de aflevertijd
+        //Oranje als de tijd later is dan de verzendtijd maar er nog geen aflevertijd is. Er komt ook '(onderweg)' achter de locatienaam.
+        //Rood als de tijd eerder is dan de verzendtijd
+        locatie1 = new JLabel();
         station1 = new JLabel();
         station2 = new JLabel();
         locatie2 = new JLabel();
 
         beschrijvingsveld = new JTextArea(1, 1);
         beschrijvingsveld.setEditable(false);
-        //beschrijvingsveld.setLineWrap(true); - Zorgt dat de knop 'herbereken' het hele scherm overneemt. Misschien omdat de X van beschrijvingsveld die van 'herbereken' zou raken als hij niet gewrapt zou zijn?
+        beschrijvingsveld.setLineWrap(true);
+        //Zorgt dat de knop 'herbereken' het hele scherm overneemt. Misschien omdat de X van beschrijvingsveld die van 'herbereken' zou raken als hij niet gewrapt zou zijn?
 
         beschrijvingsveld.append("Test dsa;lkjads;lkjasd;lfkjae;oijewapoijaeoiaesjopieajopiaejaopeijadsfokjasdfl;kjadsl;kadsj;lkasdj;lksadj;lksjad;lkadsj;ladskjasdl;kja Bob");
 
@@ -77,6 +80,13 @@ public class PakketInfoDialoog extends JDialog {
         event e = new event();
         herbereken = new JButton("Herbereken Route");
         herbereken.addActionListener(e);
+
+        knop.add(route);
+        knop.add(locatie1);
+        knop.add(station1);
+        knop.add(station2);
+        knop.add(locatie2);
+        knop.add(herbereken);
 
         //Dingen uit database halen
         PakketInfoTest pakketInfo = new PakketInfoTest();
@@ -140,20 +150,20 @@ public class PakketInfoDialoog extends JDialog {
         scherm.add(beschrijvingsveld);
         beschrijvingsveld.setBounds(50, 330, 450, 325);
 
-        scherm.add(route);
+        scherm.add(knop);
+        knop.setBounds(700, 80, 400, 30);
+        //scherm.add(route);
         route.setBounds(700, 80, 400, 30);
 
-        scherm.add(locatie1);
+        //scherm.add(locatie1);
         locatie1.setBounds(700, 115, 550, 30);
-        scherm.add(station1);
+        //scherm.add(station1);
         station1.setBounds(700, 140, 550, 30);
-        scherm.add(station2);
+        //scherm.add(station2);
         station2.setBounds(700, 165, 550, 30);
-        scherm.add(locatie2);
+        //scherm.add(locatie2);
         locatie2.setBounds(700, 190, 550, 30);
-        scherm.add(herbereken);
-        herbereken.setBounds(700, 225, 175, 30);
-
+        herbereken.setBounds(700, 250, 175, 30);
     }
 
     public class event implements ActionListener {
