@@ -76,7 +76,9 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         sorteerPanel.add(cb);
         sorteerPanel.add(jbNieuwKoerier);
 
-        
+        for (AccountHouder accountHouder : accountHouders) {
+            
+        }
         this.setLayout(new GridLayout(1, 1));
         DefaultListModel lijstModel =  new DefaultListModel();
         lijstModel.addElement("asdfsf");

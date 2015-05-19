@@ -3,6 +3,7 @@ package TZTBackOffice;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,8 @@ public class PakketInfoDialoog extends JDialog {
 
         //J-dingen maken
         JPanel knop = new JPanel();
+        knop.setLayout(null);
+        
         pakket = new JLabel("Pakket " + p.getPakketID());
 
         aanmeldtijd = new JLabel("Aangemeld: " + order.getAanmeldTijd());
@@ -150,8 +153,11 @@ public class PakketInfoDialoog extends JDialog {
         scherm.add(beschrijvingsveld);
         beschrijvingsveld.setBounds(50, 330, 450, 325);
 
+        
+        knop.setBounds(300, 200, 100, 30);
+        knop.setLocation(300,200);
+        knop.setPreferredSize(new Dimension(300,300));
         scherm.add(knop);
-        knop.setBounds(700, 80, 400, 30);
         //scherm.add(route);
         route.setBounds(700, 80, 400, 30);
 
@@ -164,6 +170,7 @@ public class PakketInfoDialoog extends JDialog {
         //scherm.add(locatie2);
         locatie2.setBounds(700, 190, 550, 30);
         herbereken.setBounds(700, 250, 175, 30);
+        
     }
 
     public class event implements ActionListener {
