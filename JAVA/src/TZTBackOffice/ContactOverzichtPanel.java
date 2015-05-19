@@ -52,7 +52,6 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private JButton jbNieuwKoerier;
     private DatabaseManager databasemanager;
 
-    private JLabel picture;
     private JList lijst1;
     private JList lijst2;
     private JList lijst3;
@@ -98,11 +97,12 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
             lijstModel2.addElement(contactID + " " + naam);
         }
         
+        KoeriersDienst k = null;
         DefaultListModel lijstModel3 = new DefaultListModel();
         for (KoeriersDienst koeriersDienst : koeriersDiensten){
             int contactID = koeriersDienst.getContactID();
             String naam = koeriersDienst.getNaam();
-            
+            k = koeriersDienst;
             lijstModel3.addElement(contactID + " " + naam);
         }
         
@@ -133,9 +133,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
        
         
         JScrollPane lijstScrollPane = new JScrollPane(lijsten);
-        picture = new JLabel();
-        picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
-        picture.setHorizontalAlignment(JLabel.CENTER);
+        JPanel picture = new JPanel();
 
         
         lijstPanel.add(sorteerPanel, BorderLayout.NORTH);
@@ -153,6 +151,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         Dimension minimumSize = new Dimension(100, 50);
         lijstScrollPane.setMinimumSize(minimumSize);
         pictureScrollPane.setMinimumSize(minimumSize);
+        picture.add(new KoeriersInfoPanel(k));
 
         //Provide a preferred size for the split pane.
         splitPane.setPreferredSize(new Dimension(800, 200));
