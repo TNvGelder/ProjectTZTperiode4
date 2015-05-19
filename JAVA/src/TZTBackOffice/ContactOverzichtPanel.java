@@ -135,7 +135,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
        
         
         JScrollPane lijstScrollPane = new JScrollPane(lijsten);
-        infoPanel = new JPanel();
+        infoPanel = new JPanel(new GridLayout(1,1));
 
         
         lijstPanel.add(sorteerPanel, BorderLayout.NORTH);
@@ -161,7 +161,16 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (lijsten.getLayout());
-        cl.show(lijsten, (String) evt.getItem());
+        String item = (String) evt.getItem();
+        if (item.equals(comboBoxItem1)){
+            selectieVeranderd(lijst1);
+        }else if (item.equals(comboBoxItem2)){
+            selectieVeranderd(lijst2);
+        }else {
+            selectieVeranderd(lijst3);
+        } 
+        cl.show(lijsten, item);
+        
     }
 
     @Override
@@ -188,9 +197,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         infoPanel.repaint();
     }
     
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        JList list = (JList) e.getSource();
+    public void selectieVeranderd(JList list){
         Contact c;
         if (list == lijst1){
             c = accountHouders.get(list.getSelectedIndex());
@@ -204,6 +211,13 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
             System.out.println(c);
             toonContactInfo(c);
         }
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        System.out.println("sdfasdf");
+        JList list = (JList) e.getSource();
+        selectieVeranderd(list);
         
     }
 }
