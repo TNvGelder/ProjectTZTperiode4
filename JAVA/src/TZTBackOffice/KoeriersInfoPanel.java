@@ -5,6 +5,7 @@
  */
 package TZTBackOffice;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -14,9 +15,12 @@ import javax.swing.JPanel;
 public class KoeriersInfoPanel extends JPanel {
     
     
-    public KoeriersInfoPanel() {
+    public KoeriersInfoPanel(KoeriersDienst k) {
 
     
+        
+        JButton knop = new JButton("test");
+        this.add(knop);
         
    
     
