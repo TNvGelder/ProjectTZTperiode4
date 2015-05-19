@@ -27,6 +27,7 @@ public class PakketInfoDialoog extends JDialog {
     private JButton herbereken;
     private JTextArea beschrijvingsveld;
     private JPanel knop;
+    private int i;
 
     private final static String newline = "\n";
 
@@ -56,9 +57,9 @@ public class PakketInfoDialoog extends JDialog {
         formaat = new JLabel("Formaat: " + p.getFormaat());
         gewicht = new JLabel("Gewicht: " + p.getGewicht() + "g");
 
-        koerier1 = new JLabel("Koerier 1: "/* + trajectlijst.get(0).getKoerier()*/);
-        koerier2 = new JLabel("Koerier 2: ");
-        treinkoerier = new JLabel("Treinkoerier: ");
+        koerier1 = new JLabel("Koerier 1: " + trajectlijst.get(0).getKoerier().getNaam());
+        koerier2 = new JLabel("Koerier 2: " + trajectlijst.get(2).getKoerier().getNaam());
+        treinkoerier = new JLabel("Treinkoerier: " + trajectlijst.get(1).getKoerier().getNaam());
         beschrijving = new JLabel("Beschrijving: ");
 
         route = new JLabel("Route");
@@ -72,12 +73,10 @@ public class PakketInfoDialoog extends JDialog {
         station2 = new JLabel();
         locatie2 = new JLabel();
 
-        beschrijvingsveld = new JTextArea(1, 1);
+        beschrijvingsveld = new JTextArea(p.getOpmerking());
         beschrijvingsveld.setEditable(false);
         beschrijvingsveld.setLineWrap(true);
         //Zorgt dat de knop 'herbereken' het hele scherm overneemt. Misschien omdat de X van beschrijvingsveld die van 'herbereken' zou raken als hij niet gewrapt zou zijn?
-
-        beschrijvingsveld.append("Test dsa;lkjads;lkjasd;lfkjae;oijewapoijaeoiaesjopieajopiaejaopeijadsfokjasdfl;kjadsl;kadsj;lkasdj;lksadj;lksjad;lkadsj;ladskjasdl;kja Bob");
 
         //Actionlistener
         event e = new event();
@@ -118,10 +117,11 @@ public class PakketInfoDialoog extends JDialog {
         locatie2.setFont(locatie2.getFont().deriveFont(20.0f));
 
         //Locaties voor routeberekening
-        locatie1.setText("Diestraat 14 " + "Zwolle");
-        station1.setText("Station " + "Zwolle" + "");
-        station2.setText("Station " + "Deventer" + " (Onderweg)");
-        locatie2.setText("Dieanderestraat 58 " + "Deventer");
+        //Haalt hij nu de eerste 3 locaties op of de juiste bijbehorende locaties?
+        locatie1.setText(trajectlijst.get(0).getBeginLocatie().getStraat() + " " + trajectlijst.get(0).getBeginLocatie().getHuisnummer());
+        station1.setText(trajectlijst.get(0).getEindLocatie().getStraat() + " " + trajectlijst.get(0).getEindLocatie().getHuisnummer());
+        station2.setText(trajectlijst.get(1).getEindLocatie().getStraat() + " " + trajectlijst.get(1).getEindLocatie().getHuisnummer());
+        locatie2.setText(trajectlijst.get(2).getEindLocatie().getStraat() + " " + trajectlijst.get(2).getEindLocatie().getHuisnummer());
 
         locatie1.setForeground(Color.GREEN);
         station1.setForeground(Color.GREEN);
