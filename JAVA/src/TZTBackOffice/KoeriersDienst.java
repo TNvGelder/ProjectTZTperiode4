@@ -27,6 +27,8 @@ public class KoeriersDienst extends Contact {
     public ArrayList<Tarief> getTarieven() {
         return tarieven;
     }
+    
+    
 
     @Override
     public String toString() {

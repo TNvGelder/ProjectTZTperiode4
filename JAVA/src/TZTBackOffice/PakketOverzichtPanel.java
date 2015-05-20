@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Array;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JButton;
@@ -36,6 +37,9 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     final static String Verzonden = "Verzonden pakketten";
     final static String Gearriveerde = "Gearriveerde pakketten";
     private Pakket pakket;
+    private Traject traject;
+    private VerzendOrder verzendorder;
+    private Probleem probleem;
 
     private final DatabaseManager databasemanager;
     DatabaseManager databaseManager = new DatabaseManager();
@@ -60,8 +64,6 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //        Object[][] res = new Object[pakketten.size()][];
 //        pakketten.toArray(res);
 //        pakketten.ind
-        System.out.println("De inhoud van die dingen:");
-
 //        JTable tableAangemeld = new JTable();
 //        DefaultTableModel dmAangemeld = new DefaultTableModel();
 //
@@ -69,48 +71,76 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //        dmAangemeld.setColumnIdentifiers(new String[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
         String col[] = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
+            //Zorg dat de tabel niet te bewerken is
+            @Override
+            public boolean isCellEditable(int data, int columns) {
+                return false;
+            }
+        };
 
         JTable table = new JTable(tableModel);
 
 // Populate the JTable (TableModel) with data from ArrayList
         int i = 0;
         for (Object s : pakketten) {
+            //Bekijk status van pakket
+            String strStatus = pakketten.get(i).getStatus();
+            String strBetaald = null;
 
-            int strPakketnr = pakketten.get(i).getPakketID();
-//            int strAanmeldtijd = pakketten.get(i).;
-//            int strAflevertijd = pakketten.get(i).getPakketID();
-//            int strDatum = pakketten.get(i);
-//            int strOrganisatie = pakketten.get(i).get;
-            String strFormaat = pakketten.get(i).getFormaat();
-            double strGewicht = pakketten.get(i).getGewicht();
-//            int strBetaald = pakketten.get(i).get
-            String strDetails = "Meer info";
-            String strAanmeldtijd = "14";
-            String strAflevertijd = "18";
-            String strDatum = "23-47-2015";
-            String strOrganisatie = "organisatie";
-            String strBetaald = "JA";
+            if (strStatus.equals("Aangemeld")) {
+                int strPakketnr = pakketten.get(i).getPakketID();
 
-            Object[] data = {strPakketnr, strAanmeldtijd, strAflevertijd, strDatum, strOrganisatie, strFormaat,
-                strGewicht, strBetaald, strDetails};
+                Timestamp strAanmeldtijd = pakketten.get(i).getOrder().getAanmeldTijd();
 
-//            dmAangemeld.addRow(new Object[]{pakketten.get(i)});
-            tableModel.addRow(data);
+                String strOrganisatie = pakketten.get(i).getOrder().getKlant().getNaam();
+                String strFormaat = pakketten.get(i).getFormaat();
+                double strGewicht = pakketten.get(i).getGewicht();
+                int intBetaald = pakketten.get(i).getOrder().getDefinitief();
+                if (intBetaald == 1) {
+                    strBetaald = "Betaald";
+                } else {
+                    strBetaald = "-";
+                }
+
+                //                String strAflevertijd = "18 - niet uit DB";
+//                Timestamp strAflevertijd = pakketten.get(0).getTrajecten().get(0).getAfleverTijdstip();
+                Timestamp strAflevertijd = null;
+                int x = 0;
+                for (Traject t : pakketten.get(i).getTrajecten()) {
+                    System.out.println("In loop!!!!!!!!!!");
+                    if (x == 0) {
+                        strAflevertijd = t.getAfleverTijdstip();
+                    }
+                    x++;
+                    System.out.println("De aflevertijd: " + strAflevertijd);
+
+                }
+
+                String strDatum = "23-47-2015 - niet uit DB";
+                //            int strDatum = pakketten.get(i);
+                String strDetails = "Meer info";
+
+                Object[] data = {strPakketnr, strAanmeldtijd, strAflevertijd, strDatum, strOrganisatie, strFormaat,
+                    strGewicht, strBetaald, strDetails};
+
+                tableModel.addRow(data);
+            }
+
             i++;
         }
 
-//        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
-//                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
-//
-//
-//        JTable tableAangemeld = new JTable(dmAangemeld);
         table.getColumn("Details").setCellRenderer(new ButtonRenderer());
         table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
         table.setPreferredScrollableViewportSize(new Dimension(800, 140));
         JScrollPane scrollAangemeld = new JScrollPane(table);
         card1.add(scrollAangemeld);
 
+//        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
+//                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
+//
+//
+//        JTable tableAangemeld = new JTable(dmAangemeld);
         JPanel card2 = new JPanel();
         DefaultTableModel dmVerzonden = new DefaultTableModel();
 
