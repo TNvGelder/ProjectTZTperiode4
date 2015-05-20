@@ -47,7 +47,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         //Inhoud scherm
         jlHead = new JLabel("Registratie formulier");
         jlHead.setForeground(Color.blue);
-        jlHead.setFont(new Font("Serif", Font.BOLD, 20));
+        jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
 
         jlNaam = new JLabel("Naam:");
         jlTelnummer = new JLabel("Tel. Nummer:");
@@ -55,7 +55,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jlTarieven = new JLabel("Tarieven:");
         jlNaamError = new JLabel("");
         jlNaamError.setForeground(Color.red);
-        jlNaamError.setFont(new Font("Serif", Font.BOLD, 20));
+        jlNaamError.setFont(new Font("Roboto-Regular", Font.PLAIN, 20));
 
         jlEmailError = new JLabel("");
         jlEmailError.setForeground(Color.red);

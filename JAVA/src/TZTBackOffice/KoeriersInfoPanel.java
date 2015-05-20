@@ -39,12 +39,12 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
          //Inhoud scherm
         jlHead = new JLabel("Koeriers tonen");
         jlHead.setForeground(Color.blue);
-        jlHead.setFont(new Font("Serif", Font.BOLD, 20));
+        jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
 
-        jlNaam = new JLabel("Naam:");
-        jlTelnummer = new JLabel("Tel. Nummer:");
-        jlEmail = new JLabel("E-mail adres:");
-        jlTarieven = new JLabel("Tarieven:");
+        jlNaam = new JLabel("Naam: ");
+        jlTelnummer = new JLabel("Tel. Nummer: ");
+        jlEmail = new JLabel("E-mail adres: ");
+        jlTarieven = new JLabel("Tarieven: ");
 //        jlNaamError = new JLabel("");
 //        jlNaamError.setForeground(Color.red);
 //        jlNaamError.setFont(new Font("Serif", Font.BOLD, 20));
@@ -53,9 +53,9 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
 //        jlEmailError.setForeground(Color.red);
 //        jlEmailError.setFont(new Font("Serif", Font.BOLD, 20));
 
-        jtfNaam = new JTextField(30);
-        jtfTelnummer = new JTextField(15);
-        jtfEmail = new JTextField(25);
+        jtfNaam = new JTextField(k.getNaam());
+        jtfTelnummer = new JTextField(k.getTelefoonnr());
+        jtfEmail = new JTextField(k.getEmail());
 
         jtaTarieven = new JTextArea(5, 30);
 
@@ -99,7 +99,7 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
    

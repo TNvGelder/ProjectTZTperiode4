@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TZTBackOffice;
 
 import java.awt.event.ActionEvent;
@@ -24,11 +19,12 @@ public class KlachtInfoPanel extends Probleem {
     private JTextArea klachtbeschrijving;
 
     public KlachtInfoPanel(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
+
         super(probleemID, titel, beschrijving, datum, afgehandeld);
         this.setLayout(null);
         event e = new event();
 
-        JLabel onderwerp = new JLabel();
+        JLabel onderwerp = new JLabel("Onderwerp");
         JLabel klantnaam = new JLabel();
         JLabel probleemid = new JLabel();
         JLabel datums = new JLabel();
@@ -37,6 +33,13 @@ public class KlachtInfoPanel extends Probleem {
         JButton handelaf = new JButton();
 
         JTextArea klachtbeschrijving = new JTextArea();
+
+        onderwerp.setFont(onderwerp.getFont().deriveFont(32.0f));
+        klantnaam.setFont(klantnaam.getFont().deriveFont(20.0f));
+        probleemid.setFont(probleemid.getFont().deriveFont(20.0f));
+        datums.setFont(datums.getFont().deriveFont(20.0f));
+
+        add(onderwerp);
 
     }
 

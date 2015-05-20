@@ -40,6 +40,26 @@ public class TreinKoerier extends AccountHouder{
         return ovKaart;
     }
 
+    public void setKrediet(double krediet) {
+        this.krediet = krediet;
+    }
+
+    public void setRekeningnr(String rekeningnr) {
+        this.rekeningnr = rekeningnr;
+    }
+
+    public void setIdKaart(String idKaart) {
+        this.idKaart = idKaart;
+    }
+
+    public void setOvKaart(String ovKaart) {
+        this.ovKaart = ovKaart;
+    }
+    
+    
+    
+    
+
     @Override
     public String toString() {
         return "TreinKoerier{" + super.toString()  + "krediet=" + krediet + ", rekeningnr=" + rekeningnr + ", idKaart=" + idKaart + ", ovKaart=" + ovKaart + '}';
