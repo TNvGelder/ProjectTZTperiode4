@@ -90,8 +90,10 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
 // Populate the JTable (TableModel) with data from ArrayList
         int i = 0;
-        for (Object s : pakketten) {
+        for (Pakket s : pakketten) {
             //Bekijk status van pakket
+            
+            System.out.println(s);
             String strStatus = pakketten.get(i).getStatus();
             String strBetaald = null;
 

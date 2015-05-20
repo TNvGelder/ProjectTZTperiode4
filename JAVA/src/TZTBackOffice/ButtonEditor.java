@@ -53,7 +53,7 @@ public class ButtonEditor extends DefaultCellEditor {
 
             DatabaseManager databaseManager = new DatabaseManager();
             ArrayList<Pakket> pakketten = databaseManager.getPakketten();
-            Pakket pakket = pakketten.get(3);
+            Pakket pakket = pakketten.get(14);
             System.out.println("\n Het pakket: " + pakket);
 
             PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket);
