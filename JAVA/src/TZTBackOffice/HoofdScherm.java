@@ -25,6 +25,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
 
     private ContactOverzichtPanel contactPanel;
     private JTabbedPane tabbedPane;
+    private JButton jbRefresh;
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
@@ -44,8 +45,8 @@ public class HoofdScherm extends JFrame implements ActionListener {
         tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
         this.add(tabbedPane);
 
-        JButton jbRefresh = new JButton("Refresh");
-        add(jbRefresh);
+        jbRefresh = new JButton("Refresh");
+//        add(jbRefresh);
         jbRefresh.addActionListener(this);
         setVisible(true);
 
@@ -53,13 +54,14 @@ public class HoofdScherm extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == jbRefresh) {
+            SwingUtilities.updateComponentTreeUI(this.tabbedPane);
+            tabbedPane.invalidate();
+            tabbedPane.validate();
+            tabbedPane.repaint();
 
-        SwingUtilities.updateComponentTreeUI(this.tabbedPane);
-        tabbedPane.invalidate();
-        tabbedPane.validate();
-        tabbedPane.repaint();
-
-        System.out.println("refresh");
+            System.out.println("refresh");
+        }
     }
 
 }

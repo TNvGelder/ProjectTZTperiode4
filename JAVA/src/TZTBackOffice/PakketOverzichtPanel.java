@@ -96,8 +96,8 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
                 String strOrganisatie = pakketten.get(i).getOrder().getKlant().getNaam();
                 String strFormaat = pakketten.get(i).getFormaat();
                 double strGewicht = pakketten.get(i).getGewicht();
-                int intBetaald = pakketten.get(i).getOrder().getDefinitief();
-                if (intBetaald == 1) {
+                boolean intBetaald = pakketten.get(i).getDefinitief();
+                if (intBetaald == true) {
                     strBetaald = "Betaald";
                 } else {
                     strBetaald = "-";
