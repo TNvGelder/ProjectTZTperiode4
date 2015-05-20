@@ -42,8 +42,8 @@ public class KoerierToevoegenTest extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         // code voor afhandeling knop
 
-        KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databasemanager);
-        dialoog.setVisible(true);
+        //KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databasemanager);
+        //dialoog.setVisible(true);
 
     }
 
