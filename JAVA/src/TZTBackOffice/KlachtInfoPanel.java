@@ -39,8 +39,7 @@ public class KlachtInfoPanel extends Probleem {
         probleemid.setFont(probleemid.getFont().deriveFont(20.0f));
         datums.setFont(datums.getFont().deriveFont(20.0f));
 
-        add(onderwerp);
-
+        //add(onderwerp);
     }
 
     public Pakket getPakket() {
