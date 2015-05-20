@@ -32,6 +32,7 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
         this.setLayout(null); 
         
 
+        setLayout(null);
         jbAanpassen = new JButton("Aanpassen");
         this.add(jbAanpassen);
        
