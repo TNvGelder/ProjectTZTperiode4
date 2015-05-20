@@ -26,9 +26,13 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
  private JTextArea jtaTarieven;
  private JButton jbAanpassen;
  
+  
     
     public KoeriersInfoPanel(KoeriersDienst k) {
+        this.setLayout(null); 
+        
 
+        setLayout(null);
         jbAanpassen = new JButton("Aanpassen");
         this.add(jbAanpassen);
        
