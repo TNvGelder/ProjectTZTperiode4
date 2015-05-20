@@ -96,15 +96,27 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
                 String strOrganisatie = pakketten.get(i).getOrder().getKlant().getNaam();
                 String strFormaat = pakketten.get(i).getFormaat();
                 double strGewicht = pakketten.get(i).getGewicht();
-                int intBetaald = pakketten.get(i).getOrder().getDefinitief();
-                if (intBetaald == 1) {
+                boolean intBetaald = pakketten.get(i).getDefinitief();
+                if (intBetaald == true) {
                     strBetaald = "Betaald";
                 } else {
                     strBetaald = "-";
                 }
 
-                String strAflevertijd = "18 - niet uit DB";
-                //                Timestamp strAflevertijd = pakketten.get(i).getTrajecten().get(i).getAfleverTijdstip();
+                //                String strAflevertijd = "18 - niet uit DB";
+//                Timestamp strAflevertijd = pakketten.get(0).getTrajecten().get(0).getAfleverTijdstip();
+                Timestamp strAflevertijd = null;
+                int x = 0;
+                for (Traject t : pakketten.get(i).getTrajecten()) {
+                    System.out.println("In loop!!!!!!!!!!");
+                    if (x == 0) {
+                        strAflevertijd = t.getAfleverTijdstip();
+                    }
+                    x++;
+                    System.out.println("De aflevertijd: " + strAflevertijd);
+
+                }
+
                 String strDatum = "23-47-2015 - niet uit DB";
                 //            int strDatum = pakketten.get(i);
                 String strDetails = "Meer info";

@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +37,7 @@ public class DatabaseManager {
     private ArrayList<UitbetalingsVerzoek> afgehandeldeVerzoeken;
     private ArrayList<UitbetalingsVerzoek> nietAfgehandeldeVerzoeken;
     private ArrayList<TrajectProbleem> bezorgProblemen;
-    private ArrayList<Klacht> klachten;
+    private ArrayList<KlachtInfoPanel> klachten;
     private ArrayList<Pakket> pakketten;
 
     private Traject vorigTraject;
@@ -86,7 +87,7 @@ public class DatabaseManager {
         return bezorgProblemen;
     }
 
-    public ArrayList<Klacht> getKlachten() {
+    public ArrayList<KlachtInfoPanel> getKlachten() {
         return klachten;
     }
 
@@ -178,9 +179,30 @@ public class DatabaseManager {
             pakket = pakketten.get(pakketten.size() - 1);
             maakTraject(pakket, r);
         }
+        ArrayList<Traject> trajecten = pakket.getTrajecten();
+        ArrayList<Traject> gesorteerdeTrajectArray = new ArrayList();
+        Locatie beginLocatie = order.getBeginLocatie();
+        while (beginLocatie != null){
+            Traject volgendeTraject = null;
+            for (int i = 0; i< trajecten.size(); i++) {
+                Traject traject = trajecten.get(i);
+                if (traject.getBeginLocatie().getLocatieID() == beginLocatie.getLocatieID()){
+                    trajecten.remove(i);
+                    volgendeTraject = traject;
+                }
+            }
+            if (volgendeTraject != null){
+                beginLocatie = volgendeTraject.getEindLocatie();
+                gesorteerdeTrajectArray.add(vorigTraject);
+            } else{
+                beginLocatie = null;
+            }
+        }
+        pakket.setTrajecten(gesorteerdeTrajectArray);
+        
         int probleemID = r.getInt("pr2.probleemID");
         if (probleemID != 0) {
-            Klacht klacht = (Klacht) problemen.get(r.getInt(probleemID));
+            KlachtInfoPanel klacht = (KlachtInfoPanel) problemen.get(r.getInt(probleemID));
             klacht.setPakket(pakket);
         }
     }
@@ -223,7 +245,7 @@ public class DatabaseManager {
                 int trajectID = rs.getInt("trajectID");
                 Probleem probleem;
                 if (trajectID != 0) {
-                    Klacht klacht = new Klacht(probleemID, titel, beschrijving, datum, afgehandeld);
+                    KlachtInfoPanel klacht = new KlachtInfoPanel(probleemID, titel, beschrijving, datum, afgehandeld);
                     klachten.add(klacht);
                     probleem = klacht;
                 } else {
@@ -286,7 +308,7 @@ public class DatabaseManager {
 
             }
 
-            rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, p.pakketID, gewicht, formaat, opmerking, status\n"
+            rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, v.beginlocatie, v.eindlocatie, p.pakketID, gewicht, formaat, opmerking, status\n"
                     + ", t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
                     + "LEFT OUTER JOIN pakket p ON v.orderID = p.orderID\n"
                     + "LEFT OUTER JOIN traject t ON  p.pakketID = t.pakketID\n"
@@ -302,7 +324,9 @@ public class DatabaseManager {
                         int klantID = rs.getInt("v.klantID");
                         AccountHouder klant = (AccountHouder) contacten.get(klantID);
                         Timestamp aanmeldTijd = rs.getTimestamp("aanmeldtijd");
-                        VerzendOrder order = new VerzendOrder(orderID, klant, aanmeldTijd);
+                        Locatie beginLocatie = locaties.get(rs.getInt("v.beginlocatie"));
+                        Locatie eindLocatie = locaties.get(rs.getInt("v.eindlocatie"));
+                        VerzendOrder order = new VerzendOrder(klant, aanmeldTijd, orderID, beginLocatie, eindLocatie);
                         maakPakket(order, rs);
                     } else {
                         VerzendOrder order = pakketten.get(pakketten.size() - 1).getOrder();
