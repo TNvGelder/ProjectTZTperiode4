@@ -7,6 +7,8 @@ package TZTBackOffice;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,32 +19,35 @@ import javax.swing.JTextField;
  *
  * @author Richard
  */
-public class AccountHoudersInfoPanel extends JPanel {
+public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
     private JLabel jlHead, jlTelnummer, jlNaam, jlEmail, jlTarieven;
     private JTextField jtfNaam, jtfTelnummer, jtfEmail;
     private JTextArea jtaTarieven;
-    //private JButton jbAanpassen;
+    private JButton jbAanpassen;
 
     public AccountHoudersInfoPanel(AccountHouder accountHouder) {
         
        this.setLayout(null); 
         
         //add(jlHead);
+       
+        jbAanpassen = new JButton("Aanpassen");
+        this.add(jbAanpassen);
 
         jlHead = new JLabel("Accounthouder");
         jlHead.setForeground(Color.blue);
-        jlHead.setFont(new Font("Serif", Font.BOLD, 20));
+        jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
 
-        jlNaam = new JLabel("Naam: " + accountHouder.getNaam());
-        jlTelnummer = new JLabel("Tel. Nummer: " + accountHouder.getTelefoonnr());
-        jlEmail = new JLabel("E-mail adres: " + accountHouder.getEmail());
+        jlNaam = new JLabel("Naam: ");
+        jlTelnummer = new JLabel("Tel. Nummer: ");
+        jlEmail = new JLabel("E-mail adres: ");
         jlTarieven = new JLabel("Tarieven:");
 
 
-        jtfNaam = new JTextField(30);
-        jtfTelnummer = new JTextField(15);
-        jtfEmail = new JTextField(25);
+        jtfNaam = new JTextField(accountHouder.getNaam());
+        jtfTelnummer = new JTextField(accountHouder.getTelefoonnr());
+        jtfEmail = new JTextField(accountHouder.getEmail());
 
         jtaTarieven = new JTextArea (15, 30);
 
@@ -54,6 +59,7 @@ public class AccountHoudersInfoPanel extends JPanel {
         jtfNaam.setBounds(180, 70, 200, 30);
         jtfTelnummer.setBounds(180, 110, 200, 30);
         jtfEmail.setBounds(180, 150, 200, 30);
+        jbAanpassen.setBounds(228, 315, 150, 20);
 
         jtaTarieven.setBounds(180, 190, 200, 120);
 
@@ -82,6 +88,11 @@ public class AccountHoudersInfoPanel extends JPanel {
 //
 //        add(new JTextField(accountHouder.getNaam()));
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        
     }
 
 }
