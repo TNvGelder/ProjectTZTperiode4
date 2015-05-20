@@ -7,6 +7,7 @@ package TZTBackOffice;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
 
@@ -49,7 +50,13 @@ public class ButtonEditor extends DefaultCellEditor {
         if (isPushed) {
             //
             //
-            JOptionPane.showMessageDialog(button, label + ": Pakket gedoe!");
+
+            DatabaseManager databaseManager = new DatabaseManager();
+            ArrayList<Pakket> pakketten = databaseManager.getPakketten();
+            Pakket pakket = pakketten.get(3);
+            System.out.println("\n Het pakket: " + pakket);
+
+            PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket);
         }
         isPushed = false;
         return new String(label);

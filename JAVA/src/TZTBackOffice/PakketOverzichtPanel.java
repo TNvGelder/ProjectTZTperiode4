@@ -11,10 +11,17 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -72,11 +79,11 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         String col[] = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"};
 
         DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
-            //Zorg dat de tabel niet te bewerken is
-            @Override
-            public boolean isCellEditable(int data, int columns) {
-                return false;
-            }
+//            //Zorg dat de tabel niet te bewerken is
+//            @Override
+//            public boolean isCellEditable(int data, int columns) {
+//                return false;
+//            }
         };
 
         JTable table = new JTable(tableModel);
@@ -135,6 +142,8 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         table.setPreferredScrollableViewportSize(new Dimension(800, 140));
         JScrollPane scrollAangemeld = new JScrollPane(table);
         card1.add(scrollAangemeld);
+
+        System.out.println("geselecteerd: " + table.getSelectedRow());
 
 //        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
 //                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
@@ -227,10 +236,56 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         cl.show(cards, (String) evt.getItem());
     }
 
-    /**
-     * Create the GUI and show it. For thread safety, this method should be
-     * invoked from the event dispatch thread.
-     */
+    //############################################################||Voor het testen welke cel geselecteer is||#################################################################################
+    JTable theTable = new JTable();//your table
+    boolean pressingCTRL = false;//flag, if pressing CTRL it is true, otherwise it is false.
+    Vector selectedCells = new Vector<int[]>();//int[]because every entry will store {cellX,cellY}
+
+    public void something() {
+        KeyListener tableKeyListener = new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL) {//check if user is pressing CTRL key
+                    pressingCTRL = true;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL) {//check if user released CTRL key
+                    pressingCTRL = false;
+                }
+            }
+        };
+
+        MouseListener tableMouseListener = new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (pressingCTRL) {//check if user is pressing CTRL key
+                    int row = theTable.rowAtPoint(e.getPoint());//get mouse-selected row
+                    int col = theTable.columnAtPoint(e.getPoint());//get mouse-selected col
+                    int[] newEntry = new int[]{row, col};//{row,col}=selected cell
+                    if (selectedCells.contains(newEntry)) {
+                        //cell was already selected, deselect it
+                        selectedCells.remove(newEntry);
+                    } else {
+                        //cell was not selected
+                        selectedCells.add(newEntry);
+                    }
+                }
+
+            }
+
+        };
+        theTable.addKeyListener(tableKeyListener);
+        theTable.addMouseListener(tableMouseListener);
+
+        /**
+         * Create the GUI and show it. For thread safety, this method should be
+         * invoked from the event dispatch thread.
+         */
 //    private static void createAndShowGUI() {
 //        //Create and set up the window.
 //        JFrame frame = new JFrame("Buttons");
@@ -270,4 +325,5 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //            }
 //        });
 //    }
+    }
 }
