@@ -36,7 +36,7 @@ public class DatabaseManager {
     private ArrayList<UitbetalingsVerzoek> afgehandeldeVerzoeken;
     private ArrayList<UitbetalingsVerzoek> nietAfgehandeldeVerzoeken;
     private ArrayList<TrajectProbleem> bezorgProblemen;
-    private ArrayList<Klacht> klachten;
+    private ArrayList<KlachtInfoPanel> klachten;
     private ArrayList<Pakket> pakketten;
 
     private Traject vorigTraject;
@@ -86,7 +86,7 @@ public class DatabaseManager {
         return bezorgProblemen;
     }
 
-    public ArrayList<Klacht> getKlachten() {
+    public ArrayList<KlachtInfoPanel> getKlachten() {
         return klachten;
     }
 
@@ -180,7 +180,7 @@ public class DatabaseManager {
         }
         int probleemID = r.getInt("pr2.probleemID");
         if (probleemID != 0) {
-            Klacht klacht = (Klacht) problemen.get(r.getInt(probleemID));
+            KlachtInfoPanel klacht = (KlachtInfoPanel) problemen.get(r.getInt(probleemID));
             klacht.setPakket(pakket);
         }
     }
@@ -223,7 +223,7 @@ public class DatabaseManager {
                 int trajectID = rs.getInt("trajectID");
                 Probleem probleem;
                 if (trajectID != 0) {
-                    Klacht klacht = new Klacht(probleemID, titel, beschrijving, datum, afgehandeld);
+                    KlachtInfoPanel klacht = new KlachtInfoPanel(probleemID, titel, beschrijving, datum, afgehandeld);
                     klachten.add(klacht);
                     probleem = klacht;
                 } else {
