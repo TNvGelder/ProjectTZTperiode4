@@ -38,11 +38,7 @@ public class PakketInfoDialoog extends JDialog {
         AccountHouder accounthouder = order.getKlant();
         ArrayList<Traject> trajectlijst = p.getTrajecten();
 
-        if (trajectlijst.get(2).getAfleverTijdstip() != null) {
-            afleveren = "Invullen";
-        } else {
-            afleveren = "";
-        }
+        
 
         //Maak het scherm
         JFrame scherm = new JFrame();
@@ -63,9 +59,9 @@ public class PakketInfoDialoog extends JDialog {
         formaat = new JLabel("Formaat: " + p.getFormaat());
         gewicht = new JLabel("Gewicht: " + p.getGewicht() + "g");
 
-        koerier1 = new JLabel("Koerier 1: " + trajectlijst.get(0).getKoerier().getNaam());
-        koerier2 = new JLabel("Koerier 2: " + trajectlijst.get(2).getKoerier().getNaam());
-        treinkoerier = new JLabel("Treinkoerier: " + trajectlijst.get(1).getKoerier().getNaam());
+        koerier1 = new JLabel("Koerier 1: " );
+        koerier2 = new JLabel("Koerier 2: " );
+        treinkoerier = new JLabel("Treinkoerier: ");
         beschrijving = new JLabel("Beschrijving: ");
 
         route = new JLabel("Route");
@@ -124,37 +120,37 @@ public class PakketInfoDialoog extends JDialog {
 
         //Locaties voor routeberekening
         //Haalt hij nu de eerste 3 locaties op of de juiste bijbehorende locaties?
-        locatie1.setText(trajectlijst.get(0).getBeginLocatie().getStraat() + " " + trajectlijst.get(0).getBeginLocatie().getHuisnummer());
-        station1.setText(trajectlijst.get(0).getEindLocatie().getStraat() + " " + trajectlijst.get(0).getEindLocatie().getHuisnummer());
-        station2.setText(trajectlijst.get(1).getEindLocatie().getStraat() + " " + trajectlijst.get(1).getEindLocatie().getHuisnummer());
-        locatie2.setText(trajectlijst.get(2).getEindLocatie().getStraat() + " " + trajectlijst.get(2).getEindLocatie().getHuisnummer());
+        //locatie1.setText(trajectlijst.get(0).getBeginLocatie().getStraat() + " " + trajectlijst.get(0).getBeginLocatie().getHuisnummer());
+        //station1.setText(trajectlijst.get(0).getEindLocatie().getStraat() + " " + trajectlijst.get(0).getEindLocatie().getHuisnummer());
+        //station2.setText(trajectlijst.get(1).getEindLocatie().getStraat() + " " + trajectlijst.get(1).getEindLocatie().getHuisnummer());
+        //locatie2.setText(trajectlijst.get(2).getEindLocatie().getStraat() + " " + trajectlijst.get(2).getEindLocatie().getHuisnummer());
 
-        if (trajectlijst.get(0).getAfhaalTijdstip() != null) {
-            locatie1.setForeground(Color.GREEN);
-            if (trajectlijst.get(0).getAfleverTijdstip() != null) {
-                station1.setForeground(Color.GREEN);
-                if (trajectlijst.get(1).getAfleverTijdstip() != null) {
-                    station2.setForeground(Color.GREEN);
-                    if (trajectlijst.get(2).getAfleverTijdstip() != null) {
-                        locatie2.setForeground(Color.GREEN);
-                    } else {
-                        locatie2.setForeground(Color.ORANGE);
-                    }
-                } else {
-                    station2.setForeground(Color.ORANGE);
-                    locatie2.setForeground(Color.RED);
-                }
-            } else {
-                station1.setForeground(Color.ORANGE);
-                station2.setForeground(Color.RED);
-                locatie2.setForeground(Color.RED);
-            }
-        } else {
-            locatie1.setForeground(Color.ORANGE);
-            station1.setForeground(Color.RED);
-            station2.setForeground(Color.RED);
-            locatie2.setForeground(Color.RED);
-        }
+//        if (trajectlijst.get(0).getAfhaalTijdstip() != null) {
+//            locatie1.setForeground(Color.GREEN);
+//            if (trajectlijst.get(0).getAfleverTijdstip() != null) {
+//                station1.setForeground(Color.GREEN);
+//                if (trajectlijst.get(1).getAfleverTijdstip() != null) {
+//                    station2.setForeground(Color.GREEN);
+//                    if (trajectlijst.get(2).getAfleverTijdstip() != null) {
+//                        locatie2.setForeground(Color.GREEN);
+//                    } else {
+//                        locatie2.setForeground(Color.ORANGE);
+//                    }
+//                } else {
+//                    station2.setForeground(Color.ORANGE);
+//                    locatie2.setForeground(Color.RED);
+//                }
+//            } else {
+//                station1.setForeground(Color.ORANGE);
+//                station2.setForeground(Color.RED);
+//                locatie2.setForeground(Color.RED);
+//            }
+//        } else {
+//            locatie1.setForeground(Color.ORANGE);
+//            station1.setForeground(Color.RED);
+//            station2.setForeground(Color.RED);
+//            locatie2.setForeground(Color.RED);
+//        }
 
         scherm.add(pakket);
         pakket.setBounds(575, 20, 1000, 30);
