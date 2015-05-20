@@ -17,14 +17,17 @@ class VerzendOrder {
     private AccountHouder klant;
     private Timestamp aanmeldTijd;
     private int orderID;
-    private int definitief;
+    private Locatie beginLocatie;
+    private Locatie eindLocatie;
 
-    public VerzendOrder(int orderID, AccountHouder klant, Timestamp aanmeldTijd) {
-        this.orderID = orderID;
+    public VerzendOrder(AccountHouder klant, Timestamp aanmeldTijd, int orderID, Locatie beginLocatie, Locatie eindlocatie) {
         this.klant = klant;
         this.aanmeldTijd = aanmeldTijd;
+        this.orderID = orderID;
+        this.beginLocatie = beginLocatie;
+        this.eindLocatie = eindlocatie;
     }
-
+        
     public int getOrderID() {
         return orderID;
     }
@@ -36,9 +39,13 @@ class VerzendOrder {
     public Timestamp getAanmeldTijd() {
         return aanmeldTijd;
     }
-
-    public int getDefinitief() {
-        return definitief;
+    
+    public Locatie getBeginLocatie() {
+        return beginLocatie;
     }
 
+    public Locatie getEindLocatie() {
+        return eindLocatie;
+    }
+    
 }

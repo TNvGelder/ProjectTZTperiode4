@@ -54,9 +54,18 @@ public class Pakket {
     public String getStatus() {
         return status;
     }
+    
+    //deze functie is hier omdat jasper m nog gebruikt
+    public Boolean getDefinitief() {
+        return true;
+    }
 
     public ArrayList<Traject> getTrajecten() {
         return trajecten;
+    }
+
+    public void setTrajecten(ArrayList<Traject> trajecten) {
+        this.trajecten = trajecten;
     }
     
     public void voegTrajectToe(Traject traject){

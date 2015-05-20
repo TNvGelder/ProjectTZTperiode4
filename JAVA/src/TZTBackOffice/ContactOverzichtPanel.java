@@ -55,6 +55,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private JList lijst1;
     private JList lijst2;
     private JList lijst3;
+    private JList geselecteerdeJList;
     private JSplitPane splitPane;
     private JPanel lijsten;
     private ArrayList<KoeriersDienst> koeriersDiensten;
@@ -65,6 +66,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
 
     public ContactOverzichtPanel(DatabaseManager databaseManager) {
         
+        this.setLayout(new GridLayout(1, 1));
         koeriersDiensten = databaseManager.getKoeriersDiensten();
         accountHouders = databaseManager.getAccountHouders();
         treinKoeriers = databaseManager.getTreinKoeriers();
@@ -81,47 +83,20 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         sorteerPanel.add(jbNieuwKoerier);
 
         
-        this.setLayout(new GridLayout(1, 1));
-        DefaultListModel lijstModel =  new DefaultListModel();
-        for (AccountHouder accountHouder : accountHouders) {
-            int contactID = accountHouder.getContactID();
-            String naam = accountHouder.getNaam() + " " + accountHouder.getAchternaam();
-            
-            lijstModel.addElement(contactID + " " + naam);
-        }
-        
-        DefaultListModel lijstModel2 = new DefaultListModel();
-        for (TreinKoerier treinKoerier : treinKoeriers){
-            int contactID = treinKoerier.getContactID();
-            String naam = treinKoerier.getNaam() + " " + treinKoerier.getAchternaam();
-            
-            lijstModel2.addElement(contactID + " " + naam);
-        }
-        
-        KoeriersDienst k = null;
-        DefaultListModel lijstModel3 = new DefaultListModel();
-        for (KoeriersDienst koeriersDienst : koeriersDiensten){
-            int contactID = koeriersDienst.getContactID();
-            String naam = koeriersDienst.getNaam();
-            k = koeriersDienst;
-            lijstModel3.addElement(contactID + " " + naam);
-        }
-        
-        lijst1 = new JList(lijstModel);
+        lijst1 = new JList();
         lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         lijst1.addListSelectionListener(this);
         
+        geselecteerdeJList = lijst1;
         
-        lijst2 = new JList(lijstModel2);
+        lijst2 = new JList();
         lijst2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lijst2.setSelectedIndex(0);
         lijst2.addListSelectionListener(this);
         
         
-        lijst3 = new JList(lijstModel3);
+        lijst3 = new JList();
         lijst3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lijst3.setSelectedIndex(0);
         lijst3.addListSelectionListener(this);
         
         JPanel lijstPanel = new JPanel();
@@ -151,16 +126,52 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         lijstScrollPane.setMinimumSize(minimumSize);
         infoScrollPane.setMinimumSize(minimumSize);
         
+        refresh();
         lijst1.setSelectedIndex(0);
+        lijst2.setSelectedIndex(0);
+        lijst3.setSelectedIndex(0);
+        
+        
+        
+        
+        
         splitPane.setPreferredSize(new Dimension(800, 200));
         add(splitPane);
     }
 
     //Herbouwt onderdelen van het scherm, zodat het overeenkomt met de gegevens uit databaseManager.
-    public void refresh(){
+    public final void refresh(){
+        int index = geselecteerdeJList.getSelectedIndex();
         koeriersDiensten = databaseManager.getKoeriersDiensten();
         accountHouders = databaseManager.getAccountHouders();
         treinKoeriers = databaseManager.getTreinKoeriers();
+        
+        DefaultListModel lijstModel =  new DefaultListModel();
+        for (AccountHouder accountHouder : accountHouders) {
+            int contactID = accountHouder.getContactID();
+            String naam = accountHouder.getNaam() + " " + accountHouder.getAchternaam();
+            
+            lijstModel.addElement(contactID + " " + naam);
+        }
+        
+        DefaultListModel lijstModel2 = new DefaultListModel();
+        for (TreinKoerier treinKoerier : treinKoeriers){
+            int contactID = treinKoerier.getContactID();
+            String naam = treinKoerier.getNaam() + " " + treinKoerier.getAchternaam();
+            
+            lijstModel2.addElement(contactID + " " + naam);
+        }
+        
+        DefaultListModel lijstModel3 = new DefaultListModel();
+        for (KoeriersDienst koeriersDienst : koeriersDiensten){
+            int contactID = koeriersDienst.getContactID();
+            String naam = koeriersDienst.getNaam();
+            KoeriersDienst k = koeriersDienst;
+            lijstModel3.addElement(contactID + " " + naam);
+        }
+        lijst1.setModel(lijstModel);
+        lijst2.setModel(lijstModel2);
+        lijst3.setModel(lijstModel3);
     }
     
     @Override
@@ -204,12 +215,16 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     }
     
     public void selectieVeranderd(JList list){
+        geselecteerdeJList = list;
         Contact c;
         if (list == lijst1){
+            System.out.println("index" +list.getSelectedIndex());
             c = accountHouders.get(list.getSelectedIndex());
         }else if(list == lijst2){
+            System.out.println("index" +list.getSelectedIndex());
             c = treinKoeriers.get(list.getSelectedIndex());
         } else {
+            System.out.println("index" +list.getSelectedIndex());
             c = koeriersDiensten.get(list.getSelectedIndex());
         }
         if (c != geselecteerdContact){
