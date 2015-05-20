@@ -11,16 +11,15 @@ import javax.swing.JTextArea;
  *
  * @author Twan & Michiel
  */
-public class KlachtInfoPanel extends Probleem {
+public class KlachtInfoPanel{
 
     private Pakket pakket;
     private JLabel onderwerp, klantnaam, probleemid, datums;
     private JButton reageer, handelaf;
     private JTextArea klachtbeschrijving;
 
-    public KlachtInfoPanel(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
+    public KlachtInfoPanel(Klacht klacht) {
 
-        super(probleemID, titel, beschrijving, datum, afgehandeld);
         this.setLayout(null);
         event e = new event();
 
@@ -42,16 +41,8 @@ public class KlachtInfoPanel extends Probleem {
         //add(onderwerp);
     }
 
-    public Pakket getPakket() {
-        return pakket;
-    }
-
-    public void setPakket(Pakket pakket) {
-        this.pakket = pakket;
-    }
-
     private void setLayout(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public class event implements ActionListener {

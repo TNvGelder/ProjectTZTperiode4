@@ -37,7 +37,7 @@ public class DatabaseManager {
     private ArrayList<UitbetalingsVerzoek> afgehandeldeVerzoeken;
     private ArrayList<UitbetalingsVerzoek> nietAfgehandeldeVerzoeken;
     private ArrayList<TrajectProbleem> bezorgProblemen;
-    private ArrayList<KlachtInfoPanel> klachten;
+    private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
 
     private Traject vorigTraject;
@@ -57,8 +57,12 @@ public class DatabaseManager {
         treinKoeriers = new ArrayList();
         accountHouders = new ArrayList();
         koeriersDiensten = new ArrayList();
+        bezorgProblemen = new ArrayList();
+        afgehandeldeVerzoeken = new ArrayList();
+        nietAfgehandeldeVerzoeken = new ArrayList();
         contacten = new HashMap();
         locaties = new HashMap();
+        problemen = new HashMap();
         haalDataOp();
 
     }
@@ -87,7 +91,7 @@ public class DatabaseManager {
         return bezorgProblemen;
     }
 
-    public ArrayList<KlachtInfoPanel> getKlachten() {
+    public ArrayList<Klacht> getKlachten() {
         return klachten;
     }
 
@@ -202,11 +206,11 @@ public class DatabaseManager {
         }
         pakket.setTrajecten(gesorteerdeTrajectArray);
         
-//        int probleemID = r.getInt("pr2.probleemID");
-//        if (probleemID != 0) {
-//            KlachtInfoPanel klacht = (KlachtInfoPanel) problemen.get(r.getInt(probleemID));
-//            klacht.setPakket(pakket);
-//        }
+        int probleemID = r.getInt("pr2.probleemID");
+        if (probleemID != 0) {
+            Klacht klacht = (Klacht) problemen.get(probleemID);
+            klacht.setPakket(pakket);
+        }
     }
 
     public void maakTarief(KoeriersDienst koeriersDienst, ResultSet rs) throws SQLException {
@@ -246,17 +250,17 @@ public class DatabaseManager {
                 boolean afgehandeld = rs.getBoolean("afgehandeld");
                 int trajectID = rs.getInt("trajectID");
                 Probleem probleem;
-//                if (trajectID != 0) {
-//                    KlachtInfoPanel klacht = new KlachtInfoPanel(probleemID, titel, beschrijving, datum, afgehandeld);
-//                    klachten.add(klacht);
-//                    probleem = klacht;
-//                } else {
-//                    TrajectProbleem bezorgprobleem = new TrajectProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
-//                    bezorgProblemen.add(bezorgprobleem);
-//                    probleem = bezorgprobleem;
-//                }
-//                System.out.println(probleem);
-//                problemen.put(probleemID, probleem);
+                if (trajectID == 0) {
+                    Klacht klacht = new Klacht(probleemID, titel, beschrijving, datum, afgehandeld);
+                    klachten.add(klacht);
+                    probleem = klacht;
+                } else {
+                    TrajectProbleem bezorgprobleem = new TrajectProbleem(probleemID, titel, beschrijving, datum, afgehandeld);
+                    bezorgProblemen.add(bezorgprobleem);
+                    probleem = bezorgprobleem;
+                }
+                System.out.println(probleem);
+                problemen.put(probleemID, probleem);
             }
 
             rs = statement.executeQuery("SELECT stakeholderID, (SELECT typenaam FROM stakeholdertype ty WHERE ty.typeID = s.type) typenaam ,naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet\n"
