@@ -29,6 +29,7 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
     
     public KoeriersInfoPanel(KoeriersDienst k) {
 
+        setLayout(null);
         jbAanpassen = new JButton("Aanpassen");
         this.add(jbAanpassen);
        
