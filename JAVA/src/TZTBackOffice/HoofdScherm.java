@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -22,14 +23,19 @@ import javax.swing.JTabbedPane;
  */
 public class HoofdScherm extends JFrame implements ActionListener {
 
+    private ContactOverzichtPanel contactPanel;
+    private JTabbedPane tabbedPane;
+    private JButton jbRefresh;
+
     public HoofdScherm() {
         super("BackOffice Applicatie");
         setLayout(new GridLayout());
 
         setSize(1280, 680);
         DatabaseManager databaseManager = new DatabaseManager();
-        JTabbedPane tabbedPane = new JTabbedPane();
-        ContactOverzichtPanel contactPanel = new ContactOverzichtPanel(databaseManager);
+        /*JTabbedPane*/ tabbedPane = new JTabbedPane();
+        /*ContactOverzichtPanel */
+        contactPanel = new ContactOverzichtPanel(databaseManager);
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel(databaseManager);
         UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
         JComponent probleemPanel = new ProbleemPanel();
@@ -39,17 +45,23 @@ public class HoofdScherm extends JFrame implements ActionListener {
         tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
         this.add(tabbedPane);
 
-//        JButton jbRefresh = new JButton("Refresh");
+        jbRefresh = new JButton("Refresh");
 //        add(jbRefresh);
-//        jbRefresh.addActionListener(this);
+        jbRefresh.addActionListener(this);
         setVisible(true);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.repaint();
-        this.revalidate();
+        if (e.getSource() == jbRefresh) {
+            SwingUtilities.updateComponentTreeUI(this.tabbedPane);
+            tabbedPane.invalidate();
+            tabbedPane.validate();
+            tabbedPane.repaint();
+
+            System.out.println("refresh");
+        }
     }
 
 }
