@@ -50,7 +50,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private final String comboBoxItem3 = "Koeriersdienst";
     private final String comboBoxItem2 = "Treinkoerier";
     private JButton jbNieuwKoerier;
-    private DatabaseManager databasemanager;
+    private DatabaseManager databaseManager;
 
     private JList lijst1;
     private JList lijst2;
@@ -68,7 +68,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         koeriersDiensten = databaseManager.getKoeriersDiensten();
         accountHouders = databaseManager.getAccountHouders();
         treinKoeriers = databaseManager.getTreinKoeriers();
-        this.databasemanager = databaseManager;
+        this.databaseManager = databaseManager;
         //Layout scherm
         String comboBoxItems[] = {comboBoxItem1, comboBoxItem2, comboBoxItem3};
         jbNieuwKoerier = new JButton("Koeriersdienst toevoegen");
@@ -76,7 +76,6 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
-//        comboBoxPane.add(cb);
         JPanel sorteerPanel = new JPanel(new FlowLayout());
         sorteerPanel.add(cb);
         sorteerPanel.add(jbNieuwKoerier);
@@ -157,7 +156,13 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         add(splitPane);
     }
 
-
+    //Herbouwt onderdelen van het scherm, zodat het overeenkomt met de gegevens uit databaseManager.
+    public void refresh(){
+        koeriersDiensten = databaseManager.getKoeriersDiensten();
+        accountHouders = databaseManager.getAccountHouders();
+        treinKoeriers = databaseManager.getTreinKoeriers();
+    }
+    
     @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (lijsten.getLayout());
@@ -176,7 +181,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbNieuwKoerier) {
-            KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databasemanager);
+            KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databaseManager, this);
             dialoog.setVisible(true);
         }
     }
@@ -211,6 +216,10 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
             System.out.println(c);
             toonContactInfo(c);
         }
+    }
+
+    public JList getLijst3() {
+        return lijst3;
     }
     
     @Override

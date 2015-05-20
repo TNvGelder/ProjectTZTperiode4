@@ -45,11 +45,6 @@ public class Contact {
         return contactID;
     }
 
-    @Override
-    public String toString() {
-        return "Contact{" + "naam=" + naam + ", email=" + email + ", telefoonnr=" + telefoonnr + ", contactID=" + contactID + '}';
-    }
-
     public void setNaam(String naam) {
         this.naam = naam;
     }
@@ -68,6 +63,11 @@ public class Contact {
 
     public void setContactID(int contactID) {
         this.contactID = contactID;
+    }
+    
+    @Override
+    public String toString() {
+        return "Contact{" + "naam=" + naam + ", email=" + email + ", telefoonnr=" + telefoonnr + ", contactID=" + contactID + '}';
     }
 
 }

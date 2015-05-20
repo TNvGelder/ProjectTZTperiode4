@@ -33,7 +33,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     private JTextArea jtaTarieven;
     private DatabaseManager databasemanager;
 
-    public KoerierToevoegenDialoog(DatabaseManager databasemanager) {
+    public KoerierToevoegenDialoog(DatabaseManager databasemanager, ContactOverzichtPanel contactOverzicht) {
         this.databasemanager = databasemanager;
 
         //Opmaak van JDialoog
@@ -150,12 +150,5 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
             }
         }
-    }
-
-    public void main(String[] args) {
-        KoerierToevoegenDialoog gui = new KoerierToevoegenDialoog(databasemanager);
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(600, 400);
-        gui.setVisible(true);
     }
 }
