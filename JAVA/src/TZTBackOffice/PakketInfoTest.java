@@ -19,15 +19,12 @@ public class PakketInfoTest {
         //Pakket p = new Pakket(1, 200, "30x20x15", verzendOrder, "breekbaar", "onderweg");
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Pakket> pakketten = databaseManager.getPakketten();
-        Pakket pakket = pakketten.get(1);
-        System.out.println("\n"+ pakket);
-        
-        
+        Pakket pakket = pakketten.get(0);
+        System.out.println("\n" + pakket);
+
         PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket);
         JFrame testScherm = new JFrame();
-        
-        
-        
+
         testScherm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
