@@ -60,6 +60,7 @@ public class DatabaseManager {
         bezorgProblemen = new ArrayList();
         afgehandeldeVerzoeken = new ArrayList();
         nietAfgehandeldeVerzoeken = new ArrayList();
+        klachten = new ArrayList();
         contacten = new HashMap();
         locaties = new HashMap();
         problemen = new HashMap();
