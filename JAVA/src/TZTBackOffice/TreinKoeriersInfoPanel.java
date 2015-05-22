@@ -27,7 +27,7 @@ public class TreinKoeriersInfoPanel extends JPanel implements ActionListener{
     private JTextArea jtaTarieven;
     private JButton jbAanpassen;
 
-public TreinKoeriersInfoPanel( TreinKoerier treinKoerier){
+public TreinKoeriersInfoPanel(TreinKoerier treinKoerier){
         
        this.setLayout(null); 
         
@@ -35,7 +35,9 @@ public TreinKoeriersInfoPanel( TreinKoerier treinKoerier){
 
         jbAanpassen = new JButton("Aanpassen");
         this.add(jbAanpassen);
-       
+        event e = new event();
+        jbAanpassen.addActionListener(e);
+        
         jlHead = new JLabel("Treinkoerier");
         jlHead.setForeground(Color.blue);
         jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
@@ -81,11 +83,23 @@ public TreinKoeriersInfoPanel( TreinKoerier treinKoerier){
         
     }
 
-     
-
     @Override
     public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    public class event implements ActionListener {
+    public void actionPerformed(ActionEvent ae) {
+    //if (e.getSource == jbAanpassen){
+//                String strNaam = jtfNaam.getText();
+//                String strTelnummer = jtfTelnummer.getText();
+//                String strEmail = jtfEmail.getText();
+//                String strTarieven = jtaTarieven.getText();
+                
+    //}    
      
         
+    }
     }
 }
