@@ -229,6 +229,21 @@ public class DatabaseManager {
         vorigTraject = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
+        } catch(SQLException ex){
+            if (username.equals("karsbaj97_tzt")){
+                System.out.println("Dit IP heeft waarschijnlijk geen toegang tot de live database. In plaats daarvan wordt er verbinding gemaakt met USBWebserver.");
+                url = "jdbc:mysql://localhost:8080/mydb";
+                username = "root";
+                password = "usbw";
+                haalDataOp();
+            }else{
+                Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+            return;
+        }
+        
+        //Indien er een werkende connectie is worden de queries uitgevoerd en worden er objecten aangemaakt.
+        try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT locatienr, straat, huisnummer, plaats, postcode FROM locatie");
             while (rs.next()) {
