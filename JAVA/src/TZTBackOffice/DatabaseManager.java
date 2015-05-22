@@ -44,9 +44,11 @@ public class DatabaseManager {
 
     // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
-        url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
-        username = "karsbaj97_tzt";
-        password = "wtj01";
+        
+        url = "jdbc:mysql://localhost:3307/mydb";
+        username = "root";
+        password = "usbw";
+        
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
@@ -230,11 +232,11 @@ public class DatabaseManager {
         try {
             connection = DriverManager.getConnection(url, username, password);
         } catch(SQLException ex){
-            if (username.equals("karsbaj97_tzt")){
-                System.out.println("Dit IP heeft waarschijnlijk geen toegang tot de live database. In plaats daarvan wordt er verbinding gemaakt met USBWebserver.");
-                url = "jdbc:mysql://localhost:8080/mydb";
-                username = "root";
-                password = "usbw";
+            if (username.equals("root")){
+                url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
+                username = "karsbaj97_tzt";
+                password = "wtj01";
+                System.out.println("Kan geen verbinding maken met USBwebserver. In plaats daarvan wordt er nu geprobeerd om verbinding te maken met de live database op karsbarendrecht.nl");
                 haalDataOp();
             }else{
                 Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
