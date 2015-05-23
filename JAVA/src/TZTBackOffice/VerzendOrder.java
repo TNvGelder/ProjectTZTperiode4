@@ -47,5 +47,11 @@ class VerzendOrder {
     public Locatie getEindLocatie() {
         return eindLocatie;
     }
+
+    @Override
+    public String toString() {
+        return "VerzendOrder{" + "klant=" + klant.getContactID() + ", aanmeldTijd=" + aanmeldTijd + ", orderID=" + orderID + ", beginLocatie=" + beginLocatie + ", eindLocatie=" + eindLocatie + '}';
+    }
+    
     
 }

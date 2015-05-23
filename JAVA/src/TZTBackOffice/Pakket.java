@@ -19,6 +19,7 @@ public class Pakket {
     private String opmerking;
     private String status;
     private ArrayList<Traject> trajecten;
+    private boolean gesorteerd;
 
     public Pakket(int pakketID, double gewicht, String formaat, VerzendOrder order, String opmerking, String status) {
         this.pakketID = pakketID;
@@ -27,6 +28,7 @@ public class Pakket {
         this.order = order;
         this.opmerking = opmerking;
         this.status = status;
+        this.gesorteerd = false;
         trajecten = new ArrayList();
     }
     
@@ -61,11 +63,42 @@ public class Pakket {
     }
 
     public ArrayList<Traject> getTrajecten() {
+        if (!gesorteerd){
+            System.out.println("Sorteren begint: " + trajecten);
+            sorteerTrajecten();
+            System.out.println("sorteren gestopt: " + trajecten);
+        }
         return trajecten;
     }
 
     public void setTrajecten(ArrayList<Traject> trajecten) {
+
         this.trajecten = trajecten;
+    }
+    
+    //Sorteert de traject array zodat het van begin naar eindlocatie gesorteerd is.
+    public void sorteerTrajecten(){
+        ArrayList<Traject> gesorteerdeTrajectArray = new ArrayList();
+        Locatie beginLocatie = order.getBeginLocatie();
+        while (beginLocatie != null){
+            Traject volgendeTraject = null;
+            for (int i = 0; i< trajecten.size(); i++) {
+                Traject traject = trajecten.get(i);
+                System.out.println(traject.getBeginLocatie().getLocatieID()+" == " + beginLocatie.getLocatieID() );
+                if (traject.getBeginLocatie().getLocatieID() == beginLocatie.getLocatieID()){
+                    trajecten.remove(i);
+                    volgendeTraject = traject;
+                    System.out.println("traject gevonden");
+                }
+            }
+            if (volgendeTraject != null){
+                beginLocatie = volgendeTraject.getEindLocatie();
+                gesorteerdeTrajectArray.add(volgendeTraject);
+            } else{
+                beginLocatie = null;
+            }
+        }
+        setTrajecten(gesorteerdeTrajectArray);
     }
     
     public void voegTrajectToe(Traject traject){

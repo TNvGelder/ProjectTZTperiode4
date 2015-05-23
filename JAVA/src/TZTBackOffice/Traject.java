@@ -55,7 +55,7 @@ public class Traject {
     
     @Override
     public String toString() {
-        return "Traject{" + "afhaalTijdstip=" + afhaalTijdstip + ", afleverTijdstip=" + afleverTijdstip + ", koerier=" + koerier + ", trajectID=" + trajectID + ", beginLocatie=" + beginLocatie + ", eindLocatie=" + eindLocatie + '}';
+        return "Traject{" + "afhaalTijdstip=" + afhaalTijdstip + ", afleverTijdstip=" + afleverTijdstip + ", koerier=" + koerier.getContactID() + ", trajectID=" + trajectID + ", beginLocatie=" + beginLocatie + ", eindLocatie=" + eindLocatie + '}';
     }
         
 }

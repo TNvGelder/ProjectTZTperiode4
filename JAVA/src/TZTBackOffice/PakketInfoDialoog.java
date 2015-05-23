@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -64,6 +65,15 @@ public class PakketInfoDialoog extends JDialog {
         treinkoerier = new JLabel("Treinkoerier: ");
         beschrijving = new JLabel("Beschrijving: ");
 
+        JPanel routePanel = new JPanel(new BorderLayout());
+        
+        for (Traject traject : trajectlijst) {
+            System.out.println(traject);
+        }
+        
+        JScrollPane routeScrollPane = new JScrollPane(routePanel);
+        routeScrollPane.setBounds(700, 115, 550, 100);
+        
         route = new JLabel("Route");
 
         //Kijken naar trajecten en begin en eindlocatie opzoeken + kleur goed krijgen + koerier opzoeken

@@ -14,11 +14,12 @@ public class PakketInfoTest {
     public static void main(String[] args) {
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Pakket> pakketten = databaseManager.getPakketten();
-        Pakket pakket = pakketten.get(0);
+        Pakket pakket = databaseManager.getPakket(23);
         System.out.println("\n" + pakket);
 
         PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket);
         JFrame testScherm = new JFrame();
+        
 
         testScherm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
