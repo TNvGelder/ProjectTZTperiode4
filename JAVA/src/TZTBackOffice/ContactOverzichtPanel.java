@@ -87,7 +87,6 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
 
         lijst1.addListSelectionListener(this);
 
-        geselecteerdeJList = lijst1;
 
         lijst2 = new JList();
         lijst2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -163,6 +162,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         lijst2.setModel(lijstModel2);
         lijst3.setModel(lijstModel3);
         huidigeJList.setSelectedIndex(index);
+        selectieVeranderd(huidigeJList);
     }
 
     @Override
@@ -188,6 +188,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         }
     }
 
+    //Kijkt welke klasse het contact is en toont het contact op bijbehorende manier.
     public void toonContactInfo(Contact c) {
         infoPanel.removeAll();
         if (c instanceof TreinKoerier) {
@@ -202,6 +203,8 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         infoPanel.repaint();
     }
 
+    //Deze functie wordt aangeroepen wanneer er van lijst wordt gewisseld of wanneer er een andere pakket wordt aangeklikt op de lijst.
+    //De functie zoekt het juiste contact erbij en toont dan vervolgens dit contact.
     public void selectieVeranderd(JList list) {
         geselecteerdeJList = list;
         Contact c = null;

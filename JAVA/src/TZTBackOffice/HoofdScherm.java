@@ -30,13 +30,14 @@ public class HoofdScherm extends JFrame implements ActionListener {
     private ContactOverzichtPanel contactPanel;
     private JTabbedPane tabbedPane;
     private JButton jbRefresh;
+    private DatabaseManager databaseManager;
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
         setLayout(new BorderLayout());
         
         setSize(1280, 680);
-        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager = new DatabaseManager();
         tabbedPane = new JTabbedPane();
         contactPanel = new ContactOverzichtPanel(databaseManager);
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel(databaseManager);
@@ -64,6 +65,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbRefresh) {
+            databaseManager.haalDataOp();
             contactPanel.refresh();
 
             System.out.println("refresh");

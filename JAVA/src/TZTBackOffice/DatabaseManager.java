@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package TZTBackOffice;
 
 import java.sql.Connection;
@@ -20,9 +16,10 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Twan
+/*
+ * Gemaakt door Twan van Gelder en Jasper Folkertsma.
+ * DatabaseManager zorgt voor de communicatie met de server. Dit zorgt ervoor dat er buiten de databasemanger niet met queries gewerkt hoeft te worden.
+ * De databasemanger zet data om naar java objecten en kan ook een rij in de database updaten aan de hand van bepaalde objecten.
  */
 public class DatabaseManager {
 
@@ -55,17 +52,7 @@ public class DatabaseManager {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        pakketten = new ArrayList();
-        treinKoeriers = new ArrayList();
-        accountHouders = new ArrayList();
-        koeriersDiensten = new ArrayList();
-        bezorgProblemen = new ArrayList();
-        afgehandeldeVerzoeken = new ArrayList();
-        nietAfgehandeldeVerzoeken = new ArrayList();
-        klachten = new ArrayList();
-        contacten = new HashMap();
-        locaties = new HashMap();
-        problemen = new HashMap();
+        
         haalDataOp();
 
     }
@@ -216,7 +203,8 @@ public class DatabaseManager {
     }
 
     //Haalt pakketten op uit de database en vult de array pakket objecten;
-    private void haalDataOp() {
+    public void haalDataOp() {
+        
         Connection connection = null;
         Statement statement;
         vorigTraject = null;
@@ -235,6 +223,17 @@ public class DatabaseManager {
             return;
         }
         
+        pakketten = new ArrayList();
+        treinKoeriers = new ArrayList();
+        accountHouders = new ArrayList();
+        koeriersDiensten = new ArrayList();
+        bezorgProblemen = new ArrayList();
+        afgehandeldeVerzoeken = new ArrayList();
+        nietAfgehandeldeVerzoeken = new ArrayList();
+        klachten = new ArrayList();
+        contacten = new HashMap();
+        locaties = new HashMap();
+        problemen = new HashMap();
         //Indien er een werkende connectie is worden de queries uitgevoerd en worden er objecten aangemaakt.
         try {
             statement = connection.createStatement();
