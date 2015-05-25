@@ -64,9 +64,7 @@ public class Pakket {
 
     public ArrayList<Traject> getTrajecten() {
         if (!gesorteerd){
-            System.out.println("Sorteren begint: " + trajecten);
             sorteerTrajecten();
-            System.out.println("sorteren gestopt: " + trajecten);
         }
         return trajecten;
     }
@@ -88,7 +86,6 @@ public class Pakket {
                 if (traject.getBeginLocatie().getLocatieID() == beginLocatie.getLocatieID()){
                     trajecten.remove(i);
                     volgendeTraject = traject;
-                    System.out.println("traject gevonden");
                 }
             }
             if (volgendeTraject != null){

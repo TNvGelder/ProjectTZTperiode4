@@ -59,11 +59,5 @@ public class TreinKoerier extends AccountHouder{
     
     
     
-
-    @Override
-    public String toString() {
-        return "TreinKoerier{" + super.toString()  + "krediet=" + krediet + ", rekeningnr=" + rekeningnr + ", idKaart=" + idKaart + ", ovKaart=" + ovKaart + '}';
-    }
-    
     
 }

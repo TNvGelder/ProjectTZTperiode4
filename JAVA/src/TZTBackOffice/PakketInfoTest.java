@@ -17,8 +17,9 @@ public class PakketInfoTest {
         Pakket pakket = databaseManager.getPakket(23);
         System.out.println("\n" + pakket);
 
-        PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket);
+        
         JFrame testScherm = new JFrame();
+        PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket, testScherm);
         
 
         testScherm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

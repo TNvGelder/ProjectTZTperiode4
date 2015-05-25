@@ -56,7 +56,7 @@ public class ButtonEditor extends DefaultCellEditor {
             Pakket pakket = pakketten.get(14);
             System.out.println("\n Het pakket: " + pakket);
 
-            PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket);
+            PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket, null);
         }
         isPushed = false;
         return new String(label);

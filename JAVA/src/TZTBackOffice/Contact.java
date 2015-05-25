@@ -67,7 +67,7 @@ public class Contact {
     
     @Override
     public String toString() {
-        return "Contact{" + "naam=" + naam + ", email=" + email + ", telefoonnr=" + telefoonnr + ", contactID=" + contactID + '}';
+        return naam;
     }
 
 }

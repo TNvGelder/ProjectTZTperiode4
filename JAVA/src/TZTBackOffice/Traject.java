@@ -53,6 +53,16 @@ public class Traject {
         return eindLocatie;
     }
     
+    public String getStatus(){
+        if (afleverTijdstip != null){
+            return "Afgeleverd om: " + afleverTijdstip;
+        }else if(afhaalTijdstip != null){
+            return "Onderweg";
+        }else{
+            return "";
+        }
+    }
+    
     @Override
     public String toString() {
         return "Traject{" + "afhaalTijdstip=" + afhaalTijdstip + ", afleverTijdstip=" + afleverTijdstip + ", koerier=" + koerier.getContactID() + ", trajectID=" + trajectID + ", beginLocatie=" + beginLocatie + ", eindLocatie=" + eindLocatie + '}';

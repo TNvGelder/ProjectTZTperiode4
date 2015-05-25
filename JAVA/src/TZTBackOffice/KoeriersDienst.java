@@ -30,9 +30,4 @@ public class KoeriersDienst extends Contact {
     
     
 
-    @Override
-    public String toString() {
-        return "KoeriersDienst{" + super.toString() + "tarieven=" + tarieven + '}';
-    }
-
 }

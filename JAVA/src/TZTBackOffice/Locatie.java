@@ -46,7 +46,7 @@ class Locatie {
 
     @Override
     public String toString() {
-        return "Locatie{" + "locatieID=" + locatieID + ", straat=" + straat + ", huisnummer=" + huisnummer + ", plaats=" + plaats + ", postcode=" + postcode + '}';
+        return straat+" "+ huisnummer;
     }
     
     

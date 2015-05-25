@@ -147,6 +147,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
         System.out.println("geselecteerd: " + table.getSelectedRow());
 
+        int trajectPanelY = 50;
 //        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
 //                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
 //

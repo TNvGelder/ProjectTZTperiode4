@@ -29,7 +29,7 @@ public class AccountHouder extends Contact {
 
     @Override
     public String toString() {
-        return "AccountHouder{" + super.toString() + "achternaam=" + achternaam + ", locatie=" + locatie + '}';
+        return getNaam() + " " + achternaam;
     }
     
     
