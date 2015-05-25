@@ -5,7 +5,9 @@
  */
 package TZTBackOffice;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
@@ -19,7 +21,9 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Twan
+ * Gemaakt door Twan van Gelder
+ * Op het scherm dat opgebouwd wordt in deze klasse kunnen overzichtspanels getoond worden met behulp van tabs.
+ * Ook is er een refresh knop die ervoor zorgt dat de UI weer up to date is met de database.
  */
 public class HoofdScherm extends JFrame implements ActionListener {
 
@@ -29,25 +33,30 @@ public class HoofdScherm extends JFrame implements ActionListener {
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
-        setLayout(new GridLayout());
-
+        setLayout(new BorderLayout());
+        
         setSize(1280, 680);
         DatabaseManager databaseManager = new DatabaseManager();
-        /*JTabbedPane*/ tabbedPane = new JTabbedPane();
-        /*ContactOverzichtPanel */
+        tabbedPane = new JTabbedPane();
         contactPanel = new ContactOverzichtPanel(databaseManager);
         PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel(databaseManager);
         UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
-        JComponent probleemPanel = new ProbleemPanel();
-        tabbedPane.addTab("Problemen", probleemPanel);
+        //JComponent probleemPanel = new ProbleemPanel();
+        //tabbedPane.addTab("Problemen", probleemPanel);
         tabbedPane.addTab("Pakketten", pakketPanel);
         tabbedPane.addTab("Klanten & Koeriers", contactPanel);
         tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
+        jbRefresh = new JButton("Ververs gegevens");
+        jbRefresh.addActionListener(this);
+        jbRefresh.setBounds(0,0,jbRefresh.getPreferredSize().width,30);
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setPreferredSize(new Dimension(30,30));
+        panel.add(jbRefresh);
+        this.add(panel, BorderLayout.NORTH);
         this.add(tabbedPane);
 
-        jbRefresh = new JButton("Refresh");
-//        add(jbRefresh);
-        jbRefresh.addActionListener(this);
+        
         setVisible(true);
 
     }
@@ -55,10 +64,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbRefresh) {
-            SwingUtilities.updateComponentTreeUI(this.tabbedPane);
-            tabbedPane.invalidate();
-            tabbedPane.validate();
-            tabbedPane.repaint();
+            contactPanel.refresh();
 
             System.out.println("refresh");
         }
