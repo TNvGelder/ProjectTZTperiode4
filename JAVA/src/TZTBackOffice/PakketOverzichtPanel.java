@@ -29,6 +29,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,6 +49,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     private Traject traject;
     private VerzendOrder verzendorder;
     private Probleem probleem;
+    private int selectedCell;
 
     private final DatabaseManager databasemanager;
     DatabaseManager databaseManager = new DatabaseManager();
@@ -79,11 +82,15 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         String col[] = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"};
 
         DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
-//            //Zorg dat de tabel niet te bewerken is
-//            @Override
-//            public boolean isCellEditable(int data, int columns) {
-//                return false;
-//            }
+            //Zorg dat de tabel niet te bewerken is
+            @Override
+            public boolean isCellEditable(int data, int columns) {
+                if (columns == 8) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         };
 
         JTable table = new JTable(tableModel);
@@ -92,7 +99,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         int i = 0;
         for (Pakket s : pakketten) {
             //Bekijk status van pakket
-            
+
             System.out.println(s);
             String strStatus = pakketten.get(i).getStatus();
             String strBetaald = null;
@@ -139,63 +146,77 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
             i++;
         }
 
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println("#################################################################################hey");
+                String selectedCell1 = table.getValueAt(table.getSelectedRow(), 0).toString();
+                int selectedCelltest = Integer.parseInt(selectedCell1);
+//                int selectedCelltest = Integer.valueOf(selectedCell1);
+                setSelectedCell(selectedCelltest);
+                getSelectedCell();
+                System.out.println("dit is de cel volgens value: " + getSelectedCell());
+                System.out.println("De cel: " + selectedCelltest);
+
+            }
+        });
+        System.out.println("doei: " + getSelectedCell());
         table.getColumn("Details").setCellRenderer(new ButtonRenderer());
         table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
         table.setPreferredScrollableViewportSize(new Dimension(800, 140));
         JScrollPane scrollAangemeld = new JScrollPane(table);
         card1.add(scrollAangemeld);
 
-        System.out.println("geselecteerd: " + table.getSelectedRow());
-
-        int trajectPanelY = 50;
-//        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
+//        System.out.println("geselecteerd: " + table.getSelectedRow());
+//
+//        int trajectPanelY = 50;
+////        dmAangemeld.setDataVector(new Object[][]{{pakketten.get(0)}},
+////                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
+////
+////
+////        JTable tableAangemeld = new JTable(dmAangemeld);
+//        JPanel card2 = new JPanel();
+//        DefaultTableModel dmVerzonden = new DefaultTableModel();
+//
+//        dmVerzonden.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Verzonden BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
 //                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
 //
+//        JTable tableVerzonden = new JTable(dmVerzonden);
+//        tableVerzonden.getColumn("Details").setCellRenderer(new ButtonRenderer());
+//        tableVerzonden.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
+//        tableVerzonden.setPreferredScrollableViewportSize(new Dimension(800, 140));
+//        JScrollPane scrollVerzonden = new JScrollPane(tableVerzonden);
+//        card2.add(scrollVerzonden);
 //
-//        JTable tableAangemeld = new JTable(dmAangemeld);
-        JPanel card2 = new JPanel();
-        DefaultTableModel dmVerzonden = new DefaultTableModel();
-
-        dmVerzonden.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Verzonden BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
-                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
-
-        JTable tableVerzonden = new JTable(dmVerzonden);
-        tableVerzonden.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        tableVerzonden.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
-        tableVerzonden.setPreferredScrollableViewportSize(new Dimension(800, 140));
-        JScrollPane scrollVerzonden = new JScrollPane(tableVerzonden);
-        card2.add(scrollVerzonden);
-
-        JPanel card3 = new JPanel();
-        DefaultTableModel dmGearriveerd = new DefaultTableModel();
-
-        dmGearriveerd.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Gearriveerd BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
-                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
-
-        JTable tableGearriveerd = new JTable(dmGearriveerd);
-        tableGearriveerd.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        tableGearriveerd.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
-        tableGearriveerd.setPreferredScrollableViewportSize(new Dimension(800, 140));
-        JScrollPane scrollGearriveerd = new JScrollPane(tableGearriveerd);
-        card3.add(scrollGearriveerd);
-
+//        JPanel card3 = new JPanel();
+//        DefaultTableModel dmGearriveerd = new DefaultTableModel();
+//
+//        dmGearriveerd.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Gearriveerd BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
+//        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
+//                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
+//
+//        JTable tableGearriveerd = new JTable(dmGearriveerd);
+//        tableGearriveerd.getColumn("Details").setCellRenderer(new ButtonRenderer());
+//        tableGearriveerd.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
+//        tableGearriveerd.setPreferredScrollableViewportSize(new Dimension(800, 140));
+//        JScrollPane scrollGearriveerd = new JScrollPane(tableGearriveerd);
+//        card3.add(scrollGearriveerd);
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         cards.add(card1, Aangemelde);
-        cards.add(card2, Verzonden);
-        cards.add(card3, Gearriveerde);
+//        cards.add(card2, Verzonden);
+//        cards.add(card3, Gearriveerde);
         add(cb);
         add(cards, BorderLayout.CENTER);
 
@@ -203,6 +224,14 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
 //        pane.add(comboBoxPane, BorderLayout.PAGE_START);
 //        pane.add(cards, BorderLayout.CENTER);
+    }
+
+    public void setSelectedCell(int selectedCell) {
+        this.selectedCell = selectedCell;
+    }
+
+    public int getSelectedCell() {
+        return selectedCell;
     }
 
     public void addComponentToPane(Container pane) {
@@ -239,56 +268,10 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         cl.show(cards, (String) evt.getItem());
     }
 
-    //############################################################||Voor het testen welke cel geselecteer is||#################################################################################
-    JTable theTable = new JTable();//your table
-    boolean pressingCTRL = false;//flag, if pressing CTRL it is true, otherwise it is false.
-    Vector selectedCells = new Vector<int[]>();//int[]because every entry will store {cellX,cellY}
-
-    public void something() {
-        KeyListener tableKeyListener = new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_CONTROL) {//check if user is pressing CTRL key
-                    pressingCTRL = true;
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_CONTROL) {//check if user released CTRL key
-                    pressingCTRL = false;
-                }
-            }
-        };
-
-        MouseListener tableMouseListener = new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (pressingCTRL) {//check if user is pressing CTRL key
-                    int row = theTable.rowAtPoint(e.getPoint());//get mouse-selected row
-                    int col = theTable.columnAtPoint(e.getPoint());//get mouse-selected col
-                    int[] newEntry = new int[]{row, col};//{row,col}=selected cell
-                    if (selectedCells.contains(newEntry)) {
-                        //cell was already selected, deselect it
-                        selectedCells.remove(newEntry);
-                    } else {
-                        //cell was not selected
-                        selectedCells.add(newEntry);
-                    }
-                }
-
-            }
-
-        };
-        theTable.addKeyListener(tableKeyListener);
-        theTable.addMouseListener(tableMouseListener);
-
-        /**
-         * Create the GUI and show it. For thread safety, this method should be
-         * invoked from the event dispatch thread.
-         */
+    /**
+     * Create the GUI and show it. For thread safety, this method should be
+     * invoked from the event dispatch thread.
+     */
 //    private static void createAndShowGUI() {
 //        //Create and set up the window.
 //        JFrame frame = new JFrame("Buttons");
@@ -328,5 +311,4 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //            }
 //        });
 //    }
-    }
 }
