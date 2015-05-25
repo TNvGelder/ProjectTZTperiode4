@@ -185,7 +185,7 @@ public class PakketInfoDialoog extends JDialog {
         panel.add(station2);
         panel.add(locatie2);
         herbereken.setBounds(974, 80, 175, 30);
-        panel.add(herbereken);
+        //panel.add(herbereken);
         
         panel.add(routeScrollPane);
         

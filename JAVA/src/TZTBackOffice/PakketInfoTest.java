@@ -19,8 +19,9 @@ public class PakketInfoTest {
 
         
         JFrame testScherm = new JFrame();
-        PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket, testScherm);
-        
+        testScherm.setVisible(false);
+        PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket, null);
+        pakketInfo.setVisible(true);
 
         testScherm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
