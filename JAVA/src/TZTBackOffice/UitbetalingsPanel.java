@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -31,6 +32,10 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
     final static String Openstaand = "Openstaande aanvragen";
     final static String Afgehandeld = "Afgehandelde aanvragen";
+
+    private JPanel categoriePanel;
+    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
+    private JComboBox cb;
 
     public UitbetalingsPanel() {
         //Layout scherm
