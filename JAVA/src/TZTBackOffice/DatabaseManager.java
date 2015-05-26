@@ -136,7 +136,8 @@ public class DatabaseManager {
     private void maakTraject(Pakket p, ResultSet r) throws SQLException {
         //t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
         int trajectID = r.getInt("t.trajectID");
-        if (trajectID != 0) {
+        boolean geclaimd = r.getBoolean("geclaimd");
+        if (trajectID != 0 && geclaimd) {
             int koerierID = r.getInt("r.koerierID");
             if (vorigTraject == null || vorigTraject.getTrajectID() != trajectID) {
                 Timestamp afhaaltijd = r.getTimestamp("afhaaltijd");
@@ -499,7 +500,7 @@ public class DatabaseManager {
             }
 
             rs = statement.executeQuery("SELECT v.orderID, v.klantID, definitief, aanmeldtijd, v.beginlocatie, v.eindlocatie, p.pakketID, gewicht, formaat, opmerking, status\n"
-                    + ", t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
+                    + ", t.trajectID, afhaaltijd, aflevertijd, geclaimd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID FROM verzendorder v\n"
                     + "LEFT OUTER JOIN pakket p ON v.orderID = p.orderID\n"
                     + "LEFT OUTER JOIN traject t ON  p.pakketID = t.pakketID\n"
                     + "LEFT OUTER JOIN reis r ON t.reisID = r.reisID\n"

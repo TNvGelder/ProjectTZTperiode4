@@ -27,40 +27,37 @@ public class PakketInfoDialoog extends JDialog {
 
     public PakketInfoDialoog(Pakket pakket, JFrame scherm) {
         super(scherm);
-
-        //Haal de orderinfo van het pakket uit de database op
-        VerzendOrder order = pakket.getOrder();
-        AccountHouder accounthouder = order.getKlant();
-        ArrayList<Traject> trajectlijst = pakket.getTrajecten();
-
-        //Maak het scherm
         this.setTitle("Pakket " + pakket.getPakketID());
         this.setSize(1280, 720);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        //J-dingen maken
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-
+        
+        int routePanelX = 450;
+        int trajectPanelY = 110;
+        
+        
+        VerzendOrder order = pakket.getOrder();
+        AccountHouder accounthouder = order.getKlant();
+        ArrayList<Traject> trajectlijst = pakket.getTrajecten();
+        
         idLabel = new JLabel("Pakket " + pakket.getPakketID());
-
         aanmeldtijd = new JLabel("Aangemeld: " + order.getAanmeldTijd());
         aflevertijd = new JLabel("Status: " + pakket.getStatus());
-        afzender = new JLabel("Afzender: " + accounthouder.getNaam() + " " + accounthouder.getAchternaam());
+        afzender = new JLabel("Afzender: " + accounthouder.toString());
         formaat = new JLabel("Formaat: " + pakket.getFormaat());
         gewicht = new JLabel("Gewicht: " + pakket.getGewicht() + "g");
         beschrijvingsLabel = new JLabel("Beschrijving: ");
 
-        //Routepanel aanmaken
-        int routePanelX = 450;
-        int trajectPanelY = 110;
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
         JPanel routePanel = new JPanel(new GridLayout(trajectlijst.size(), 1));
         Dimension routePanelSize = new Dimension(routePanelX - 50, (trajectlijst.size() * trajectPanelY));
         routePanel.setPreferredSize(routePanelSize);
 
+        //Maakt de JLabels aan met informatie over het traject
+        //De JLabels worden in routePanel gestopt en dit wrodt vervolgens in een ScrollPane gestopt.
+        //Doordat het in een scrollpane zit maakt het niet uit hoeveel trajecten er getoond moeten worden.
         boolean isEerste = true;
         Color kleur = Color.WHITE;
-        //Maakt de JLabels aan met informatie over het traject
         for (Traject traject : trajectlijst) {
             Locatie beginLocatie = traject.getBeginLocatie();
             int trajectID1 = traject.getTrajectID();
