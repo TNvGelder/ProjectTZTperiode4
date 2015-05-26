@@ -56,7 +56,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //        comboBoxPane.add(cb);
         
         //Create the "cards".
-        refresh();
+//        refresh();
 
         setVisible(true);
     }

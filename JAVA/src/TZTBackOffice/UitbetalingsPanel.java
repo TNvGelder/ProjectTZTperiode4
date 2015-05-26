@@ -49,7 +49,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 //        comboBoxPane.add(cb);
         
         //Create the "cards".
-//        refresh();
+        //refresh();
 
         setVisible(true);
     }
@@ -71,13 +71,13 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         this.removeAll();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
-        maakCategorie("Niet Afgehandeld");
-        maakCategorie("Afgehandeld");
         cards = new JPanel(new CardLayout());
 
         cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
+        maakCategorie("Niet Afgehandeld");
+        maakCategorie("Afgehandeld");
         maakCategorie("Alle Pakketten");
         categoriePanel.add(cb);
         add(cards);
