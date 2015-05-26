@@ -48,7 +48,7 @@ public class DatabaseManager {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger("").log(Level.SEVERE, null, ex);
         }
 
         haalDataOp();
@@ -331,7 +331,7 @@ public class DatabaseManager {
                 System.out.println("Kan geen verbinding maken met USBwebserver. In plaats daarvan wordt er nu geprobeerd om verbinding te maken met de live database op karsbarendrecht.nl");
                 haalDataOp();
             } else {
-                Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger("").log(Level.SEVERE, null, ex);
             }
             return;
         }
@@ -486,13 +486,13 @@ public class DatabaseManager {
             connection.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger("").log(Level.SEVERE, null, ex);
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger("").log(Level.SEVERE, null, ex);
                 }
             }
         }
