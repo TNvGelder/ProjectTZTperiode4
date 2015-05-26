@@ -208,25 +208,14 @@ public class DatabaseManager {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
 
-            //Dit moet allemaal geupdate worden
-//            a.setNaam(strNaam);
-//            a.setAchternaam(strAchternaam);
-//            a.setTelefoonnr(strTelefoonnummer);
-//            a.getLocatie().setPlaats(strWoonplaats);
-//            a.getLocatie().setPostcode(strPostcode);
-//            a.getLocatie().setStraat(strStraat);
-//            a.getLocatie().setHuisnummer(strHuisnummer);
-//            type
             //Update statement maken
-            String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ?, type = ?, achternaam = ?,  WHERE stakeholderID = ?";
-
+            String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ?, type = ? WHERE stakeholderID = ?";
             //Preparedstatement maken
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             preparedStmt.setString(1, c.getNaam());
             preparedStmt.setString(2, c.getTelefoonnr());
             preparedStmt.setString(3, c.getType());
-//            preparedStmt.setString(4, c);   hier komt achternaam
 
             preparedStmt.setInt(4, c.getContactID());
 
@@ -238,7 +227,52 @@ public class DatabaseManager {
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
-            System.out.println("Er is iets misgegaan met de functie updateAccounthouder");
+            System.out.println("Er is iets misgegaan met de functie updateContact");
+            System.out.println(e);
+        }
+    }
+
+    public void updateLocatie(AccountHouder a) {
+
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+
+            //Dit moet allemaal geupdate worden
+//            a.setNaam(strNaam);
+//            a.setAchternaam(strAchternaam);
+//            a.setTelefoonnr(strTelefoonnummer);
+//            a.getLocatie().setPlaats(strWoonplaats);
+//            a.getLocatie().setPostcode(strPostcode);
+//            a.getLocatie().setStraat(strStraat);
+//            a.getLocatie().setHuisnummer(strHuisnummer);
+//            type
+            //Update statement maken
+            String query = " UPDATE locatie SET straat = ?, huisnummer = ?, plaats = ?, postcode = ? WHERE locatienr = ?";
+
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setString(1, a.getLocatie().getStraat());
+            preparedStmt.setString(2, a.getLocatie().getHuisnummer());
+            preparedStmt.setString(3, a.getLocatie().getPlaats());
+            preparedStmt.setString(4, a.getLocatie().getPostcode());
+
+            preparedStmt.setInt(5, a.getLocatie().getLocatieID());
+
+            //Voer preparedstatement uit
+            preparedStmt.executeUpdate();
+            System.out.println("locatie geupdate");
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan met de functie updateLocatie");
             System.out.println(e);
         }
     }

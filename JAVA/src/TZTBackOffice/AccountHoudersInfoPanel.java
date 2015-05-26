@@ -178,7 +178,9 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             a.getLocatie().setPostcode(strPostcode);
             a.getLocatie().setStraat(strStraat);
             a.getLocatie().setHuisnummer(strHuisnummer);
+            a.setType("1");
 
+            databasemanager.updateLocatie(a);
             databasemanager.updateContact(a);
         }
 
