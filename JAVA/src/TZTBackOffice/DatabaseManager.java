@@ -447,7 +447,7 @@ public class DatabaseManager {
                 }
             }
 
-            rs = statement.executeQuery("SELECT treinkoerier, datum, bedrag, isafgehandeld, goedgekeurd FROM kredietomzetting");
+            rs = statement.executeQuery("SELECT treinkoerier, datum, bedrag, isafgehandeld, goedgekeurd FROM kredietomzetting ORDER BY datum DESC");
             while (rs.next()) {
                 TreinKoerier treinKoerier = (TreinKoerier) contacten.get(rs.getInt("treinkoerier"));
                 Timestamp datum = rs.getTimestamp("datum");
