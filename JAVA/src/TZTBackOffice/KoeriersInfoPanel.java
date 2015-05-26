@@ -25,10 +25,15 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
     private JTextField jtfNaam, jtfTelnummer, jtfEmail, jtfStartTarief, jtfWaardeOmslag, jtfPrijsPerKm;
     private JTextArea jtaTarieven;
     private JButton jbAanpassen;
-//    private Tarief t;
 
-    public KoeriersInfoPanel(KoeriersDienst k) {
+    private DatabaseManager databasemanager;
+    private KoeriersDienst k;
+
+    public KoeriersInfoPanel(KoeriersDienst koeriersdienst) {
+//        super(koeriersdienst, databasemanager);
+//        this.databasemanager = databasemanager;
         this.setLayout(null);
+        this.k = koeriersdienst;
 
         setLayout(null);
         jbAanpassen = new JButton("Aanpassen");

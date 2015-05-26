@@ -10,6 +10,7 @@ package TZTBackOffice;
  * @author Twan
  */
 class Locatie {
+
     private int locatieID;
     private String straat;
     private String huisnummer;
@@ -46,9 +47,27 @@ class Locatie {
 
     @Override
     public String toString() {
-        return straat+" "+ huisnummer;
+        return straat + " " + huisnummer;
     }
-    
-    
-    
+
+    public void setLocatieID(int locatieID) {
+        this.locatieID = locatieID;
+    }
+
+    public void setStraat(String straat) {
+        this.straat = straat;
+    }
+
+    public void setHuisnummer(String huisnummer) {
+        this.huisnummer = huisnummer;
+    }
+
+    public void setPlaats(String plaats) {
+        this.plaats = plaats;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
 }

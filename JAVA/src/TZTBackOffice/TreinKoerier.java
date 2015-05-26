@@ -9,19 +9,15 @@ package TZTBackOffice;
  *
  * @author Twan
  */
-public class TreinKoerier extends AccountHouder{
-    
+public class TreinKoerier extends AccountHouder {
+
     private double krediet;
     private String rekeningnr;
-    private String idKaart;
-    private String ovKaart;
 
-    public TreinKoerier(double krediet, String rekeningnr, String idKaart, String ovKaart, String voornaam, String type, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
-        super(voornaam, type, email, telefoonnr, contactID, achternaam, locatie);
+    public TreinKoerier(double krediet, String rekeningnr, String voornaam, String type, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
+        super(voornaam, type, email, telefoonnr, contactID, achternaam, locatie, null, null);
         this.krediet = krediet;
         this.rekeningnr = rekeningnr;
-        this.idKaart = idKaart;
-        this.ovKaart = ovKaart;
     }
 
     public double getKrediet() {
@@ -32,14 +28,6 @@ public class TreinKoerier extends AccountHouder{
         return rekeningnr;
     }
 
-    public String getIdKaart() {
-        return idKaart;
-    }
-
-    public String getOvKaart() {
-        return ovKaart;
-    }
-
     public void setKrediet(double krediet) {
         this.krediet = krediet;
     }
@@ -47,17 +35,4 @@ public class TreinKoerier extends AccountHouder{
     public void setRekeningnr(String rekeningnr) {
         this.rekeningnr = rekeningnr;
     }
-
-    public void setIdKaart(String idKaart) {
-        this.idKaart = idKaart;
-    }
-
-    public void setOvKaart(String ovKaart) {
-        this.ovKaart = ovKaart;
-    }
-    
-    
-    
-    
-    
 }

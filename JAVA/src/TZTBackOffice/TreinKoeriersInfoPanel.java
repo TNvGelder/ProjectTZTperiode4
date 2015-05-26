@@ -42,7 +42,6 @@ public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements A
             System.out.println("ik ben geprint bij TreinKoeriersInfoPanel");
             String strNaam = jtfNaam.getText();
             String strTelefoonnummer = jtfTelnummer.getText();
-            String strEmail = jtfEmail.getText();
 
             t.setNaam(strNaam);
             t.setTelefoonnr(strTelefoonnummer);

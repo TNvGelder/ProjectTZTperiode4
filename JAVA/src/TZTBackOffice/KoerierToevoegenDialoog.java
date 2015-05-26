@@ -159,7 +159,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
                     System.out.println("%email invullen%");
                 } else {
                     //Maak contact en koerier aan
-                    Contact contact1 = new Contact(strNaam, strType, strEmail, strTelnummer, 1);
+                    Contact contact1 = new Contact(strNaam, strType, strEmail, strTelnummer, 1, null, null);
                     KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, 1);
                     contact1.setNaam(strNaam);
                     contact1.setEmail(strEmail);

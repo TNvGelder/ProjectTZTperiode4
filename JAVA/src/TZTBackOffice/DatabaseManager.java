@@ -208,15 +208,27 @@ public class DatabaseManager {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
 
+            //Dit moet allemaal geupdate worden
+//            a.setNaam(strNaam);
+//            a.setAchternaam(strAchternaam);
+//            a.setTelefoonnr(strTelefoonnummer);
+//            a.getLocatie().setPlaats(strWoonplaats);
+//            a.getLocatie().setPostcode(strPostcode);
+//            a.getLocatie().setStraat(strStraat);
+//            a.getLocatie().setHuisnummer(strHuisnummer);
+//            type
             //Update statement maken
-            String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ? WHERE stakeholderID = ?";
+            String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ?, type = ?, achternaam = ?,  WHERE stakeholderID = ?";
 
             //Preparedstatement maken
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             preparedStmt.setString(1, c.getNaam());
             preparedStmt.setString(2, c.getTelefoonnr());
-            preparedStmt.setInt(3, c.getContactID());
+            preparedStmt.setString(3, c.getType());
+//            preparedStmt.setString(4, c);   hier komt achternaam
+
+            preparedStmt.setInt(4, c.getContactID());
 
             //Voer preparedstatement uit
             preparedStmt.executeUpdate();
@@ -267,7 +279,7 @@ public class DatabaseManager {
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
 
         int pakketID = r.getInt("p.pakketID");
-        if (pakketID == 0){
+        if (pakketID == 0) {
             return;
         }
         Pakket pakket;
@@ -295,7 +307,7 @@ public class DatabaseManager {
     public void maakTarief(KoeriersDienst koeriersDienst, ResultSet rs) throws SQLException {
         int km = rs.getInt("km");
         Double prijs = rs.getDouble("prijs");
-        if (prijs == 0){
+        if (prijs == 0) {
             return;
         }
         Double extraPrijs = rs.getDouble("extraPrijs");
@@ -392,17 +404,18 @@ public class DatabaseManager {
                         Locatie locatie = locaties.get(rs.getInt("locatie"));
                         AccountHouder klant;
                         if ("geverifieerd".equals(typenaam)) {
-                            String ovkaart = rs.getString("ovkaart");
+
                             Double krediet = rs.getDouble("krediet");
-                            String idkaart = rs.getString("idkaart");
                             String rekeningnr = rs.getString("rekeningnr");
-                            TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, idkaart, ovkaart, naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
+                            TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
                             treinKoeriers.add(koerier);
                             accountHouders.add(koerier);
                             klant = koerier;
                             System.out.println(typenaam + " " + koerier);
                         } else {
-                            klant = new AccountHouder(naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
+                            String ovkaart = rs.getString("ovkaart");
+                            String idkaart = rs.getString("idkaart");
+                            klant = new AccountHouder(naam, typenaam, email, telefoonnr, contactID, achternaam, locatie, ovkaart, idkaart);
                             accountHouders.add(klant);
                             System.out.println(typenaam + " " + klant);
                         }
