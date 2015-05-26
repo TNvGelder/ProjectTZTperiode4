@@ -38,7 +38,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         this.databasemanager = databasemanager;
 
         //Opmaak van JDialoog
-        setTitle("Toevoegen Professionele treinkoerier");
+        setTitle("Toevoegen koeriersdienst");
         setSize(600, 400);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //---> geeft een foutmelding bij in gebruik neming
