@@ -63,14 +63,16 @@ public class ButtonEditor extends DefaultCellEditor {
             PakketOverzichtPanel pakketOverzicht = new PakketOverzichtPanel(databaseManager);
 //            int intSelectedCell = Integer.parseInt(pakketOverzicht.selectedCell);
 //            int intSelectedCell = Integer.valueOf(pakketOverzicht.selectedCell);
-            Pakket pakket = databaseManager.getPakket(pakketOverzicht.getSelectedCell());
-            System.out.println("\n" + pakket);
-            System.out.println("het pakket is: " + pakket);
 
-            JFrame testScherm = new JFrame();
-            testScherm.setVisible(false);
-            PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket, null);
-            pakketInfo.setVisible(true);
+            //###############################################################################||Pakket meegeven om te laten werken||########################################################################
+//            Pakket pakket = databaseManager.getPakket(pakketOverzicht.getSelectedCell());
+//            System.out.println("\n" + pakket);
+//            System.out.println("het pakket is: " + pakket);
+//
+//            JFrame testScherm = new JFrame();
+//            testScherm.setVisible(false);
+//            PakketInfoDialoog pakketInfo = new PakketInfoDialoog(pakket, null);
+//            pakketInfo.setVisible(true);
         }
         isPushed = false;
         return new String(label);

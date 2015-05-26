@@ -36,16 +36,16 @@ public class PakketTabelPanel extends JPanel {
             //Zorg dat de tabel niet te bewerken is
             @Override
             public boolean isCellEditable(int data, int columns) {
-                if (columns == 8) {
+                if (columns == 7) {
                     return true;
                 } else {
                     return false;
                 }
             }
         };
-        
+
         System.out.println(table.getColumnCount());
-        table.setModel(tableModel);        
+        table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setMinWidth(100);
         table.getColumnModel().getColumn(1).setMinWidth(100);
         table.getColumnModel().getColumn(2).setMinWidth(100);
@@ -56,7 +56,7 @@ public class PakketTabelPanel extends JPanel {
         table.getColumnModel().getColumn(7).setMinWidth(100);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(900,scrollPane.getPreferredSize().height));
+        scrollPane.setPreferredSize(new Dimension(900, scrollPane.getPreferredSize().height));
         scrollPane.getViewport().setBackground(Color.WHITE);
         add(scrollPane);
 

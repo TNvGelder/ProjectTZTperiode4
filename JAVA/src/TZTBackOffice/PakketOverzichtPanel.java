@@ -58,17 +58,16 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         add(categoriePanel, BorderLayout.NORTH);
         //Create the "cards".
         refresh();
-        
 
         setVisible(true);
 
 //        pane.add(comboBoxPane, BorderLayout.PAGE_START);
 //        pane.add(cards, BorderLayout.CENTER);
     }
-    
-    public void maakCategorie(String categorieNaam){
+
+    public void maakCategorie(String categorieNaam) {
         PakketTabelPanel card = new PakketTabelPanel();
-        
+
         sorteerCategorieën.put(categorieNaam, card);
         cb.addItem(categorieNaam);
         cards.add(card, categorieNaam);
@@ -77,45 +76,38 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     public void refresh() {
         sorteerCategorieën = new HashMap();
         cards = new JPanel(new CardLayout());
-        
+
         cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
         maakCategorie("Alle Pakketten");
-        
-        
 
 //        for (String categorie : sorteerCategorieën.keySet()) {
 //            cb.addItem(categorie);
 //            JPanel card = new JPanel();
 //            cards.add(card, categorie);
 //        }
-        
         categoriePanel.add(cb);
         add(cards);
-        
+
         // Populate the JTable (TableModel) with data from ArrayList
         for (Pakket pakket : pakketten) {
             //Bekijk status van pakket
 
             String strStatus = pakket.getStatus();
-            if (! sorteerCategorieën.containsKey(strStatus)){
+            if (!sorteerCategorieën.containsKey(strStatus)) {
                 maakCategorie(strStatus);
             }
-            
+
             PakketTabelPanel pakketTabel = sorteerCategorieën.get(strStatus);
             pakketTabel.voegPakketToe(pakket);
             PakketTabelPanel pakketTabel2 = sorteerCategorieën.get("Alle Pakketten");
             pakketTabel2.voegPakketToe(pakket);
             String strBetaald = null;
 
-            
-
         }
 
     }
-
-
 
     @Override
     public void itemStateChanged(ItemEvent evt) {
@@ -123,7 +115,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         cl.show(cards, (String) evt.getItem());
     }
 
-    public void shit(){
+    public void shit() {
         JPanel card1 = new JPanel();
 //        System.out.println("De pakketten:");
 //        System.out.println(databasemanager.getPakketten());
@@ -140,15 +132,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         String col[] = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"};
 
         DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
-            //Zorg dat de tabel niet te bewerken is
-            @Override
-            public boolean isCellEditable(int data, int columns) {
-                if (columns == 8) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+
         };
 
         JTable table = new JTable(tableModel);
@@ -204,7 +188,6 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
             i++;
         }
 
-       
         table.getColumn("Details").setCellRenderer(new ButtonRenderer());
         table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
         table.setPreferredScrollableViewportSize(new Dimension(800, 140));

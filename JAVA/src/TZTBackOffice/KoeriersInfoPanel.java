@@ -27,7 +27,7 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
     private JButton jbAanpassen;
 //    private Tarief t;
 
-    public KoeriersInfoPanel(KoeriersDienst k, Tarief t) {
+    public KoeriersInfoPanel(KoeriersDienst k) {
         this.setLayout(null);
 
         setLayout(null);
@@ -57,9 +57,9 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
         jtfNaam = new JTextField(k.getNaam());
         jtfTelnummer = new JTextField(k.getTelefoonnr());
         jtfEmail = new JTextField(k.getEmail());
-        jtfStartTarief = new JTextField(t.getPrijs().toString());
-        jtfWaardeOmslag = new JTextField(t.getKm());
-        jtfPrijsPerKm = new JTextField(t.getExtraPrijs().toString());
+//        jtfStartTarief = new JTextField(t.getPrijs().toString());
+//        jtfWaardeOmslag = new JTextField(t.getKm());
+//        jtfPrijsPerKm = new JTextField(t.getExtraPrijs().toString());
 
 //        jtaTarieven = new JTextArea(5, 30);
         //btn2 = new JButton("Voeg tekst in");

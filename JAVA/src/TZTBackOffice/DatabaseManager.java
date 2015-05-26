@@ -1,4 +1,3 @@
-
 package TZTBackOffice;
 
 import java.sql.Connection;
@@ -41,18 +40,17 @@ public class DatabaseManager {
 
     // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
-        
+
         url = "jdbc:mysql://localhost:3307/mydb";
         username = "root";
         password = "usbw";
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         haalDataOp();
 
     }
@@ -85,15 +83,15 @@ public class DatabaseManager {
         return klachten;
     }
 
-    public Pakket getPakket(int pakketID){
-        for (Pakket pakket : pakketten){
-            if (pakket.getPakketID() == pakketID){
+    public Pakket getPakket(int pakketID) {
+        for (Pakket pakket : pakketten) {
+            if (pakket.getPakketID() == pakketID) {
                 return pakket;
             }
-        }        
+        }
         return null;
     }
-    
+
     //Geeft een array van alle pakketten.
     public ArrayList<Pakket> getPakketten() {
         return pakketten;
@@ -166,6 +164,40 @@ public class DatabaseManager {
 
     }
 
+    public void voegTariefToe(Tarief tarief1) {
+
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+
+            //Insert statement maken
+            String query = " INSERT INTO tarief (koeriersID, km, prijs, extraprijs)" + " values (?, ?, ?, ?)";
+
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setInt(1, tarief1.getKoeriersDienst().getContactID());
+            preparedStmt.setInt(2, tarief1.getKm());
+            preparedStmt.setDouble(3, tarief1.getPrijs());
+            preparedStmt.setDouble(4, tarief1.getExtraPrijs());
+
+            //Voer preparedstatement uit
+            preparedStmt.execute();
+            System.out.println("tarief aangemaakt");
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan met de functie voegTariefToe");
+            System.out.println(e);
+        }
+    }
+
     //Maakt nieuwe pakketten aan met behulp van gegevens uit de order en resultset.
     //Bijbehorende trajecten worden ook aangemaakt.
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
@@ -185,8 +217,7 @@ public class DatabaseManager {
             pakket = pakketten.get(pakketten.size() - 1);
             maakTraject(pakket, r);
         }
-        
-        
+
         int probleemID = r.getInt("pr2.probleemID");
         if (probleemID != 0) {
             Klacht klacht = (Klacht) problemen.get(probleemID);
@@ -204,25 +235,25 @@ public class DatabaseManager {
 
     //Haalt pakketten op uit de database en vult de array pakket objecten;
     public void haalDataOp() {
-        
+
         Connection connection = null;
         Statement statement;
         vorigTraject = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
-        } catch(SQLException ex){
-            if (username.equals("root")){
+        } catch (SQLException ex) {
+            if (username.equals("root")) {
                 url = "jdbc:mysql://karsbarendrecht.nl:3306/karsbaj97_tzt";
                 username = "karsbaj97_tzt";
                 password = "wtj01";
                 System.out.println("Kan geen verbinding maken met USBwebserver. In plaats daarvan wordt er nu geprobeerd om verbinding te maken met de live database op karsbarendrecht.nl");
                 haalDataOp();
-            }else{
+            } else {
                 Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
             return;
         }
-        
+
         pakketten = new ArrayList();
         treinKoeriers = new ArrayList();
         accountHouders = new ArrayList();
