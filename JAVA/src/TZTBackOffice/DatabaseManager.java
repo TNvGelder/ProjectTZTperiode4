@@ -267,6 +267,9 @@ public class DatabaseManager {
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
 
         int pakketID = r.getInt("p.pakketID");
+        if (pakketID == 0){
+            return;
+        }
         Pakket pakket;
         if (pakketten.isEmpty() || pakketten.get(pakketten.size() - 1).getPakketID() != pakketID) {
             Double gewicht = r.getDouble("gewicht");
@@ -292,6 +295,9 @@ public class DatabaseManager {
     public void maakTarief(KoeriersDienst koeriersDienst, ResultSet rs) throws SQLException {
         int km = rs.getInt("km");
         Double prijs = rs.getDouble("prijs");
+        if (prijs == 0){
+            return;
+        }
         Double extraPrijs = rs.getDouble("extraPrijs");
         Tarief tarief = new Tarief(koeriersDienst, km, prijs, extraPrijs);
         koeriersDienst.voegTariefToe(tarief);

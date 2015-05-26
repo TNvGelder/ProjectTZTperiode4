@@ -56,7 +56,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //        comboBoxPane.add(cb);
         
         //Create the "cards".
-//        refresh();
+        refresh();
 
         setVisible(true);
     }
@@ -95,6 +95,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
             //Bekijk status van pakket
 
             String strStatus = pakket.getStatus();
+            System.out.println("status: " + strStatus);
             if (!sorteerCategorieën.containsKey(strStatus)) {
                 maakCategorie(strStatus);
             }
