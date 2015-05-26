@@ -198,7 +198,7 @@ public class DatabaseManager {
         }
     }
 
-    public void updateAccounthouder(AccountHouder a) {
+    public void updateContact(Contact c) {
 
         Connection connection = null;
         Statement statement;
@@ -208,19 +208,15 @@ public class DatabaseManager {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
 
-            //Oud Insert statement
-//          String query = " INSERT INTO tarief (koeriersID, km, prijs, extraprijs)" + " values (?, ?, ?, ?)";
             //Update statement maken
-            String query = " UPDATE stakeholder SET naam = ? WHERE stakeholderID = ?";
-//                    UPDATE Customers
-//SET ContactName='Alfred Schmidt', City='Hamburg'
-//WHERE CustomerName='Alfreds Futterkiste';
+            String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ? WHERE stakeholderID = ?";
 
             //Preparedstatement maken
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
-            preparedStmt.setString(1, a.getNaam());
-            preparedStmt.setInt(2, a.getContactID());
+            preparedStmt.setString(1, c.getNaam());
+            preparedStmt.setString(2, c.getTelefoonnr());
+            preparedStmt.setInt(3, c.getContactID());
 
             //Voer preparedstatement uit
             preparedStmt.executeUpdate();
@@ -231,6 +227,37 @@ public class DatabaseManager {
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateAccounthouder");
+            System.out.println(e);
+        }
+    }
+
+    public void deleteKoeriersdienst(TreinKoerier t) {
+
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+
+            //Update statement maken
+            String query = " DELETE FROM stakeholder WHERE stakeholderID = ?";
+
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setInt(1, t.getContactID());
+
+            //Voer preparedstatement uit
+            preparedStmt.executeUpdate();
+            System.out.println("Treinkoerier verwijderd");
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan met de functie deleteKoeriersdienst");
             System.out.println(e);
         }
     }

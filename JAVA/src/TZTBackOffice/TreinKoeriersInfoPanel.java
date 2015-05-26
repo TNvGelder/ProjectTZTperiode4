@@ -21,42 +21,32 @@ import javax.swing.JTextField;
  */
 public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements ActionListener {
 
-    private JTextArea jtaTarieven;
-    private JButton jbAanpassen;
+    private DatabaseManager databasemanager;
+    private TreinKoerier t;
 
     public TreinKoeriersInfoPanel(TreinKoerier treinKoerier, DatabaseManager databasemanager) {
         super(treinKoerier, databasemanager);
-
+        this.databasemanager = databasemanager;
         this.setLayout(null);
-
-        //add(jlHead);
-        jbAanpassen = new JButton("Aanpassen");
-        this.add(jbAanpassen);
-        event e = new event();
-        jbAanpassen.addActionListener(e);
+        this.t = treinKoerier;
 
         jlHead.setText("Treinkoerier");
-
-        //Inhoud toevoegen
-        add(jlHead);
 
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("dit is buiten source");
 
-    public class event implements ActionListener {
+        if (e.getSource() == jbAanpassen) {
+            System.out.println("ik ben geprint bij TreinKoeriersInfoPanel");
+            String strNaam = jtfNaam.getText();
+            String strTelefoonnummer = jtfTelnummer.getText();
+            String strEmail = jtfEmail.getText();
 
-        public void actionPerformed(ActionEvent ae) {
-    //if (e.getSource == jbAanpassen){
-//                String strNaam = jtfNaam.getText();
-//                String strTelnummer = jtfTelnummer.getText();
-//                String strEmail = jtfEmail.getText();
-//                String strTarieven = jtaTarieven.getText();
-
-            //}
+            t.setNaam(strNaam);
+            t.setTelefoonnr(strTelefoonnummer);
+            databasemanager.updateContact(t);
         }
     }
 }

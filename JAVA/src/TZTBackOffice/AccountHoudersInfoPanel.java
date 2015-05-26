@@ -22,8 +22,8 @@ import javax.swing.JTextField;
 public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
     protected JLabel jlHead, jlTelnummer, jlNaam, jlAchternaam, jlEmail, jlAccountIDBeschrijving, jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat;
-    private JTextField jtfNaam, jtfTelnummer, jtfEmail, jtfAchternaam, jtfWoonplaats, jtfPostcode, jtfHuisnummer, jtfStraat;
-    private JButton jbAanpassen;
+    protected JTextField jtfNaam, jtfTelnummer, jtfEmail, jtfAchternaam, jtfWoonplaats, jtfPostcode, jtfHuisnummer, jtfStraat;
+    protected JButton jbAanpassen;
     private AccountHouder a;
     private DatabaseManager databasemanager;
 
@@ -133,7 +133,8 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             String strEmail = jtfEmail.getText();
 
             a.setNaam(strNaam);
-            databasemanager.updateAccounthouder(a);
+            a.setTelefoonnr(strTelefoonnummer);
+            databasemanager.updateContact(a);
         }
     }
 
