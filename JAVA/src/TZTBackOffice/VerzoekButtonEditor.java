@@ -18,11 +18,12 @@ public class VerzoekButtonEditor extends DefaultCellEditor {
 
     private ArrayList<UitbetalingsVerzoek> verzoeken;
     private JFrame hoofdscherm;
-
-    public VerzoekButtonEditor(JCheckBox checkBox, JFrame hoofdscherm, ArrayList<UitbetalingsVerzoek> verzoeken) {
+    private UitbetalingsPanel overzicht;
+    
+    public VerzoekButtonEditor(JCheckBox checkBox, JFrame hoofdscherm, ArrayList<UitbetalingsVerzoek> verzoeken, UitbetalingsPanel overzicht) {
         super(checkBox);
         this.verzoeken = verzoeken;
-
+        this.overzicht = overzicht;
         this.hoofdscherm = hoofdscherm;
     }
 
@@ -38,7 +39,7 @@ public class VerzoekButtonEditor extends DefaultCellEditor {
         } 
         verzoek.handelAf();
         verzoek.setGoedgekeurd(keuze == JOptionPane.YES_OPTION);
-        
+        overzicht.verzoekAfgehandeld(verzoek);
         return null;
     }
 

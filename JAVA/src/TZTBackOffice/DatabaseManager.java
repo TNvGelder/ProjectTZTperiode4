@@ -1,17 +1,14 @@
 package TZTBackOffice;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,8 +27,7 @@ public class DatabaseManager {
     private ArrayList<KoeriersDienst> koeriersDiensten;
     private ArrayList<TreinKoerier> treinKoeriers;
     private ArrayList<AccountHouder> accountHouders;
-    private ArrayList<UitbetalingsVerzoek> afgehandeldeVerzoeken;
-    private ArrayList<UitbetalingsVerzoek> nietAfgehandeldeVerzoeken;
+    private ArrayList<UitbetalingsVerzoek> uitbetalingsVerzoeken;
     private ArrayList<TrajectProbleem> bezorgProblemen;
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
@@ -67,13 +63,10 @@ public class DatabaseManager {
         return accountHouders;
     }
 
-    public ArrayList<UitbetalingsVerzoek> getAfgehandeldeUitbetalingsVerzoeken() {
-        return afgehandeldeVerzoeken;
+    public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
+        return uitbetalingsVerzoeken;
     }
 
-    public ArrayList<UitbetalingsVerzoek> getNietAfgehandeldeVerzoeken() {
-        return nietAfgehandeldeVerzoeken;
-    }
 
     public ArrayList<TrajectProbleem> getBezorgProblemen() {
         return bezorgProblemen;
@@ -231,6 +224,42 @@ public class DatabaseManager {
             System.out.println(e);
         }
     }
+    
+    public void updateUitbetalingsVerzoek(UitbetalingsVerzoek verzoek){
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+            
+            boolean afgehandeld = verzoek.isAfgehandeld();
+            boolean goedgekeurd = verzoek.isGoedgekeurd();
+            int treinkoeriersID = verzoek.getKoerier().getContactID();
+            Timestamp datum = verzoek.getDatum();
+            //Update statement maken
+            String query = " UPDATE kredietomzetting SET isafgehandeld = ?, isgoedgekeurd = ? WHERE treinkoerier = ? AND datum = ? ";
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setBoolean(1, afgehandeld);
+            preparedStmt.setBoolean(2, goedgekeurd);
+            preparedStmt.setInt(3, treinkoeriersID);
+
+            preparedStmt.setTimestamp(4, datum);
+
+            //Voer preparedstatement uit
+            preparedStmt.executeUpdate();
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan met de functie updateUitbetalingsVerzoek");
+            System.out.println(e);
+        }
+    }
 
     public void updateLocatie(AccountHouder a) {
 
@@ -375,8 +404,7 @@ public class DatabaseManager {
         accountHouders = new ArrayList();
         koeriersDiensten = new ArrayList();
         bezorgProblemen = new ArrayList();
-        afgehandeldeVerzoeken = new ArrayList();
-        nietAfgehandeldeVerzoeken = new ArrayList();
+        uitbetalingsVerzoeken = new ArrayList();
         klachten = new ArrayList();
         contacten = new HashMap();
         locaties = new HashMap();
@@ -509,11 +537,7 @@ public class DatabaseManager {
                 Boolean goedgekeurd = rs.getBoolean("goedgekeurd");
                 UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek(datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
                 System.out.println(verzoek);
-                if (verzoek.isAfgehandeld()) {
-                    afgehandeldeVerzoeken.add(verzoek);
-                } else {
-                    nietAfgehandeldeVerzoeken.add(verzoek);
-                }
+                uitbetalingsVerzoeken.add(verzoek);
             }
 
             statement.close();

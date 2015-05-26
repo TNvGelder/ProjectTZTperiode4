@@ -61,9 +61,15 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         //cards.add(card, categorieNaam);
     }
 
+    
+    public void verzoekAfgehandeld(UitbetalingsVerzoek verzoek){
+        databaseManager.updateUitbetalingsVerzoek(verzoek);
+        refresh();
+    }
+    
     public void refresh() {
         this.removeAll();
-        ArrayList<UitbetalingsVerzoek> verzoeken = databaseManager.getAfgehandeldeUitbetalingsVerzoeken();
+        ArrayList<UitbetalingsVerzoek> verzoeken = databaseManager.getUitbetalingsVerzoeken();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
         cards = new JPanel(new CardLayout());
@@ -78,8 +84,8 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         categoriePanel.add(cb);
         add(cards);
         
-        UitbetalingsTabelPanel tabelPanelAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, false);
-        UitbetalingsTabelPanel tabelPanelNietAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, true);
+        UitbetalingsTabelPanel tabelPanelAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, false, this);
+        UitbetalingsTabelPanel tabelPanelNietAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, true, this);
         for(UitbetalingsVerzoek verzoek : verzoeken){
             boolean afgehandeld = verzoek.isAfgehandeld();
             if (afgehandeld){

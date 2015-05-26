@@ -31,9 +31,11 @@ public class UitbetalingsTabelPanel extends JPanel {
     private JFrame hoofdscherm;
     private ArrayList<UitbetalingsVerzoek> verzoeken;
     private boolean afhandelKnop;
+    private UitbetalingsPanel overzicht;
 
-    public UitbetalingsTabelPanel(JFrame hoofdscherm, boolean afhandelKnop) {
+    public UitbetalingsTabelPanel(JFrame hoofdscherm, boolean afhandelKnop, UitbetalingsPanel overzicht) {
         this.verzoeken = new ArrayList();
+        this.overzicht = overzicht;
         this.hoofdscherm = hoofdscherm;
         this.afhandelKnop = afhandelKnop;
         String col[] = {"Datum", "Naam", "Bedrag", "IBAN", "Goedgekeurd"};
@@ -60,7 +62,7 @@ public class UitbetalingsTabelPanel extends JPanel {
         if (afhandelKnop) {
             ButtonRenderer buttonRenderer = new ButtonRenderer("handel af");
             afhandelColumn.setCellRenderer(buttonRenderer);
-            VerzoekButtonEditor editor = new VerzoekButtonEditor(new JCheckBox(), hoofdscherm, verzoeken);
+            VerzoekButtonEditor editor = new VerzoekButtonEditor(new JCheckBox(), hoofdscherm, verzoeken, overzicht);
             afhandelColumn.setCellEditor(editor);
         }
 
@@ -69,15 +71,13 @@ public class UitbetalingsTabelPanel extends JPanel {
         scrollPane.getViewport().setBackground(Color.WHITE);
 
         //Voeg verzoeken toe aan tabel
-        for (UitbetalingsVerzoek verzoek : verzoeken) {
-            voegVerzoekToe(verzoek);
-        }
         add(scrollPane);
     }
 
     //Voegt een rij toe aan de tabel met gegevens van het meegegeven verzoek.
     public void voegVerzoekToe(UitbetalingsVerzoek verzoek) {
         try {
+            verzoeken.add(verzoek);
             TreinKoerier koerier = (TreinKoerier) verzoek.getKoerier();
             Timestamp datum = verzoek.getDatum();
             String naam = koerier.toString();
