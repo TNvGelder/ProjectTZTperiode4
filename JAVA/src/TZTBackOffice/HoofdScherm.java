@@ -28,9 +28,11 @@ import javax.swing.SwingUtilities;
 public class HoofdScherm extends JFrame implements ActionListener {
 
     private ContactOverzichtPanel contactPanel;
+    private PakketOverzichtPanel pakketPanel;
     private JTabbedPane tabbedPane;
     private JButton jbRefresh;
     private DatabaseManager databaseManager;
+    private UitbetalingsPanel uitbetalingPanel;
 
     public HoofdScherm() {
         super("BackOffice Applicatie");
@@ -40,8 +42,8 @@ public class HoofdScherm extends JFrame implements ActionListener {
         databaseManager = new DatabaseManager();
         tabbedPane = new JTabbedPane();
         contactPanel = new ContactOverzichtPanel(databaseManager);
-        PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel(databaseManager, this);
-        UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel(databaseManager, this);
+        pakketPanel = new PakketOverzichtPanel(databaseManager, this);
+        uitbetalingPanel = new UitbetalingsPanel(databaseManager, this);
         //JComponent probleemPanel = new ProbleemPanel();
         //tabbedPane.addTab("Problemen", probleemPanel);
         tabbedPane.addTab("Pakketten", pakketPanel);
@@ -67,7 +69,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
         if (e.getSource() == jbRefresh) {
             databaseManager.haalDataOp();
             contactPanel.refresh();
-
+            pakketPanel.refresh();
             System.out.println("refresh");
         }
     }

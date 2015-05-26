@@ -10,7 +10,8 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 /**
- * @version 1.0 11/09/98
+ *  Gemaakt door Jasper en Twan
+ *  Zorgt voor de vormgeving van de knop.
  */
 public class ButtonRenderer extends JButton implements TableCellRenderer {
 

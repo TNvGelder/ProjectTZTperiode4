@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -30,110 +31,78 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UitbetalingsPanel extends JPanel implements ItemListener {
 
+    private PakketTonen pakkettonen;
+
     JPanel cards; //a panel that uses CardLayout
-    final static String Openstaand = "Openstaande aanvragen";
-    final static String Afgehandeld = "Afgehandelde aanvragen";
-
+    final static String Aangemelde = "Aangemelde pakketten";
+    final static String Verzonden = "Verzonden pakketten";
+    final static String Gearriveerde = "Gearriveerde pakketten";
     private JPanel categoriePanel;
-    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     private JComboBox cb;
+    private JFrame hoofdscherm;
+    DatabaseManager databaseManager = new DatabaseManager();
+    ArrayList<Pakket> pakketten = databaseManager.getPakketten();
 
-    public UitbetalingsPanel(DatabaseManager databaseManager, JFrame hoofdscherm) {
-        //Layout scherm
-        String comboBoxItems[] = {Openstaand, Afgehandeld};
-        JComboBox cb = new JComboBox(comboBoxItems);
-        cb.setEditable(false);
-        cb.addItemListener((ItemListener) this);
+    public UitbetalingsPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
+
+        setLayout(new BorderLayout());
 //        comboBoxPane.add(cb);
-
+        
         //Create the "cards".
-        JPanel card1 = new JPanel();
-
-        DefaultTableModel dmAangemeld = new DefaultTableModel();
-
-        dmAangemeld.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Openstaand BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
-                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
-
-        JTable tableAangemeld = new JTable(dmAangemeld);
-        tableAangemeld.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        //tableAangemeld.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox(), hoofdscherm));
-        tableAangemeld.setPreferredScrollableViewportSize(new Dimension(800, 140));
-        JScrollPane scrollAangemeld = new JScrollPane(tableAangemeld);
-        card1.add(scrollAangemeld);
-
-        JPanel card2 = new JPanel();
-        DefaultTableModel dmVerzonden = new DefaultTableModel();
-
-        dmVerzonden.setDataVector(new Object[][]{{"77777", "16:44 PM", "20:04 PM", "24/4/15", "Afgehandeld BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"55555", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"},
-        {"43254", "16:44 PM", "20:04 PM", "24/4/15", "Esyst BV", "30x40x10", "476 g", "Betaald", "Meer info"}},
-                new Object[]{"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Datum", "Organisatie", "Formaat", "Gewicht", "Betaald", "Details"});
-
-        JTable tableVerzonden = new JTable(dmVerzonden);
-        tableVerzonden.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        tableVerzonden.setPreferredScrollableViewportSize(new Dimension(800, 140));
-        JScrollPane scrollVerzonden = new JScrollPane(tableVerzonden);
-        card2.add(scrollVerzonden);
-
-        //Create the panel that contains the "cards".
-        cards = new JPanel(new CardLayout());
-        cards.add(card1, Openstaand);
-        cards.add(card2, Afgehandeld);
-        add(cb);
-        add(cards, BorderLayout.CENTER);
+        refresh();
 
         setVisible(true);
-
-//        pane.add(comboBoxPane, BorderLayout.PAGE_START);
-//        pane.add(cards, BorderLayout.CENTER);
     }
 
-    public void addComponentToPane(Container pane) {
-        //Put the JComboBox in a JPanel to get a nicer look.
-        JPanel comboBoxPane = new JPanel(); //use FlowLayout
-        String comboBoxItems[] = {Openstaand, Afgehandeld};
-        JComboBox cb = new JComboBox(comboBoxItems);
+    public void maakCategorie(String categorieNaam) {
+        ArrayList<Pakket> pakketArray;
+        PakketTabelPanel card;
+//        if (!categorieNaam.equals("Alle Pakketten")){
+//            card = new PakketTabelPanel(hoofdscherm, pakketten);
+//        }else {
+//            card = new PakketTabelPanel(hoofdscherm);
+//        }
+        
+        cb.addItem(categorieNaam);
+        //cards.add(card, categorieNaam);
+    }
+
+    public void refresh() {
+        this.removeAll();
+        categoriePanel = new JPanel();
+        add(categoriePanel, BorderLayout.NORTH);
+        maakCategorie("Niet Afgehandeld");
+        maakCategorie("Afgehandeld");
+        cards = new JPanel(new CardLayout());
+
+        cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
-        comboBoxPane.add(cb);
+        maakCategorie("Alle Pakketten");
+        categoriePanel.add(cb);
+        add(cards);
 
-        //Create the "cards".
-        JPanel card1 = new JPanel();
-        card1.add(new JButton("Button 1"));
+        // Populate the JTable (TableModel) with data from ArrayList
+        for (Pakket pakket : pakketten) {
+            //Bekijk status van pakket
 
-        JPanel card2 = new JPanel();
-        card2.add(new JTextField("TextField", 20));
+            String strStatus = pakket.getStatus();
+            
 
-        JPanel card3 = new JPanel();
-        card3.add(new JTextField("swag", 5));
+//            PakketTabelPanel pakketTabel = sorteerCategorieën.get(strStatus);
+//            pakketTabel.voegPakketToe(pakket);
+//            PakketTabelPanel pakketTabel2 = sorteerCategorieën.get("Alle Pakketten");
+//            pakketTabel2.voegPakketToe(pakket);
+//            String strBetaald = null;
 
-        //Create the panel that contains the "cards".
-        cards = new JPanel(new CardLayout());
-        cards.add(card1, Openstaand);
-        cards.add(card2, Afgehandeld);
+        }
 
-        pane.add(comboBoxPane, BorderLayout.PAGE_START);
-        pane.add(cards, BorderLayout.CENTER);
     }
 
     @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, (String) evt.getItem());
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

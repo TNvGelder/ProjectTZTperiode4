@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 /**
  *
- * @author Michiel
+ * Deze class geeft een representatie van een uitbetalingsverzoek uit de database.
  */
 public class UitbetalingsVerzoek {
 

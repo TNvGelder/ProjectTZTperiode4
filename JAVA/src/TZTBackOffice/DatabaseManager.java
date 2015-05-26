@@ -453,7 +453,7 @@ public class DatabaseManager {
                 Timestamp datum = rs.getTimestamp("datum");
                 Double bedrag = rs.getDouble("bedrag");
                 Boolean isafgehandeld = rs.getBoolean("isafgehandeld");
-                Boolean goedgekeurd = rs.getBoolean("goedgekoeurd");
+                Boolean goedgekeurd = rs.getBoolean("goedgekeurd");
                 UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek(datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
                 System.out.println(verzoek);
                 if (verzoek.isAfgehandeld()) {

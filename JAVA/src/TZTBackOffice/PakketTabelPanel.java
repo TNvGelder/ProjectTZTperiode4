@@ -48,12 +48,12 @@ public class PakketTabelPanel extends JPanel {
         this.pakketten = pakketten;
         this.hoofdscherm = hoofdscherm;
         
-        String col[] = {"Pakket nr", "Status", "Aanmeldtijd", "Aflevertijd", "Koerier", "Formaat", "Gewicht", "Betaald", "Details"};
+        String col[] = {"Ordernr","Pakketnr", "Status", "Aanmeldtijd", "Aflevertijd", "Koerier", "Formaat", "Gewicht", "Betaald", "Details"};
         tableModel = new DefaultTableModel(col, 0) {
             //Zorg dat de tabel niet te bewerken is
             @Override
             public boolean isCellEditable(int data, int columns) {
-                if (columns == 8) {
+                if (columns == 9) {
                     return true;
                 } else {
                     return false;
@@ -69,16 +69,14 @@ public class PakketTabelPanel extends JPanel {
         table.getColumnModel().getColumn(3).setMinWidth(100);
         table.getColumnModel().getColumn(4).setMinWidth(100);
         table.getColumnModel().getColumn(5).setMinWidth(100);
-        table.getColumnModel().getColumn(6).setMinWidth(100);
+        table.getColumnModel().getColumn(6).setMinWidth(50);
         table.getColumnModel().getColumn(7).setMinWidth(100);
+        table.getColumnModel().getColumn(8).setMinWidth(100);
         table.getColumn("Details").setCellRenderer(new ButtonRenderer());
         table.getColumn("Details").setCellEditor(new PakketButtonEditor(new JCheckBox(), hoofdscherm, pakketten));
-        //Sorteren voor in de tabel
-        RowSorter<TableModel> sorter = new TableRowSorter<>(tableModel);
- table.setRowSorter(sorter);
         
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(900, scrollPane.getPreferredSize().height));
+        scrollPane.setPreferredSize(new Dimension(1000, scrollPane.getPreferredSize().height));
         scrollPane.getViewport().setBackground(Color.WHITE);
         add(scrollPane);
     }
@@ -92,6 +90,7 @@ public class PakketTabelPanel extends JPanel {
         VerzendOrder order = pakket.getOrder();
         Timestamp strAanmeldtijd = order.getAanmeldTijd();
 
+        int orderID = order.getOrderID();
         String strOrganisatie = order.getKlant().toString();
         String strFormaat = pakket.getFormaat();
         double strGewicht = pakket.getGewicht();
@@ -109,7 +108,7 @@ public class PakketTabelPanel extends JPanel {
             aflevertijd = laatsteTraject.getAfleverTijdstip();
         }
 
-        Object[] data = {strPakketnr, status, strAanmeldtijd, aflevertijd, strOrganisatie, strFormaat,
+        Object[] data = {orderID, strPakketnr, status, strAanmeldtijd, aflevertijd, strOrganisatie, strFormaat,
             strGewicht, strBetaald, "meer"};
         TableColumn column = table.getColumn("Details");
         

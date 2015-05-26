@@ -54,10 +54,9 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
         setLayout(new BorderLayout());
 //        comboBoxPane.add(cb);
-        categoriePanel = new JPanel();
-        add(categoriePanel, BorderLayout.NORTH);
+        
         //Create the "cards".
-        refresh();
+        //refresh();
 
         setVisible(true);
     }
@@ -78,6 +77,9 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     }
 
     public void refresh() {
+        this.removeAll();
+        categoriePanel = new JPanel();
+        add(categoriePanel, BorderLayout.NORTH);
         sorteerCategorieën = new HashMap();
         cards = new JPanel(new CardLayout());
 
