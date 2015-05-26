@@ -104,11 +104,19 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         jlHuisnummer.setBounds(450, 230, 200, 30);
         jtfHuisnummer.setBounds(550, 230, 200, 30);
 
-        jbAanpassen.setBounds(228, 490, 150, 20);
-        jbAanpassen.addActionListener(this);
+        if (accountHouder.getLinkIDKaart() == null) {
+            jbAanpassen.setBounds(228, 300, 150, 20);
+            jbAanpassen.addActionListener(this);
 
-        jbGoedkeuren.setBounds(450, 490, 150, 20);
-        jbGoedkeuren.addActionListener(this);
+            jbGoedkeuren.setBounds(600, 300, 150, 20);
+            jbGoedkeuren.addActionListener(this);
+        } else {
+            jbAanpassen.setBounds(228, 490, 150, 20);
+            jbAanpassen.addActionListener(this);
+
+            jbGoedkeuren.setBounds(600, 490, 150, 20);
+            jbGoedkeuren.addActionListener(this);
+        }
 
         //Inhoud toevoegen
         add(jlHead);

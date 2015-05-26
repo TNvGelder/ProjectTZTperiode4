@@ -97,7 +97,7 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jtfPrijsPerKm.setBounds(240, 270, 200, 30);
 //        jtaTarieven.setBounds(180, 190, 200, 120);
 
-        jbToevoegen.setBounds(240, 315, 150, 20);
+        jbToevoegen.setBounds(290, 315, 150, 20);
 
         //Inhoud toevoegen
         add(jlHead);
