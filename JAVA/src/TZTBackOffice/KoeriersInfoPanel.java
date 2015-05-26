@@ -57,9 +57,9 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
         jtfNaam = new JTextField(k.getNaam());
         jtfTelnummer = new JTextField(k.getTelefoonnr());
         jtfEmail = new JTextField(k.getEmail());
-//        jtfStartTarief = new JTextField(t.getPrijs().toString());
-//        jtfWaardeOmslag = new JTextField(t.getKm());
-//        jtfPrijsPerKm = new JTextField(t.getExtraPrijs().toString());
+//        jtfStartTarief = new JTextField();
+//        jtfWaardeOmslag = new JTextField();
+//        jtfPrijsPerKm = new JTextField();
 
 //        jtaTarieven = new JTextArea(5, 30);
         //btn2 = new JButton("Voeg tekst in");
@@ -80,9 +80,9 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
         jtfNaam.setBounds(240, 70, 200, 30);
         jtfTelnummer.setBounds(240, 110, 200, 30);
         jtfEmail.setBounds(240, 150, 200, 30);
-        jtfStartTarief.setBounds(240, 190, 200, 30);
-        jtfWaardeOmslag.setBounds(240, 230, 200, 30);
-        jtfPrijsPerKm.setBounds(240, 270, 200, 30);
+//        jtfStartTarief.setBounds(240, 190, 200, 30);
+//        jtfWaardeOmslag.setBounds(240, 230, 200, 30);
+//        jtfPrijsPerKm.setBounds(240, 270, 200, 30);
 
 //        jtaTarieven.setBounds(180, 190, 200, 120);
         jbAanpassen.setBounds(228, 315, 150, 20);
@@ -101,9 +101,9 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
         add(jlStartTarief);
         add(jlWaardeOmslag);
         add(jlPrijsPerKm);
-        add(jtfStartTarief);
-        add(jtfWaardeOmslag);
-        add(jtfPrijsPerKm);
+//        add(jtfStartTarief);
+//        add(jtfWaardeOmslag);
+//        add(jtfPrijsPerKm);
 //        add(jtaTarieven);
     }
 
