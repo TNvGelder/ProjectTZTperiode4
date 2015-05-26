@@ -198,6 +198,43 @@ public class DatabaseManager {
         }
     }
 
+    public void updateAccounthouder(AccountHouder a) {
+
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+
+            //Oud Insert statement
+//          String query = " INSERT INTO tarief (koeriersID, km, prijs, extraprijs)" + " values (?, ?, ?, ?)";
+            //Update statement maken
+            String query = " UPDATE stakeholder SET naam = ? WHERE stakeholderID = ?";
+//                    UPDATE Customers
+//SET ContactName='Alfred Schmidt', City='Hamburg'
+//WHERE CustomerName='Alfreds Futterkiste';
+
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setString(1, a.getNaam());
+            preparedStmt.setInt(2, a.getContactID());
+
+            //Voer preparedstatement uit
+            preparedStmt.executeUpdate();
+            System.out.println("accounthouder geupdate");
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan met de functie updateAccounthouder");
+            System.out.println(e);
+        }
+    }
+
     //Maakt nieuwe pakketten aan met behulp van gegevens uit de order en resultset.
     //Bijbehorende trajecten worden ook aangemaakt.
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
