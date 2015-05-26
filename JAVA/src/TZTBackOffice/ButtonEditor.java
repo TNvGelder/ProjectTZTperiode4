@@ -78,13 +78,13 @@ public class ButtonEditor extends DefaultCellEditor {
         return new String(label);
     }
 
-    public boolean stopCellEditing() {
-        isPushed = false;
-        return super.stopCellEditing();
-    }
-
-    protected void fireEditingStopped() {
-        super.fireEditingStopped();
-        System.out.println("dsfads");
-    }
+//    public boolean stopCellEditing() {
+//        isPushed = false;
+//        return super.stopCellEditing();
+//    }
+//
+//    protected void fireEditingStopped() {
+//        super.fireEditingStopped();
+//        System.out.println("dsfads");
+//    }
 }
