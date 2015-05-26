@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  */
 public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
-    private JLabel jlHead, jlTelnummer, jlNaam, jlAchternaam, jlEmail, jlAccountIDBeschrijving, jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat;
+    protected JLabel jlHead, jlTelnummer, jlNaam, jlAchternaam, jlEmail, jlAccountIDBeschrijving, jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat;
     private JTextField jtfNaam, jtfTelnummer, jtfEmail, jtfAchternaam, jtfWoonplaats, jtfPostcode, jtfHuisnummer, jtfStraat;
     private JButton jbAanpassen;
     private AccountHouder a;

@@ -41,7 +41,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Twan
+ * Gemaakt door Twan Zorgt voor het panel met de verschillende soorten contact
+ * types
+ *
  */
 public class ContactOverzichtPanel extends JPanel implements ItemListener, ActionListener, ListSelectionListener {
 
@@ -86,7 +88,6 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         lijst1.addListSelectionListener(this);
-
 
         lijst2 = new JList();
         lijst2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -134,7 +135,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         koeriersDiensten = databaseManager.getKoeriersDiensten();
         accountHouders = databaseManager.getAccountHouders();
         treinKoeriers = databaseManager.getTreinKoeriers();
-        
+
         DefaultListModel lijstModel = new DefaultListModel();
         for (AccountHouder accountHouder : accountHouders) {
             int contactID = accountHouder.getContactID();
@@ -192,7 +193,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     public void toonContactInfo(Contact c) {
         infoPanel.removeAll();
         if (c instanceof TreinKoerier) {
-            infoPanel.add(new TreinKoeriersInfoPanel((TreinKoerier) c));
+            infoPanel.add(new TreinKoeriersInfoPanel((TreinKoerier) c, databaseManager));
         } else if (c instanceof AccountHouder) {
             infoPanel.add(new AccountHoudersInfoPanel((AccountHouder) c, databaseManager));
         } else if (c instanceof KoeriersDienst) {
@@ -209,24 +210,24 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         geselecteerdeJList = list;
         Contact c = null;
         int index = list.getSelectedIndex();
-        if (index < 0){
+        if (index < 0) {
             index = 0;
         }
         if (list == lijst1 && accountHouders.size() > 0) {
             System.out.println("lijst1");
-            if (index >= accountHouders.size()){
+            if (index >= accountHouders.size()) {
                 index = 0;
             }
             c = accountHouders.get(index);
         } else if (list == lijst2 && treinKoeriers.size() > 0) {
             System.out.println("lijst2");
-            if (index >= treinKoeriers.size()){
+            if (index >= treinKoeriers.size()) {
                 index = 0;
             }
             c = treinKoeriers.get(index);
         } else if (list == lijst3 && koeriersDiensten.size() > 0) {
             System.out.println("lijst3");
-            if (index >= koeriersDiensten.size()){
+            if (index >= koeriersDiensten.size()) {
                 index = 0;
             }
             c = koeriersDiensten.get(index);
