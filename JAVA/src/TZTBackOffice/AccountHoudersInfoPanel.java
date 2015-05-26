@@ -27,8 +27,8 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
     private AccountHouder a;
     private DatabaseManager databasemanager;
 
-    public AccountHoudersInfoPanel(AccountHouder accountHouder) {
-
+    public AccountHoudersInfoPanel(AccountHouder accountHouder, DatabaseManager databasemanager) {
+        this.databasemanager = databasemanager;
         this.setLayout(null);
         this.a = accountHouder;
         //add(jlHead);
