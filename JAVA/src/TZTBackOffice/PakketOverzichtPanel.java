@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TZTBackOffice;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -21,6 +17,7 @@ import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -45,11 +42,9 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     final static String Aangemelde = "Aangemelde pakketten";
     final static String Verzonden = "Verzonden pakketten";
     final static String Gearriveerde = "Gearriveerde pakketten";
-    private Pakket pakket;
-    private Traject traject;
-    private VerzendOrder verzendorder;
-    private Probleem probleem;
-    private int selectedCell;
+    private JPanel categoriePanel;
+    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
+    private JComboBox cb;
 
     private final DatabaseManager databasemanager;
     DatabaseManager databaseManager = new DatabaseManager();
@@ -57,15 +52,78 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
     public PakketOverzichtPanel(DatabaseManager databasemanager) {
         this.databasemanager = databasemanager;
+        setLayout(new BorderLayout());
+//        comboBoxPane.add(cb);
+        categoriePanel = new JPanel();
+        add(categoriePanel, BorderLayout.NORTH);
+        //Create the "cards".
+        refresh();
+        
 
-        //Layout scherm
-        String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
-        JComboBox cb = new JComboBox(comboBoxItems);
+        setVisible(true);
+
+//        pane.add(comboBoxPane, BorderLayout.PAGE_START);
+//        pane.add(cards, BorderLayout.CENTER);
+    }
+    
+    public void maakCategorie(String categorieNaam){
+        PakketTabelPanel card = new PakketTabelPanel();
+        
+        sorteerCategorieën.put(categorieNaam, card);
+        cb.addItem(categorieNaam);
+        cards.add(card, categorieNaam);
+    }
+
+    public void refresh() {
+        sorteerCategorieën = new HashMap();
+        cards = new JPanel(new CardLayout());
+        
+        cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
-//        comboBoxPane.add(cb);
+        maakCategorie("Alle Pakketten");
+        
+        
 
-        //Create the "cards".
+//        for (String categorie : sorteerCategorieën.keySet()) {
+//            cb.addItem(categorie);
+//            JPanel card = new JPanel();
+//            cards.add(card, categorie);
+//        }
+        
+        categoriePanel.add(cb);
+        add(cards);
+        
+        // Populate the JTable (TableModel) with data from ArrayList
+        for (Pakket pakket : pakketten) {
+            //Bekijk status van pakket
+
+            String strStatus = pakket.getStatus();
+            if (! sorteerCategorieën.containsKey(strStatus)){
+                maakCategorie(strStatus);
+            }
+            
+            PakketTabelPanel pakketTabel = sorteerCategorieën.get(strStatus);
+            pakketTabel.voegPakketToe(pakket);
+            PakketTabelPanel pakketTabel2 = sorteerCategorieën.get("Alle Pakketten");
+            pakketTabel2.voegPakketToe(pakket);
+            String strBetaald = null;
+
+            
+
+        }
+
+    }
+
+
+
+    @Override
+    public void itemStateChanged(ItemEvent evt) {
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, (String) evt.getItem());
+    }
+
+    public void shit(){
         JPanel card1 = new JPanel();
 //        System.out.println("De pakketten:");
 //        System.out.println(databasemanager.getPakketten());
@@ -146,21 +204,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
             i++;
         }
 
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                System.out.println("#################################################################################hey");
-                String selectedCell1 = table.getValueAt(table.getSelectedRow(), 0).toString();
-                int selectedCelltest = Integer.parseInt(selectedCell1);
-//                int selectedCelltest = Integer.valueOf(selectedCell1);
-                setSelectedCell(selectedCelltest);
-                getSelectedCell();
-                System.out.println("dit is de cel volgens value: " + getSelectedCell());
-                System.out.println("De cel: " + selectedCelltest);
-
-            }
-        });
-        System.out.println("doei: " + getSelectedCell());
+       
         table.getColumn("Details").setCellRenderer(new ButtonRenderer());
         table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
         table.setPreferredScrollableViewportSize(new Dimension(800, 140));
@@ -213,61 +257,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 //        JScrollPane scrollGearriveerd = new JScrollPane(tableGearriveerd);
 //        card3.add(scrollGearriveerd);
         //Create the panel that contains the "cards".
-        cards = new JPanel(new CardLayout());
-        cards.add(card1, Aangemelde);
-//        cards.add(card2, Verzonden);
-//        cards.add(card3, Gearriveerde);
-        add(cb);
-        add(cards, BorderLayout.CENTER);
-
-        setVisible(true);
-
-//        pane.add(comboBoxPane, BorderLayout.PAGE_START);
-//        pane.add(cards, BorderLayout.CENTER);
     }
-
-    public void setSelectedCell(int selectedCell) {
-        this.selectedCell = selectedCell;
-    }
-
-    public int getSelectedCell() {
-        return selectedCell;
-    }
-
-    public void addComponentToPane(Container pane) {
-        //Put the JComboBox in a JPanel to get a nicer look.
-        JPanel comboBoxPane = new JPanel(); //use FlowLayout
-        String comboBoxItems[] = {Aangemelde, Verzonden, Gearriveerde};
-        JComboBox cb = new JComboBox(comboBoxItems);
-        cb.setEditable(false);
-        cb.addItemListener((ItemListener) this);
-        comboBoxPane.add(cb);
-
-        //Create the "cards".
-        JPanel card1 = new JPanel();
-        card1.add(new JButton("Button 1"));
-
-        JPanel card2 = new JPanel();
-        card2.add(new JTextField("TextField", 20));
-
-        JPanel card3 = new JPanel();
-        card3.add(new JTextField("swag", 5));
-
-        //Create the panel that contains the "cards".
-        cards = new JPanel(new CardLayout());
-        cards.add(card1, Aangemelde);
-        cards.add(card2, Verzonden);
-
-        pane.add(comboBoxPane, BorderLayout.PAGE_START);
-        pane.add(cards, BorderLayout.CENTER);
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent evt) {
-        CardLayout cl = (CardLayout) (cards.getLayout());
-        cl.show(cards, (String) evt.getItem());
-    }
-
     /**
      * Create the GUI and show it. For thread safety, this method should be
      * invoked from the event dispatch thread.

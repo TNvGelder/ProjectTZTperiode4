@@ -22,7 +22,7 @@ public class ButtonEditor extends DefaultCellEditor {
 
     public ButtonEditor(JCheckBox checkBox) {
         super(checkBox);
-        button = new JButton();
+        button = new JButton("meer");
         button.setOpaque(true);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -83,5 +83,6 @@ public class ButtonEditor extends DefaultCellEditor {
 
     protected void fireEditingStopped() {
         super.fireEditingStopped();
+        System.out.println("dsfads");
     }
 }
