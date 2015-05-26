@@ -31,25 +31,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UitbetalingsPanel extends JPanel implements ItemListener {
 
-    private PakketTonen pakkettonen;
-
     JPanel cards; //a panel that uses CardLayout
-    final static String Aangemelde = "Aangemelde pakketten";
-    final static String Verzonden = "Verzonden pakketten";
-    final static String Gearriveerde = "Gearriveerde pakketten";
     private JPanel categoriePanel;
     private JComboBox cb;
     private JFrame hoofdscherm;
     DatabaseManager databaseManager = new DatabaseManager();
-    ArrayList<Pakket> pakketten = databaseManager.getPakketten();
 
     public UitbetalingsPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
 
         setLayout(new BorderLayout());
 //        comboBoxPane.add(cb);
-        
+
         //Create the "cards".
-        //refresh();
+        refresh();
 
         setVisible(true);
     }
@@ -62,13 +56,14 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 //        }else {
 //            card = new PakketTabelPanel(hoofdscherm);
 //        }
-        
+
         cb.addItem(categorieNaam);
         //cards.add(card, categorieNaam);
     }
 
     public void refresh() {
         this.removeAll();
+        ArrayList<UitbetalingsVerzoek> verzoeken = databaseManager.getAfgehandeldeUitbetalingsVerzoeken();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
         cards = new JPanel(new CardLayout());
@@ -76,26 +71,27 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
-        maakCategorie("Niet Afgehandeld");
-        maakCategorie("Afgehandeld");
-        maakCategorie("Alle Pakketten");
+        String categorie1 = "Niet Afgehandeld";
+        String categorie2 = "Afgehandeld";
+        maakCategorie(categorie1);
+        maakCategorie(categorie2);
         categoriePanel.add(cb);
         add(cards);
-
-        // Populate the JTable (TableModel) with data from ArrayList
-        for (Pakket pakket : pakketten) {
-            //Bekijk status van pakket
-
-            String strStatus = pakket.getStatus();
-            
-
-//            PakketTabelPanel pakketTabel = sorteerCategorieën.get(strStatus);
-//            pakketTabel.voegPakketToe(pakket);
-//            PakketTabelPanel pakketTabel2 = sorteerCategorieën.get("Alle Pakketten");
-//            pakketTabel2.voegPakketToe(pakket);
-//            String strBetaald = null;
-
+        
+        UitbetalingsTabelPanel tabelPanelAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, false);
+        UitbetalingsTabelPanel tabelPanelNietAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, true);
+        for(UitbetalingsVerzoek verzoek : verzoeken){
+            boolean afgehandeld = verzoek.isAfgehandeld();
+            if (afgehandeld){
+                tabelPanelAfgehandeld.voegVerzoekToe(verzoek);
+            }else{
+                tabelPanelNietAfgehandeld.voegVerzoekToe(verzoek);
+            }
         }
+        System.out.println(verzoeken);
+        
+        cards.add(tabelPanelNietAfgehandeld, categorie1);
+        cards.add(tabelPanelAfgehandeld, categorie2);
 
     }
 

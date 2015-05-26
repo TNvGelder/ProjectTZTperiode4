@@ -15,12 +15,14 @@ import javax.swing.table.*;
  */
 public class ButtonRenderer extends JButton implements TableCellRenderer {
 
-    public ButtonRenderer() {
+    public ButtonRenderer(String naam) {
+        super(naam);
         setOpaque(true);
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
+        String naam = this.getText();
         if (isSelected) {
             setForeground(table.getSelectionForeground());
             setBackground(table.getSelectionBackground());
@@ -28,7 +30,7 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
             setForeground(table.getForeground());
             setBackground(UIManager.getColor("Button.background"));
         }
-        setText("meer");
+        setText(naam);
         return this;
     }
 }

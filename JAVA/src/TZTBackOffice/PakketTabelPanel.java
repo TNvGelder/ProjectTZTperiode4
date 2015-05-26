@@ -63,20 +63,22 @@ public class PakketTabelPanel extends JPanel {
 
         System.out.println(table.getColumnCount());
         table.setModel(tableModel);
-        table.getColumnModel().getColumn(0).setMinWidth(100);
-        table.getColumnModel().getColumn(1).setMinWidth(100);
+        table.getColumnModel().getColumn(0).setMinWidth(75);
+        table.getColumnModel().getColumn(1).setMinWidth(75);
         table.getColumnModel().getColumn(2).setMinWidth(100);
         table.getColumnModel().getColumn(3).setMinWidth(100);
         table.getColumnModel().getColumn(4).setMinWidth(100);
         table.getColumnModel().getColumn(5).setMinWidth(100);
-        table.getColumnModel().getColumn(6).setMinWidth(50);
-        table.getColumnModel().getColumn(7).setMinWidth(100);
+        table.getColumnModel().getColumn(6).setMinWidth(100);
+        table.getColumnModel().getColumn(7).setMinWidth(50);
         table.getColumnModel().getColumn(8).setMinWidth(100);
-        table.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        table.getColumn("Details").setCellEditor(new PakketButtonEditor(new JCheckBox(), hoofdscherm, pakketten));
+        TableColumn detailColumn = table.getColumn("Details");
+        detailColumn.setCellRenderer(new ButtonRenderer("meer"));
+        detailColumn.setCellEditor(new PakketButtonEditor(new JCheckBox(), hoofdscherm, pakketten));
+        detailColumn.setMinWidth(100);
         
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(1000, scrollPane.getPreferredSize().height));
+        scrollPane.setPreferredSize(new Dimension(950, scrollPane.getPreferredSize().height));
         scrollPane.getViewport().setBackground(Color.WHITE);
         add(scrollPane);
     }
@@ -109,7 +111,7 @@ public class PakketTabelPanel extends JPanel {
         }
 
         Object[] data = {orderID, strPakketnr, status, strAanmeldtijd, aflevertijd, strOrganisatie, strFormaat,
-            strGewicht, strBetaald, "meer"};
+            strGewicht, strBetaald};
         TableColumn column = table.getColumn("Details");
         
         

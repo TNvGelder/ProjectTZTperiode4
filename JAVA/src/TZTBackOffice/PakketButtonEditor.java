@@ -15,7 +15,7 @@ import javax.swing.JTable;
 
 /**
  *
- * @author Twan
+ * @author Twan en Jasper
  */
 public class PakketButtonEditor extends DefaultCellEditor {
    
@@ -36,14 +36,8 @@ public class PakketButtonEditor extends DefaultCellEditor {
         Pakket pakket = pakketten.get(row);
         PakketInfoDialoog dialoog = new PakketInfoDialoog(pakket, hoofdscherm);
         dialoog.setVisible(true);
-        System.out.println("wowwww");
         return null;
     }
-    private ArrayList<Pakket> pakket;
-    private JFrame scherm;
-
-    
-
     
 
 }

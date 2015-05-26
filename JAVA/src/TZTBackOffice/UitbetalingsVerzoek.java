@@ -46,6 +46,10 @@ public class UitbetalingsVerzoek {
     public boolean isGoedgekeurd() {
         return goedgekeurd;
     }
+    
+    public void setGoedgekeurd(boolean bool){
+        goedgekeurd = bool;
+    }
 
     @Override
     public String toString() {

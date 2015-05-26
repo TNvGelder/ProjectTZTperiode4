@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +22,7 @@ import javax.swing.table.TableColumn;
 /**
  *
  * @author Twan
+ *
  */
 public class UitbetalingsTabelPanel extends JPanel {
 
@@ -27,19 +30,18 @@ public class UitbetalingsTabelPanel extends JPanel {
     private JTable table = new JTable();
     private JFrame hoofdscherm;
     private ArrayList<UitbetalingsVerzoek> verzoeken;
-    private boolean vulArray = false;
+    private boolean afhandelKnop;
 
-    //Als 
-    public UitbetalingsTabelPanel(JFrame hoofdscherm) {
+    public UitbetalingsTabelPanel(JFrame hoofdscherm, boolean afhandelKnop) {
         this.verzoeken = new ArrayList();
         this.hoofdscherm = hoofdscherm;
-
-        String col[] = {"Datum", "Naam", "Bedrag", "IBAN", "", ""};
+        this.afhandelKnop = afhandelKnop;
+        String col[] = {"Datum", "Naam", "Bedrag", "IBAN", "Goedgekeurd"};
         tableModel = new DefaultTableModel(col, 0) {
             //Zorg dat de tabel niet te bewerken is
             @Override
             public boolean isCellEditable(int data, int columns) {
-                if (columns == 6 || columns == 7) {
+                if (columns == 4) {
                     return true;
                 } else {
                     return false;
@@ -53,40 +55,46 @@ public class UitbetalingsTabelPanel extends JPanel {
         table.getColumnModel().getColumn(1).setMinWidth(100);
         table.getColumnModel().getColumn(2).setMinWidth(100);
         table.getColumnModel().getColumn(3).setMinWidth(100);
-        table.getColumnModel().getColumn(4).setMinWidth(100);
-        TableColumn afkeurColumn = table.getColumnModel().getColumn(6);
-        TableColumn afhandelColumn = table.getColumnModel().getColumn(6);
+        TableColumn afhandelColumn = table.getColumnModel().getColumn(4);
         afhandelColumn.setMinWidth(100);
-        afkeurColumn.setMinWidth(100);
-        ButtonRenderer buttonRenderer = new ButtonRenderer();
-        afhandelColumn.setCellRenderer(buttonRenderer);
-        afkeurColumn.setCellRenderer(buttonRenderer);
-//        PakketButtonEditor editor = new PakketButtonEditor(new JCheckBox(), hoofdscherm, verzoeken);
-//        afhandelColumn.setCellEditor(editor);
-//        afkeurColumn.setCellEditor(editor);
+        if (afhandelKnop) {
+            ButtonRenderer buttonRenderer = new ButtonRenderer("handel af");
+            afhandelColumn.setCellRenderer(buttonRenderer);
+            VerzoekButtonEditor editor = new VerzoekButtonEditor(new JCheckBox(), hoofdscherm, verzoeken);
+            afhandelColumn.setCellEditor(editor);
+        }
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(1000, scrollPane.getPreferredSize().height));
+        scrollPane.setPreferredSize(new Dimension(700, scrollPane.getPreferredSize().height));
         scrollPane.getViewport().setBackground(Color.WHITE);
+
+        //Voeg verzoeken toe aan tabel
+        for (UitbetalingsVerzoek verzoek : verzoeken) {
+            voegVerzoekToe(verzoek);
+        }
         add(scrollPane);
     }
 
+    //Voegt een rij toe aan de tabel met gegevens van het meegegeven verzoek.
     public void voegVerzoekToe(UitbetalingsVerzoek verzoek) {
-        verzoeken.add(verzoek);
-        
         try {
             TreinKoerier koerier = (TreinKoerier) verzoek.getKoerier();
             Timestamp datum = verzoek.getDatum();
             String naam = koerier.toString();
             Double bedrag = verzoek.getBedrag();
             String rekeningnr = koerier.getRekeningnr();
-            Object[] data = {datum, naam, bedrag, rekeningnr};
-            
+            String goedgekeurd;
+            if (verzoek.isGoedgekeurd()){
+                goedgekeurd = "Ja";
+            }else{
+                goedgekeurd = "Nee";
+            }
+            Object[] data = {datum, naam, bedrag, rekeningnr, goedgekeurd};
 
             tableModel.addRow(data);
             table.setModel(tableModel);
         } catch (ClassCastException ex) {
-
+            Logger.getLogger("").log(Level.SEVERE, null, ex);
         }
 
     }
