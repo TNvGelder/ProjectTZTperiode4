@@ -27,12 +27,13 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     JButton button;
     JLabel label;
 
-    private JLabel jlHead, jlNaam, jlTelnummer, jlEmail, jlTarieven, jlNaamError, jlEmailError;
-    private JTextField jtfNaam, jtfTelnummer, jtfEmail, tf4;
+    private JLabel jlHead, jlNaam, jlTelnummer, jlEmail, jlTarieven, jlNaamError, jlEmailError, jlStartTarief, jlWaardeOmslag, jlPrijsPerKm;
+    private JTextField jtfNaam, jtfTelnummer, jtfEmail, tf4, jtfStartTarief, jtfWaardeOmslag, jtfPrijsPerKm;
     private JButton jbToevoegen, btn2;
-    private JTextArea jtaTarieven;
+//    private JTextArea jtaTarieven;
     private DatabaseManager databasemanager;
 
+    //start tarief, waarde omslag, prijs per km
     public KoerierToevoegenDialoog(DatabaseManager databasemanager, ContactOverzichtPanel contactOverzicht) {
         this.databasemanager = databasemanager;
 
@@ -52,7 +53,10 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jlNaam = new JLabel("Naam:");
         jlTelnummer = new JLabel("Tel. Nummer:");
         jlEmail = new JLabel("E-mail adres:");
-        jlTarieven = new JLabel("Tarieven:");
+        jlStartTarief = new JLabel("Start Tarief:");
+        jlWaardeOmslag = new JLabel("Waarde van omslag:");
+        jlPrijsPerKm = new JLabel("Prijs per km:");
+//        jlTarieven = new JLabel("Tarieven:");
         jlNaamError = new JLabel("");
         jlNaamError.setForeground(Color.red);
         jlNaamError.setFont(new Font("Roboto-Regular", Font.PLAIN, 20));
@@ -64,9 +68,11 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jtfNaam = new JTextField();
         jtfTelnummer = new JTextField();
         jtfEmail = new JTextField();
+        jtfStartTarief = new JTextField();
+        jtfWaardeOmslag = new JTextField();
+        jtfPrijsPerKm = new JTextField();
 
-        jtaTarieven = new JTextArea(5, 30);
-
+//        jtaTarieven = new JTextArea(5, 30);
         jbToevoegen = new JButton("Toevoegen");
         btn2 = new JButton("Voeg tekst in");
 
@@ -77,34 +83,44 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
         jlNaam.setBounds(80, 70, 200, 30);
         jlTelnummer.setBounds(80, 110, 200, 30);
         jlEmail.setBounds(80, 150, 200, 30);
-        jlTarieven.setBounds(80, 190, 200, 30);
-        jlNaamError.setBounds(180, 70, 500, 30);
-        jlEmailError.setBounds(180, 70, 500, 30);
-        jtfNaam.setBounds(180, 70, 200, 30);
-        jtfTelnummer.setBounds(180, 110, 200, 30);
-        jtfEmail.setBounds(180, 150, 200, 30);
+        jlStartTarief.setBounds(80, 190, 200, 30);
+        jlWaardeOmslag.setBounds(80, 230, 200, 30);
+        jlPrijsPerKm.setBounds(80, 270, 200, 30);
+//        jlTarieven.setBounds(80, 190, 200, 30);
+        jlNaamError.setBounds(240, 70, 500, 30);
+        jlEmailError.setBounds(240, 70, 500, 30);
+        jtfNaam.setBounds(240, 70, 200, 30);
+        jtfTelnummer.setBounds(240, 110, 200, 30);
+        jtfEmail.setBounds(240, 150, 200, 30);
+        jtfStartTarief.setBounds(240, 190, 200, 30);
+        jtfWaardeOmslag.setBounds(240, 230, 200, 30);
+        jtfPrijsPerKm.setBounds(240, 270, 200, 30);
+//        jtaTarieven.setBounds(180, 190, 200, 120);
 
-        jtaTarieven.setBounds(180, 190, 200, 120);
-
-        jbToevoegen.setBounds(228, 315, 150, 20);
+        jbToevoegen.setBounds(240, 315, 150, 20);
 
         //Inhoud toevoegen
         add(jlHead);
         add(jlNaam);
         add(jlTelnummer);
         add(jlEmail);
-        add(jlTarieven);
+//        add(jlTarieven);
         add(jlNaamError);
         add(jtfNaam);
         add(jtfTelnummer);
         add(jtfEmail);
         add(jlEmailError);
+        add(jlStartTarief);
+        add(jlWaardeOmslag);
+        add(jlPrijsPerKm);
+        add(jtfStartTarief);
+        add(jtfWaardeOmslag);
+        add(jtfPrijsPerKm);
 
         add(jbToevoegen);
         add(btn2);
 
-        add(jtaTarieven);
-
+//        add(jtaTarieven);
         event e = new event();
         jbToevoegen.addActionListener(e);
 
@@ -125,7 +141,13 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
                 String strNaam = jtfNaam.getText();
                 String strTelnummer = jtfTelnummer.getText();
                 String strEmail = jtfEmail.getText();
-                String strTarieven = jtaTarieven.getText();
+//                String strStartTarief = jtfStartTarief.getText();
+//                String strWaardeOmslag = jtfWaardeOmslag.getText();
+//                String strPrijsPerKm = jtfPrijsPerKm.getText();
+                int intStartTarief = Integer.parseInt(jtfStartTarief.getText());
+                double doubleWaardeOmslag = Double.parseDouble(jtfWaardeOmslag.getText());
+                double doublePrijsPerKm = Double.parseDouble(jtfPrijsPerKm.getText());
+//                String strTarieven = jtaTarieven.getText();
                 String strType = "4";
 
                 //Check of Naam en Email zijn ingevuld
@@ -142,9 +164,12 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
                     contact1.setNaam(strNaam);
                     contact1.setEmail(strEmail);
                     contact1.setTelefoonnr(strTelnummer);
+                    Tarief tarief1 = new Tarief(koeriersdienst1, intStartTarief, doubleWaardeOmslag, doublePrijsPerKm);
+                    koeriersdienst1.voegTariefToe(tarief1);
 
                     //Voeg de koerier toe in de DB
                     databasemanager.voegKoeriersdienstToe(koeriersdienst1);
+                    databasemanager.voegTariefToe(tarief1);
                     dispose();
                 }
 
