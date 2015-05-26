@@ -17,6 +17,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,7 +38,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
     private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     private JComboBox cb;
 
-    public UitbetalingsPanel() {
+    public UitbetalingsPanel(DatabaseManager databaseManager, JFrame hoofdscherm) {
         //Layout scherm
         String comboBoxItems[] = {Openstaand, Afgehandeld};
         JComboBox cb = new JComboBox(comboBoxItems);
@@ -61,7 +62,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 
         JTable tableAangemeld = new JTable(dmAangemeld);
         tableAangemeld.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        tableAangemeld.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
+        //tableAangemeld.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox(), hoofdscherm));
         tableAangemeld.setPreferredScrollableViewportSize(new Dimension(800, 140));
         JScrollPane scrollAangemeld = new JScrollPane(tableAangemeld);
         card1.add(scrollAangemeld);
@@ -80,7 +81,6 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 
         JTable tableVerzonden = new JTable(dmVerzonden);
         tableVerzonden.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        tableVerzonden.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
         tableVerzonden.setPreferredScrollableViewportSize(new Dimension(800, 140));
         JScrollPane scrollVerzonden = new JScrollPane(tableVerzonden);
         card2.add(scrollVerzonden);

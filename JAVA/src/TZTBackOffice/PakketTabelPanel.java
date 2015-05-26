@@ -7,19 +7,24 @@ package TZTBackOffice;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import static java.nio.file.Files.delete;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -28,15 +33,27 @@ import javax.swing.table.TableColumn;
 public class PakketTabelPanel extends JPanel {
 
     private DefaultTableModel tableModel;
-    JTable table = new JTable();
-
-    public PakketTabelPanel() {
-        String col[] = {"Pakket nr", "Aanmeldtijd", "Aflevertijd", "Koerier", "Formaat", "Gewicht", "Betaald", "Details"};
+    private JTable table = new JTable();
+    private JFrame hoofdscherm;
+    private ArrayList<Pakket> pakketten;
+    private boolean vulArray = false;
+    
+    //Als 
+    public PakketTabelPanel(JFrame hoofdscherm) {
+        this(hoofdscherm, new ArrayList());
+        vulArray = true;
+    }
+    
+    public PakketTabelPanel(JFrame hoofdscherm, ArrayList<Pakket> pakketten){
+        this.pakketten = pakketten;
+        this.hoofdscherm = hoofdscherm;
+        
+        String col[] = {"Pakket nr", "Status", "Aanmeldtijd", "Aflevertijd", "Koerier", "Formaat", "Gewicht", "Betaald", "Details"};
         tableModel = new DefaultTableModel(col, 0) {
             //Zorg dat de tabel niet te bewerken is
             @Override
             public boolean isCellEditable(int data, int columns) {
-                if (columns == 7) {
+                if (columns == 8) {
                     return true;
                 } else {
                     return false;
@@ -54,17 +71,24 @@ public class PakketTabelPanel extends JPanel {
         table.getColumnModel().getColumn(5).setMinWidth(100);
         table.getColumnModel().getColumn(6).setMinWidth(100);
         table.getColumnModel().getColumn(7).setMinWidth(100);
-
+        table.getColumn("Details").setCellRenderer(new ButtonRenderer());
+        table.getColumn("Details").setCellEditor(new PakketButtonEditor(new JCheckBox(), hoofdscherm, pakketten));
+        //Sorteren voor in de tabel
+        RowSorter<TableModel> sorter = new TableRowSorter<>(tableModel);
+ table.setRowSorter(sorter);
+        
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(900, scrollPane.getPreferredSize().height));
         scrollPane.getViewport().setBackground(Color.WHITE);
         add(scrollPane);
-
     }
 
     public void voegPakketToe(Pakket pakket) {
+        if (vulArray){
+            pakketten.add(pakket);
+        }
         int strPakketnr = pakket.getPakketID();
-
+        
         VerzendOrder order = pakket.getOrder();
         Timestamp strAanmeldtijd = order.getAanmeldTijd();
 
@@ -73,6 +97,7 @@ public class PakketTabelPanel extends JPanel {
         double strGewicht = pakket.getGewicht();
         boolean intBetaald = pakket.getDefinitief();
         String strBetaald = "Betaald";
+        String status = pakket.getStatus();
         if (!intBetaald) {
             strBetaald = "Niet Betaald";
         }
@@ -84,27 +109,11 @@ public class PakketTabelPanel extends JPanel {
             aflevertijd = laatsteTraject.getAfleverTijdstip();
         }
 
-        String strDetails = pakket.getOpmerking();
-
-        Object[] data = {strPakketnr, strAanmeldtijd, aflevertijd, strOrganisatie, strFormaat,
-            strGewicht, strBetaald};
-        table.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
-
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                System.out.println("#################################################################################hey");
-                String selectedCell1 = table.getValueAt(table.getSelectedRow(), 0).toString();
-                int selectedCelltest = Integer.parseInt(selectedCell1);
-//                int selectedCelltest = Integer.valueOf(selectedCell1);
-                //setSelectedCell(selectedCelltest);
-                //getSelectedCell();
-                //System.out.println("dit is de cel volgens value: " + getSelectedCell());
-                System.out.println("De cel: " + selectedCelltest);
-
-            }
-        });
+        Object[] data = {strPakketnr, status, strAanmeldtijd, aflevertijd, strOrganisatie, strFormaat,
+            strGewicht, strBetaald, "meer"};
+        TableColumn column = table.getColumn("Details");
+        
+        
 
         tableModel.addRow(data);
         table.setModel(tableModel);

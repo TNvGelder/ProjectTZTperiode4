@@ -40,8 +40,8 @@ public class HoofdScherm extends JFrame implements ActionListener {
         databaseManager = new DatabaseManager();
         tabbedPane = new JTabbedPane();
         contactPanel = new ContactOverzichtPanel(databaseManager);
-        PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel(databaseManager);
-        UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel();
+        PakketOverzichtPanel pakketPanel = new PakketOverzichtPanel(databaseManager, this);
+        UitbetalingsPanel uitbetalingPanel = new UitbetalingsPanel(databaseManager, this);
         //JComponent probleemPanel = new ProbleemPanel();
         //tabbedPane.addTab("Problemen", probleemPanel);
         tabbedPane.addTab("Pakketten", pakketPanel);
