@@ -11,17 +11,13 @@ public class TreinKoerier extends AccountHouder {
     private String rekeningnr;
 
     public TreinKoerier(double krediet, String rekeningnr, String voornaam, String type, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie) {
-        super(voornaam, type, email, telefoonnr, contactID, achternaam, locatie, null, null);
+        super(voornaam, type, email, telefoonnr, contactID, achternaam, locatie, null, null, rekeningnr);
         this.krediet = krediet;
         this.rekeningnr = rekeningnr;
     }
 
     public double getKrediet() {
         return krediet;
-    }
-
-    public String getRekeningnr() {
-        return rekeningnr;
     }
 
     public void setKrediet(double krediet) {

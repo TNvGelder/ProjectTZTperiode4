@@ -30,7 +30,7 @@ public class DatabaseManager {
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
     private ArrayList<Contact> contactArray;
-    private HashMap<Integer, String> types;
+    private HashMap<String, Integer> types;
     private Traject vorigTraject;
 
     // Aangemeld, verzonden, gearriveerd
@@ -55,6 +55,7 @@ public class DatabaseManager {
     }
 
     public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
+        System.out.println("getUitbetalingsverzoeken: "+ uitbetalingsVerzoeken);
         return uitbetalingsVerzoeken;
     }
 
@@ -198,20 +199,18 @@ public class DatabaseManager {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
 
+            String typenaam = c.getType();
+            int typeID = types.get(typenaam);
             //Update statement maken
             String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ?, type = ? WHERE stakeholderID = ?";
             //Preparedstatement maken
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
-            String typenaam = c.getType();
+
             preparedStmt.setString(1, c.getNaam());
             preparedStmt.setString(2, c.getTelefoonnr());
+            preparedStmt.setInt(3, typeID);
             
-            if ("gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)){
-                
-            }else{
-                
-            }
             preparedStmt.setString(3, c.getType());
 
             preparedStmt.setInt(4, c.getContactID());
@@ -294,7 +293,7 @@ public class DatabaseManager {
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
-            System.out.println("Er is iets misgegaan bij het verwijderen van");
+            System.out.println("Er is iets misgegaan bij het verwijderen van contact");
             Logger.getLogger("").log(Level.SEVERE, null, e);
         }
     }
@@ -410,11 +409,13 @@ public class DatabaseManager {
         pakketten = new ArrayList();
         bezorgProblemen = new ArrayList();
         uitbetalingsVerzoeken = new ArrayList();
+        System.out.println("\n Array voor query " + uitbetalingsVerzoeken);
         contactArray = new ArrayList();
         klachten = new ArrayList();
         contactHashmap = new HashMap();
         locaties = new HashMap();
         problemen = new HashMap();
+        types = new HashMap();
         //Indien er een werkende connectie is worden de queries uitgevoerd en worden er objecten aangemaakt.
         try {
             statement = connection.createStatement();
@@ -461,6 +462,10 @@ public class DatabaseManager {
             while (rs.next()) {
                 int newContactID = rs.getInt(1);
                 String typenaam = rs.getString("typenaam");
+                int typeID = rs.getInt("s.type");
+                if (!types.containsKey(typeID)){
+                    types.put(typenaam, typeID);
+                }
                 if (newContactID != contactID) {
                     Contact contact;
                     contactID = newContactID;
@@ -470,17 +475,17 @@ public class DatabaseManager {
                     if ("gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)) {
                         String achternaam = rs.getString("achternaam");
                         Locatie locatie = locaties.get(rs.getInt("locatie"));
+                        String rekeningnr = rs.getString("rekeningnr");
                         AccountHouder klant;
                         if ("geverifieerd".equals(typenaam)) {
 
                             Double krediet = rs.getDouble("krediet");
-                            String rekeningnr = rs.getString("rekeningnr");
                             TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
                             klant = koerier;
                         } else {
                             String ovkaart = rs.getString("ovkaart");
                             String idkaart = rs.getString("idkaart");
-                            klant = new AccountHouder(naam, typenaam, email, telefoonnr, contactID, achternaam, locatie, ovkaart, idkaart);
+                            klant = new AccountHouder(naam, typenaam, email, telefoonnr, contactID, achternaam, locatie, ovkaart, idkaart, rekeningnr);
                         }
                         contact = klant;
 
@@ -545,7 +550,8 @@ public class DatabaseManager {
                 System.out.println(verzoek);
                 uitbetalingsVerzoeken.add(verzoek);
             }
-
+            System.out.println("Array na query "+ uitbetalingsVerzoeken);
+            System.out.println("Array van getter" + getUitbetalingsVerzoeken());
             statement.close();
             connection.close();
 
