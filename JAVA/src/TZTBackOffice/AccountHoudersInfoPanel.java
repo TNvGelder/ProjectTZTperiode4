@@ -25,7 +25,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat, jlEmail, jlVerplicht, jlFoutmelding, jlRekeningnr;
     protected JTextField jtfNaam, jtfTelnummer, jtfAchternaam, jtfWoonplaats, jtfPostcode, jtfHuisnummer, jtfStraat;
     protected JButton jbAanpassen, jbGoedkeuren;
-    private AccountHouder a;
+    protected AccountHouder account;
     private DatabaseManager databasemanager;
     private BufferedImage imageID;
     private BufferedImage imageOV;
@@ -35,7 +35,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
     public AccountHoudersInfoPanel(AccountHouder accountHouder, DatabaseManager databasemanager, ContactOverzichtPanel overzicht) {
         this.databasemanager = databasemanager;
         this.setLayout(null);
-        this.a = accountHouder;
+        this.account = accountHouder;
         this.overzicht = overzicht;
         this.verplichteVelden = new ArrayList();
         //Maak de inhoud aan
@@ -197,10 +197,10 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         String strStraat = jtfStraat.getText();
         String strHuisnummer = jtfHuisnummer.getText();
 
-        a.setNaam(strNaam);
-        a.setAchternaam(strAchternaam);
-        a.setTelefoonnr(strTelefoonnummer);
-        Locatie locatie = a.getLocatie();
+        account.setNaam(strNaam);
+        account.setAchternaam(strAchternaam);
+        account.setTelefoonnr(strTelefoonnummer);
+        Locatie locatie = account.getLocatie();
         locatie.setPlaats(strWoonplaats);
         locatie.setPostcode(strPostcode);
         locatie.setStraat(strStraat);
@@ -219,16 +219,16 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             }
             veranderAccGegevens();
 
-            databasemanager.updateLocatie(a);
-            databasemanager.updateContact(a);
+            databasemanager.updateLocatie(account);
+            databasemanager.updateContact(account);
         } //Accounthouder omzetten naar Treinkoerier
         else if (e.getSource() == jbGoedkeuren) {
-            a.setType("geverifieerd");
+            account.setType("geverifieerd");
 
-            databasemanager.updateContact(a);
-            TreinKoerier koerier = new TreinKoerier(0, a.getRekeningnr(), a.getNaam(), a.getType(), a.getEmail(), a.getTelefoonnr(), a.getContactID(), a.getAchternaam(), a.getLocatie());
+            databasemanager.updateContact(account);
+            TreinKoerier koerier = new TreinKoerier(0, account.getRekeningnr(), account.getNaam(), account.getType(), account.getEmail(), account.getTelefoonnr(), account.getContactID(), account.getAchternaam(), account.getLocatie());
             ArrayList<Contact> contacten = databasemanager.getContacten();
-            int i = contacten.indexOf(a);
+            int i = contacten.indexOf(account);
             contacten.remove(i);
             contacten.add(i, koerier);
             databasemanager.getContactMap().put(i, koerier);

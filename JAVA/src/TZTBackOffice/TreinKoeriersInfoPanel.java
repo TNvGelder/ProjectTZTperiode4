@@ -5,20 +5,13 @@
  */
 package TZTBackOffice;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements ActionListener {
 
     private DatabaseManager databasemanager;
-    private TreinKoerier t;
     private JTextField jtfRekening;
     
     
@@ -27,7 +20,6 @@ public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements A
         super(treinKoerier, databasemanager, overzicht);
         this.databasemanager = databasemanager;
         this.setLayout(null);
-        this.t = treinKoerier;
 
         jlHead.setText("Treinkoerier");
         jlRekeningnr.setText("Rekeningnr*: ");
@@ -51,8 +43,9 @@ public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements A
             }
             veranderAccGegevens();
             String rekening = jtfRekening.getText();
-            t.setRekeningnr(rekening);
-            databasemanager.updateContact(t);
+            TreinKoerier koerier = (TreinKoerier) account;
+            koerier.setRekeningnr(rekening);
+            databasemanager.updateContact(koerier);
             overzicht.refresh();
         }
     }
