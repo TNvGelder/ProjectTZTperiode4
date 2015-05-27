@@ -209,7 +209,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
         } else if (c instanceof AccountHouder) {
             infoPanel.add(new AccountHoudersInfoPanel((AccountHouder) c, databaseManager));
         } else if (c instanceof KoeriersDienst) {
-            infoPanel.add(new KoeriersInfoPanel((KoeriersDienst) c));
+            infoPanel.add(new KoeriersInfoPanel((KoeriersDienst) c, databaseManager, this, false));
         }
 
         infoPanel.validate();

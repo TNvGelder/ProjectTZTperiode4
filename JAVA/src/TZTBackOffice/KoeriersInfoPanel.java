@@ -9,7 +9,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -17,103 +19,127 @@ import javax.swing.JTextField;
 
 public class KoeriersInfoPanel extends JPanel implements ActionListener {
 
-    private JLabel jlHead, jlTelnummer, jlNaam, jlEmail;
+    private JLabel jlHead, jlNaam, jlTelnummer, jlEmail, jlFoutmelding;
     private JTextField jtfNaam, jtfTelnummer, jtfEmail;
-    //private JLabel jlStartTarief, jlWaardeOmslag, jlPrijsPerKm;
-    //jtfStartTarief, jtfWaardeOmslag, jtfPrijsPerKm;
-    //private JTextArea jtaTarieven;
-    private JButton jbAanpassen;
-
+    private JButton jbVerwijder, jbBevestig, btn2;
     private DatabaseManager databasemanager;
+    private ContactOverzichtPanel contactOverzicht;
+    private int koeriersID;
+    private boolean isToevoeg;
     private KoeriersDienst koeriersDienst;
 
-    public KoeriersInfoPanel(KoeriersDienst koeriersdienst) {
-//        super(koeriersdienst, databasemanager);
-//        this.databasemanager = databasemanager;
-        this.setLayout(null);
+    public KoeriersInfoPanel(KoeriersDienst koeriersdienst, DatabaseManager databasemanager, ContactOverzichtPanel contactOverzicht, boolean isToevoeg) {
         this.koeriersDienst = koeriersdienst;
-
+        this.databasemanager = databasemanager;
+        this.contactOverzicht = contactOverzicht;
+        this.isToevoeg = isToevoeg;
         setLayout(null);
-        jbAanpassen = new JButton("Aanpassen");
-        jbAanpassen.addActionListener(this);
-        this.add(jbAanpassen);
 
         //Inhoud scherm
-        jlHead = new JLabel("Koeriersdienst");
+        if (isToevoeg) {
+            jlHead = new JLabel("Toevoegen koeriersdienst");
+            jbBevestig = new JButton("Toevoegen");
+        } else {
+            jlHead = new JLabel("Wijzigen koeriersdienst");
+            jbVerwijder = new JButton("Verwijderen");
+            jbVerwijder.addActionListener(this);
+            jbVerwijder.setBounds(80, 250, 150, 20);
+            jbBevestig = new JButton("Wijzigen");
+            add(jbVerwijder);
+        }
+
         jlHead.setForeground(Color.blue);
         jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
 
-        jlNaam = new JLabel("Naam: ");
-        jlTelnummer = new JLabel("Tel. Nummer: ");
-        jlEmail = new JLabel("E-mail adres: ");
-//        jlStartTarief = new JLabel("Start Tarief:");
-//        jlWaardeOmslag = new JLabel("Waarde van omslag:");
-//        jlPrijsPerKm = new JLabel("Prijs per km:");
-//        jlTarieven = new JLabel("Tarieven: ");
-//        jlNaamError = new JLabel("");
-//        jlNaamError.setForeground(Color.red);
-//        jlNaamError.setFont(new Font("Serif", Font.BOLD, 20));
-//
-//        jlEmailError = new JLabel("");
-//        jlEmailError.setForeground(Color.red);
-//        jlEmailError.setFont(new Font("Serif", Font.BOLD, 20));
+        jlNaam = new JLabel("Naam:");
+        jlTelnummer = new JLabel("Tel. Nummer:");
+        jlEmail = new JLabel("Email: ");
+        jlFoutmelding = new JLabel("");
+        jlFoutmelding.setForeground(Color.red);
+        jlFoutmelding.setFont(new Font("Roboto-Regular", Font.PLAIN, 20));
 
-        jtfNaam = new JTextField(koeriersDienst.getNaam());
-        jtfTelnummer = new JTextField(koeriersDienst.getTelefoonnr());
-        jtfEmail = new JTextField(koeriersDienst.getEmail());
-//        jtfStartTarief = new JTextField();
-//        jtfWaardeOmslag = new JTextField();
-//        jtfPrijsPerKm = new JTextField();
+        jtfNaam = new JTextField();
+        jtfTelnummer = new JTextField();
+        jtfEmail = new JTextField();
+        
 
-//        jtaTarieven = new JTextArea(5, 30);
-        //btn2 = new JButton("Voeg tekst in");
-//        event e = new event();
-//        btn2.addActionListener(e);
-        //btn1.addActionListener(this);
+        btn2 = new JButton("Voeg tekst in");
+
         jlHead.setBounds(80, 30, 400, 30);
-        jlNaam.setBounds(80, 70, 200, 30);
-        jlTelnummer.setBounds(80, 110, 200, 30);
-        jlEmail.setBounds(80, 150, 200, 30);
-//        jlStartTarief.setBounds(80, 190, 200, 30);
-//        jlWaardeOmslag.setBounds(80, 230, 200, 30);
-//        jlPrijsPerKm.setBounds(80, 270, 200, 30);
-//        jlTarieven.setBounds(80, 190, 200, 30);
-//        jtfNaam.setBounds(180, 70, 200, 30);
-//        jtfTelnummer.setBounds(180, 110, 200, 30);
-//        jtfEmail.setBounds(180, 150, 200, 30);
-        jtfNaam.setBounds(240, 70, 200, 30);
-        jtfTelnummer.setBounds(240, 110, 200, 30);
-        jtfEmail.setBounds(240, 150, 200, 30);
-//        jtfStartTarief.setBounds(240, 190, 200, 30);
-//        jtfWaardeOmslag.setBounds(240, 230, 200, 30);
-//        jtfPrijsPerKm.setBounds(240, 270, 200, 30);
+        jlNaam.setBounds(80, 110, 200, 30);
+        jlTelnummer.setBounds(80, 150, 200, 30);
+        jlFoutmelding.setBounds(80, 70, 500, 30);
+        jtfNaam.setBounds(240, 110, 200, 30);
+        jtfTelnummer.setBounds(240, 150, 200, 30);
+        jtfEmail.setBounds(240, 190, 200, 30);
+        jlEmail.setBounds(80, 190, 200, 30);
+        jbBevestig.setBounds(290, 250, 150, 20);
 
-//        jtaTarieven.setBounds(180, 190, 200, 120);
-        jbAanpassen.setBounds(290, 315, 150, 20);
+        if (koeriersDienst != null) {
+            koeriersID = koeriersDienst.getContactID();
+            String naam = koeriersDienst.getNaam();
+            String telefoon = koeriersDienst.getTelefoonnr();
+            String email = koeriersDienst.getEmail();
+            jtfNaam.setText(naam);
+            jtfTelnummer.setText(telefoon);
+            jtfEmail.setText(email);
+
+        } else {
+            ArrayList<Contact> contacten = databasemanager.getContacten();
+            koeriersID = 0;
+            if (contacten.size() > 0) {
+                koeriersID = contacten.get(0).getContactID() + 1;
+            }
+        }
 
         //Inhoud toevoegen
         add(jlHead);
         add(jlNaam);
         add(jlTelnummer);
         add(jlEmail);
-//        add(jlTarieven);
-
+        add(jlFoutmelding);
         add(jtfNaam);
         add(jtfTelnummer);
         add(jtfEmail);
 
-//        add(jlStartTarief);
-//        add(jlWaardeOmslag);
-//        add(jlPrijsPerKm);
-//        add(jtfStartTarief);
-//        add(jtfWaardeOmslag);
-//        add(jtfPrijsPerKm);
-//        add(jtaTarieven);
+        add(jbBevestig);
+        add(btn2);
+
+        jbBevestig.addActionListener(this);
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == jbBevestig) {
+            //Zet JTextField data om in Strings
+            String strNaam = jtfNaam.getText();
+            String strTelnummer = jtfTelnummer.getText();
+            String strEmail = jtfEmail.getText();
+
+            String strType = "4";
+
+            //Check of Naam en Email zijn ingevuld
+            if (jtfNaam.getText().isEmpty() || jtfEmail.getText().isEmpty() || jtfTelnummer.getText().isEmpty()) {
+                jlFoutmelding.setText("Een van de velden is niet ingevuld!");
+            } else {
+                jlFoutmelding.setText("");
+                System.out.println("afwesdfasd");
+                if (isToevoeg) {
+                    //Maak de koerier aa nen voeg hem toe aan de database.
+                    KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, koeriersID);
+                    databasemanager.voegKoeriersdienstToe(koeriersdienst1);
+                } else{
+                    koeriersDienst.setEmail(strEmail);
+                    koeriersDienst.setTelefoonnr(strTelnummer);
+                    koeriersDienst.setNaam(strNaam);
+                    databasemanager.updateContact(koeriersDienst);
+                }
+            }
+        }else if (e.getSource() == jbVerwijder){
+             databasemanager.verwijderContact(koeriersDienst);
+        }
+        contactOverzicht.refresh();
 
     }
-
 }

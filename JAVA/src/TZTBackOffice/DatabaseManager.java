@@ -30,6 +30,7 @@ public class DatabaseManager {
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
     private ArrayList<Contact> contactArray;
+    private HashMap<Integer, String> types;
     private Traject vorigTraject;
 
     // Aangemeld, verzonden, gearriveerd
@@ -124,6 +125,7 @@ public class DatabaseManager {
         }
     }
 
+    //Maakt een traject object aan met behulp van gegevens uit de resultset.
     private void maakTraject(Pakket p, ResultSet r) throws SQLException {
         //Maak traject
         //t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
@@ -201,8 +203,15 @@ public class DatabaseManager {
             //Preparedstatement maken
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
+            String typenaam = c.getType();
             preparedStmt.setString(1, c.getNaam());
             preparedStmt.setString(2, c.getTelefoonnr());
+            
+            if ("gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)){
+                
+            }else{
+                
+            }
             preparedStmt.setString(3, c.getType());
 
             preparedStmt.setInt(4, c.getContactID());
@@ -235,7 +244,7 @@ public class DatabaseManager {
             int treinkoeriersID = verzoek.getKoerier().getContactID();
             Timestamp datum = verzoek.getDatum();
             //Update statement maken
-            String query = " UPDATE kredietomzetting SET isafgehandeld = ?, isgoedgekeurd = ? WHERE treinkoerier = ? AND datum = ? ";
+            String query = " UPDATE kredietomzetting SET isafgehandeld = ?, goedgekeurd = ? WHERE treinkoerier = ? AND datum = ? ";
             //Preparedstatement maken
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
@@ -253,7 +262,40 @@ public class DatabaseManager {
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateUitbetalingsVerzoek");
-            System.out.println(e);
+            Logger.getLogger("").log(Level.SEVERE, null, e);
+        }
+    }
+    
+    //verwijdert een stakeholder uit de database die dezelfde ID heeft als contact
+    public void verwijderContact(Contact contact){
+         //Update de gegevens van uitbetalingsverzoek
+        Connection connection = null;
+        Statement statement;
+        //Probeer de statement uit te voeren
+        try {
+            //Maak connectie met DB
+            connection = DriverManager.getConnection(url, username, password);
+            statement = connection.createStatement();
+            int contactID = contact.getContactID();
+            System.out.println("Contact: " + contactID);
+            //Update statement maken
+            String query = " DELETE FROM stakeholder WHERE stakeholderID = ? ";
+            //Preparedstatement maken
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            preparedStmt.setInt(1, contactID);
+
+            contactHashmap.remove(contactID);
+            contactArray.remove(contact);
+            //Voer preparedstatement uit
+            preparedStmt.executeUpdate();
+
+            //Sluit connectie
+            connection.close();
+        } catch (Exception e) {
+            //Als de connectie of statement een error opleverd
+            System.out.println("Er is iets misgegaan bij het verwijderen van");
+            Logger.getLogger("").log(Level.SEVERE, null, e);
         }
     }
 
@@ -298,37 +340,6 @@ public class DatabaseManager {
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateLocatie");
-            System.out.println(e);
-        }
-    }
-
-    public void deleteKoeriersdienst(TreinKoerier t) {
-        //Verwijder een koeriersdienst uit de database
-        Connection connection = null;
-        Statement statement;
-        //Probeer de statement uit te voeren
-        try {
-            //Maak connectie met DB
-            connection = DriverManager.getConnection(url, username, password);
-            statement = connection.createStatement();
-
-            //Update statement maken
-            String query = " DELETE FROM stakeholder WHERE stakeholderID = ?";
-
-            //Preparedstatement maken
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
-
-            preparedStmt.setInt(1, t.getContactID());
-
-            //Voer preparedstatement uit
-            preparedStmt.executeUpdate();
-            System.out.println("Treinkoerier verwijderd");
-
-            //Sluit connectie
-            connection.close();
-        } catch (Exception e) {
-            //Als de connectie of statement een error opleverd
-            System.out.println("Er is iets misgegaan met de functie deleteKoeriersdienst");
             System.out.println(e);
         }
     }
@@ -441,7 +452,7 @@ public class DatabaseManager {
                 problemen.put(probleemID, probleem);
             }
 
-            rs = statement.executeQuery("SELECT stakeholderID, (SELECT typenaam FROM stakeholdertype ty WHERE ty.typeID = s.type) typenaam ,naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet\n"
+            rs = statement.executeQuery("SELECT stakeholderID, s.type, (SELECT typenaam FROM stakeholdertype ty WHERE ty.typeID = s.type) typenaam ,naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet\n"
                     + ", locatie, rekeningnr,  km, prijs, extraprijs   FROM stakeholder s\n"
                     + "LEFT OUTER JOIN tarief t ON stakeholderID = koeriersID\n"
                     + "ORDER BY stakeholderID DESC;");
