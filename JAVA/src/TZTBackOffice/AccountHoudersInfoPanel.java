@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Richard
+ * @author Richard en Jasper
  */
 public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
@@ -197,6 +197,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
             databasemanager.updateContact(a);
         }
+        
 
     }
 

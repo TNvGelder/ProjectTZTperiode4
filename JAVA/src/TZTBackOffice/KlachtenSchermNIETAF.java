@@ -5,8 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+//Niet af
 //Create a simple GUI window
-public class KlachtenScherm extends JFrame {
+public class KlachtenSchermNIETAF extends JFrame {
 
     JTextArea textarea;
     JButton button;
@@ -17,7 +18,7 @@ public class KlachtenScherm extends JFrame {
     private JTextArea textOmschrijving;
     //private JScrollPane scrollpane;
 
-    public KlachtenScherm() {
+    public KlachtenSchermNIETAF() {
        
         setTitle("Klachten");
         setSize(600, 400);
@@ -75,10 +76,10 @@ public class KlachtenScherm extends JFrame {
     }
     }
     
-      public static void main(String[] args) {
-        KlachtenScherm gui = new KlachtenScherm();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(800, 500);
-        gui.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        KlachtenSchermNIETAF gui = new KlachtenSchermNIETAF();
+//        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        gui.setSize(800, 500);
+//        gui.setVisible(true);
+//    }
 }

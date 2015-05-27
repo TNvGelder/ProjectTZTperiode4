@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
  */
 public class PakketInfoDialoog extends JDialog {
 
-    private PakketInfoTest pakketinfo;
     private JLabel idLabel, aanmeldtijd, aflevertijd, afzender, formaat, gewicht, koerier1, koerier2, treinkoerier, beschrijvingsLabel, routeLabel, locatie1, locatie2, locatie3, locatie4;
     private JButton herbereken;
     private JTextArea beschrijvingsveld;
@@ -101,8 +100,6 @@ public class PakketInfoDialoog extends JDialog {
         herbereken = new JButton("Herbereken Route");
         herbereken.addActionListener(e);
 
-        //Dingen uit database halen
-        PakketInfoTest pakketInfo = new PakketInfoTest();
 
         //pakketInfo.getKl pakket
         //.setText("Pakket ");

@@ -41,7 +41,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * Gemaakt door Twan Zorgt voor het panel met de verschillende soorten contact
+ * Gemaakt door Twan.
+ * Zorgt voor het panel met de verschillende soorten contact
  * types
  *
  */
@@ -65,13 +66,12 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private ArrayList<TreinKoerier> treinKoeriers;
     private JPanel infoPanel;
     private Contact geselecteerdContact;
+    private ArrayList<Contact> contacten;
 
     public ContactOverzichtPanel(DatabaseManager databaseManager) {
 
         this.setLayout(new GridLayout(1, 1));
-        koeriersDiensten = databaseManager.getKoeriersDiensten();
-        accountHouders = databaseManager.getAccountHouders();
-        treinKoeriers = databaseManager.getTreinKoeriers();
+        
         this.databaseManager = databaseManager;
         //Layout scherm
         String comboBoxItems[] = {comboBoxItem1, comboBoxItem2, comboBoxItem3};
@@ -132,33 +132,53 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     public final void refresh() {
         JList huidigeJList = geselecteerdeJList;
         int index = huidigeJList.getSelectedIndex();
-        koeriersDiensten = databaseManager.getKoeriersDiensten();
-        accountHouders = databaseManager.getAccountHouders();
-        treinKoeriers = databaseManager.getTreinKoeriers();
-
+        koeriersDiensten = new ArrayList();
+        accountHouders = new ArrayList();
+        treinKoeriers = new ArrayList();
+//        koeriersDiensten = databaseManager.getKoeriersDiensten();
+//        accountHouders = databaseManager.getAccountHouders();
+//        treinKoeriers = databaseManager.getTreinKoeriers();
+        
         DefaultListModel lijstModel = new DefaultListModel();
-        for (AccountHouder accountHouder : accountHouders) {
-            int contactID = accountHouder.getContactID();
-            String naam = accountHouder.getNaam() + " " + accountHouder.getAchternaam();
-
-            lijstModel.addElement(contactID + " " + naam);
-        }
+//        for (AccountHouder accountHouder : accountHouders) {
+//            int contactID = accountHouder.getContactID();
+//            String naam = accountHouder.getNaam() + " " + accountHouder.getAchternaam();
+//
+//            lijstModel.addElement(contactID + " " + naam);
+//        }
 
         DefaultListModel lijstModel2 = new DefaultListModel();
-        for (TreinKoerier treinKoerier : treinKoeriers) {
-            int contactID = treinKoerier.getContactID();
-            String naam = treinKoerier.getNaam() + " " + treinKoerier.getAchternaam();
-
-            lijstModel2.addElement(contactID + " " + naam);
-        }
+//        for (TreinKoerier treinKoerier : treinKoeriers) {
+//            int contactID = treinKoerier.getContactID();
+//            String naam = treinKoerier.getNaam() + " " + treinKoerier.getAchternaam();
+//
+//            lijstModel2.addElement(contactID + " " + naam);
+//        }
 
         DefaultListModel lijstModel3 = new DefaultListModel();
-        for (KoeriersDienst koeriersDienst : koeriersDiensten) {
-            int contactID = koeriersDienst.getContactID();
-            String naam = koeriersDienst.getNaam();
-            KoeriersDienst k = koeriersDienst;
-            lijstModel3.addElement(contactID + " " + naam);
+//        for (KoeriersDienst koeriersDienst : koeriersDiensten) {
+//            int contactID = koeriersDienst.getContactID();
+//            String naam = koeriersDienst.getNaam();
+//            lijstModel3.addElement(contactID + " " + naam);
+//        }
+        
+        contacten = databaseManager.getContacten();
+        for (Contact contact : contacten){
+            String text = contact.getContactID() + " " +contact.toString();
+            if (contact instanceof TreinKoerier){
+                lijstModel2.addElement(text);
+                treinKoeriers.add((TreinKoerier) contact);
+            }
+            if (contact instanceof AccountHouder){
+                lijstModel.addElement(text);
+                accountHouders.add((AccountHouder) contact);
+            }
+            else if (contact instanceof KoeriersDienst){
+                lijstModel3.addElement(text);
+                koeriersDiensten.add((KoeriersDienst) contact);
+            }
         }
+        
         lijst1.setModel(lijstModel);
         lijst2.setModel(lijstModel2);
         lijst3.setModel(lijstModel3);

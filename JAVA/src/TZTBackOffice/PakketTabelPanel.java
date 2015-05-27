@@ -48,7 +48,7 @@ public class PakketTabelPanel extends JPanel {
         this.pakketten = pakketten;
         this.hoofdscherm = hoofdscherm;
         
-        String col[] = {"Ordernr","Pakketnr", "Status", "Aanmeldtijd", "Aflevertijd", "Koerier", "Formaat", "Gewicht", "Betaald", "Details"};
+        String col[] = {"Ordernr","Pakketnr", "Status", "Aanmeldtijd", "Aflevertijd", "Afzender", "Formaat", "Gewicht", "Betaald", "Details"};
         tableModel = new DefaultTableModel(col, 0) {
             //Zorg dat de tabel niet te bewerken is
             @Override

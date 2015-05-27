@@ -22,16 +22,13 @@ public class DatabaseManager {
     private HashMap<Integer, Locatie> locaties;
     private String url;
     private String username, password;
-    private HashMap<Integer, Contact> contacten;
+    private HashMap<Integer, Contact> contactHashmap;
     private HashMap<Integer, Probleem> problemen;
-    private ArrayList<KoeriersDienst> koeriersDiensten;
-    private ArrayList<TreinKoerier> treinKoeriers;
-    private ArrayList<AccountHouder> accountHouders;
     private ArrayList<UitbetalingsVerzoek> uitbetalingsVerzoeken;
     private ArrayList<TrajectProbleem> bezorgProblemen;
     private ArrayList<Klacht> klachten;
     private ArrayList<Pakket> pakketten;
-
+    private ArrayList<Contact> contactArray;
     private Traject vorigTraject;
 
     // Aangemeld, verzonden, gearriveerd
@@ -51,18 +48,10 @@ public class DatabaseManager {
 
     }
 
-    public ArrayList<KoeriersDienst> getKoeriersDiensten() {
-        return koeriersDiensten;
+    public ArrayList<Contact> getContacten(){
+        return contactArray;
     }
-
-    public ArrayList<TreinKoerier> getTreinKoeriers() {
-        return treinKoeriers;
-    }
-
-    public ArrayList<AccountHouder> getAccountHouders() {
-        return accountHouders;
-    }
-
+    
     public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
         return uitbetalingsVerzoeken;
     }
@@ -99,7 +88,8 @@ public class DatabaseManager {
             //Maak connectie met DB
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-
+            contactArray.add(0, contact1);
+            contactHashmap.put(contact1.getContactID(), contact1);
             //Insert statement maken
             String query = " INSERT INTO stakeholder (stakeholderID, type, naam, achternaam, emailadres, telefoonnr, idkaart, ovkaart, krediet, wachtwoord, locatie, snelheid, rekeningnr)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -144,7 +134,7 @@ public class DatabaseManager {
                 Timestamp aflevertijd = r.getTimestamp("aflevertijd");
                 Locatie beginLocatie = locaties.get(r.getInt("r.beginlocatie"));
                 Locatie eindLocatie = locaties.get(r.getInt("r.eindlocatie"));
-                Contact koerier = contacten.get(r.getInt("r.koerierID"));
+                Contact koerier = contactHashmap.get(r.getInt("r.koerierID"));
                 vorigTraject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier, beginLocatie, eindLocatie);
                 p.voegTrajectToe(vorigTraject);
                 System.out.println(vorigTraject);
@@ -401,13 +391,11 @@ public class DatabaseManager {
         }
 
         pakketten = new ArrayList();
-        treinKoeriers = new ArrayList();
-        accountHouders = new ArrayList();
-        koeriersDiensten = new ArrayList();
         bezorgProblemen = new ArrayList();
         uitbetalingsVerzoeken = new ArrayList();
+        contactArray = new ArrayList();
         klachten = new ArrayList();
-        contacten = new HashMap();
+        contactHashmap = new HashMap();
         locaties = new HashMap();
         problemen = new HashMap();
         //Indien er een werkende connectie is worden de queries uitgevoerd en worden er objecten aangemaakt.
@@ -471,30 +459,30 @@ public class DatabaseManager {
                             Double krediet = rs.getDouble("krediet");
                             String rekeningnr = rs.getString("rekeningnr");
                             TreinKoerier koerier = new TreinKoerier(krediet, rekeningnr, naam, typenaam, email, telefoonnr, contactID, achternaam, locatie);
-                            treinKoeriers.add(koerier);
-                            accountHouders.add(koerier);
                             klant = koerier;
-                            System.out.println(typenaam + " " + koerier);
                         } else {
                             String ovkaart = rs.getString("ovkaart");
                             String idkaart = rs.getString("idkaart");
                             klant = new AccountHouder(naam, typenaam, email, telefoonnr, contactID, achternaam, locatie, ovkaart, idkaart);
-                            accountHouders.add(klant);
-                            System.out.println(typenaam + " " + klant);
                         }
                         contact = klant;
 
                     } else {
                         KoeriersDienst koeriersDienst = new KoeriersDienst(naam, typenaam, email, telefoonnr, contactID);
-                        koeriersDiensten.add(koeriersDienst);
                         maakTarief(koeriersDienst, rs);
                         System.out.println(typenaam + " " + koeriersDienst);
                         contact = koeriersDienst;
                     }
-                    contacten.put(contact.getContactID(), contact);
+                    contactHashmap.put(contact.getContactID(), contact);
+                    contactArray.add(contact);
                 } else if (!"gebruiker".equals(typenaam) || "geverifieerd".equals(typenaam)) {
-                    KoeriersDienst koeriersDienst = koeriersDiensten.get(koeriersDiensten.size() - 1);
-                    maakTarief(koeriersDienst, rs);
+                    try {
+                        KoeriersDienst koeriersDienst = (KoeriersDienst) contactArray.get(contactArray.size() - 1);
+                        maakTarief(koeriersDienst, rs);
+                    }catch(ClassCastException ex){
+                        
+                    }
+                    
                 }
 
             }
@@ -514,7 +502,7 @@ public class DatabaseManager {
                 if (definitief) {
                     if (pakketten.isEmpty() || (orderID != pakketten.get(pakketten.size() - 1).getOrder().getOrderID())) {
                         int klantID = rs.getInt("v.klantID");
-                        AccountHouder klant = (AccountHouder) contacten.get(klantID);
+                        AccountHouder klant = (AccountHouder) contactHashmap.get(klantID);
                         Timestamp aanmeldTijd = rs.getTimestamp("aanmeldtijd");
                         System.out.println(rs.getInt("v.beginlocatie"));
                         Locatie beginLocatie = locaties.get(rs.getInt("v.beginlocatie"));
@@ -531,7 +519,7 @@ public class DatabaseManager {
 
             rs = statement.executeQuery("SELECT treinkoerier, datum, bedrag, isafgehandeld, goedgekeurd FROM kredietomzetting ORDER BY datum DESC");
             while (rs.next()) {
-                TreinKoerier treinKoerier = (TreinKoerier) contacten.get(rs.getInt("treinkoerier"));
+                TreinKoerier treinKoerier = (TreinKoerier) contactHashmap.get(rs.getInt("treinkoerier"));
                 Timestamp datum = rs.getTimestamp("datum");
                 Double bedrag = rs.getDouble("bedrag");
                 Boolean isafgehandeld = rs.getBoolean("isafgehandeld");
