@@ -33,6 +33,7 @@ public class VerzoekButtonEditor extends DefaultCellEditor {
             return null;
         }
         verzoek.handelAf();
+        TreinKoerier koerier = verzoek.getKoerier();
         verzoek.setGoedgekeurd(keuze == JOptionPane.YES_OPTION);
         overzicht.verzoekAfgehandeld(verzoek);
         return null;

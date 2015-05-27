@@ -21,12 +21,12 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     private JComboBox cb;
     private JFrame hoofdscherm;
     private HashMap<String, PakketTabelPanel> sorteerCategorieën;
-    DatabaseManager databaseManager = new DatabaseManager();
-    ArrayList<Pakket> pakketten = databaseManager.getPakketten();
+    DatabaseManager databaseManager;
+    ArrayList<Pakket> pakketten;
     JPanel cards;
 
     public PakketOverzichtPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
-
+        this.databaseManager = databasemanager;
         setLayout(new BorderLayout());
 //        comboBoxPane.add(cb);
 
@@ -52,12 +52,13 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
     public void refresh() {
         //Refresh de gegevens
+        pakketten = databaseManager.getPakketten();
         this.removeAll();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
         sorteerCategorieën = new HashMap();
         cards = new JPanel(new CardLayout());
-
+        
         cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);

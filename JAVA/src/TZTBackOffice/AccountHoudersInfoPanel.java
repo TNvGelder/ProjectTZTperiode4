@@ -1,8 +1,3 @@
-/*
- * Gemaakt door: Twan, Richard
- * Aangepast door: Jasper
- * Functie: Laat de gegevens zien van accounthouders in het ContactOverzichtPanel
- */
 package TZTBackOffice;
 
 import java.awt.Color;
@@ -25,9 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/*
+ * Gemaakt door: Twan, Richard, Jasper
+ * Functie: Laat de gegevens zien van accounthouders in het ContactOverzichtPanel
+ */
 public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
-    protected JLabel jlHead, jlTelnummer, jlNaam, jlAchternaam, jlEmailBeschrijving, jlAccountIDBeschrijving, jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat, jlEmail;
+    protected JLabel jlHead, jlTelnummer, jlNaam, jlAchternaam, jlEmailBeschrijving, jlAccountIDBeschrijving,
+            jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat, jlEmail, jlVerplicht, jlFoutmelding, jlRekeningnr;
     protected JTextField jtfNaam, jtfTelnummer, jtfAchternaam, jtfWoonplaats, jtfPostcode, jtfHuisnummer, jtfStraat;
     protected JButton jbAanpassen, jbGoedkeuren;
     private AccountHouder a;
@@ -42,15 +42,12 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
         //Maak de inhoud aan
         jbAanpassen = new JButton("Aanpassen");
-        this.add(jbAanpassen);
-
         jbGoedkeuren = new JButton("Goedkeuren");
-        this.add(jbGoedkeuren);
 
         jlHead = new JLabel("Accounthouder");
         jlHead.setForeground(Color.blue);
         jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
-
+        jlVerplicht = new JLabel("De velden met * zijn verplicht");
         jlNaam = new JLabel("Voornaam: ");
         jlTelnummer = new JLabel("Tel. Nummer: ");
         jlEmailBeschrijving = new JLabel("E-mail adres: ");
@@ -62,7 +59,15 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         jlAccountID = new JLabel(accountHouder.getContactID() + "");
         jlStraat = new JLabel("Straat: ");
         jlEmail = new JLabel(accountHouder.getEmail());
-
+        jlRekeningnr = new JLabel("");
+        jlFoutmelding = new JLabel("Een van de verplichte velden is niet ingevuld!");
+        jlFoutmelding.setForeground(Color.red);
+        jlFoutmelding.setFont(new Font("Roboto-Regular", Font.PLAIN, 20));
+        
+        String rekeningnr = accountHouder.getRekeningnr();
+        if (!(rekeningnr == null || rekeningnr.equals(""))){
+            jlRekeningnr.setText("Rekeningnr:     " +rekeningnr);
+        }
         jtfNaam = new JTextField(accountHouder.getNaam());
         jtfTelnummer = new JTextField(accountHouder.getTelefoonnr());
         jtfAchternaam = new JTextField(accountHouder.getAchternaam());
@@ -74,46 +79,48 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         //Zet de locatie van de labels, buttons en textfields
         jlHead.setBounds(80, 30, 400, 30);
 
-        jlNaam.setBounds(80, 70, 200, 30);
-        jtfNaam.setBounds(180, 70, 200, 30);
+        jlVerplicht.setBounds(350,35,200,30);
+        jlFoutmelding.setBounds(80, 70, 400,30);
+        jlNaam.setBounds(80, 110, 200, 30);
+        jtfNaam.setBounds(180, 110, 200, 30);
 
-        jlAchternaam.setBounds(450, 70, 200, 30);
-        jtfAchternaam.setBounds(550, 70, 200, 30);
+        jlAchternaam.setBounds(450, 110, 200, 30);
+        jtfAchternaam.setBounds(550, 110, 200, 30);
 
-        jlEmailBeschrijving.setBounds(80, 110, 200, 30);
-        jlEmail.setBounds(180, 110, 200, 30);
+        jlEmailBeschrijving.setBounds(80, 150, 200, 30);
+        jlEmail.setBounds(180, 150, 200, 30);
 
-        jlTelnummer.setBounds(450, 110, 200, 30);
-        jtfTelnummer.setBounds(550, 110, 200, 30);
+        jlTelnummer.setBounds(450, 150, 200, 30);
+        jtfTelnummer.setBounds(550, 150, 200, 30);
 
-        jlAccountIDBeschrijving.setBounds(80, 150, 200, 30);
-        jlAccountID.setBounds(180, 150, 200, 30);
+        jlAccountIDBeschrijving.setBounds(80, 190, 200, 30);
+        jlAccountID.setBounds(180, 190, 200, 30);
 
-        jlWoonplaats.setBounds(80, 190, 200, 30);
-        jtfWoonplaats.setBounds(180, 190, 200, 30);
+        jlWoonplaats.setBounds(80, 230, 200, 30);
+        jtfWoonplaats.setBounds(180, 230, 200, 30);
 
-        jlPostcode.setBounds(450, 190, 200, 30);
-        jtfPostcode.setBounds(550, 190, 200, 30);
+        jlPostcode.setBounds(450, 230, 200, 30);
+        jtfPostcode.setBounds(550, 230, 200, 30);
 
-        jlStraat.setBounds(80, 230, 200, 30);
-        jtfStraat.setBounds(180, 230, 200, 30);
+        jlStraat.setBounds(80, 270, 200, 30);
+        jtfStraat.setBounds(180, 270, 200, 30);
 
-        jlHuisnummer.setBounds(450, 230, 200, 30);
-        jtfHuisnummer.setBounds(550, 230, 200, 30);
+        jlHuisnummer.setBounds(450, 270, 200, 30);
+        jtfHuisnummer.setBounds(550, 270, 200, 30);
+        
 
         //Als een accounthouder geen IDkaart en OVkaart heeft, zullen de knoppen hoger op de pagina staan
-        if (accountHouder.getLinkIDKaart() == null) {
-            jbAanpassen.setBounds(228, 300, 150, 20);
+        String idKaart = accountHouder.getLinkIDKaart();
+        if ((idKaart == null || idKaart.equals(""))) {
+            jbAanpassen.setBounds(228, 340, 150, 20);
             jbAanpassen.addActionListener(this);
-
-            jbGoedkeuren.setBounds(600, 300, 150, 20);
-            jbGoedkeuren.addActionListener(this);
         } else {
-            jbAanpassen.setBounds(228, 490, 150, 20);
+            jbAanpassen.setBounds(228, 530, 150, 20);
             jbAanpassen.addActionListener(this);
 
-            jbGoedkeuren.setBounds(600, 490, 150, 20);
+            jbGoedkeuren.setBounds(600, 530, 150, 20);
             jbGoedkeuren.addActionListener(this);
+            add(jbGoedkeuren);
         }
 
         //Voeg de inhoud toe aan het panel
@@ -129,6 +136,8 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         add(jlHuisnummer);
         add(jlAccountID);
         add(jlStraat);
+        add(jlVerplicht);
+        add(jlFoutmelding);
 
         add(jtfNaam);
         add(jtfTelnummer);
@@ -139,6 +148,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         add(jtfPostcode);
         add(jtfHuisnummer);
         add(jtfStraat);
+        add(jbAanpassen);
 
         try {
             URL urlID = new URL(accountHouder.getLinkIDKaart());
@@ -147,7 +157,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             imageOV = ImageIO.read(urlOV);
 
         } catch (IOException ex) {
-            System.out.println(ex);
+            
         }
 
     }

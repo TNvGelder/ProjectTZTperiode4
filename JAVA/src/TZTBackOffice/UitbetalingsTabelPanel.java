@@ -38,7 +38,7 @@ public class UitbetalingsTabelPanel extends JPanel {
             //Zorg dat de tabel niet te bewerken is
             @Override
             public boolean isCellEditable(int data, int columns) {
-                if (columns == 4) {
+                if (columns == 4 && afhandelKnop) {
                     return true;
                 } else {
                     return false;

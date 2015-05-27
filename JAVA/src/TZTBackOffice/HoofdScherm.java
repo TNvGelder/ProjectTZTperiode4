@@ -60,6 +60,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
             databaseManager.haalDataOp();
             contactPanel.refresh();
             pakketPanel.refresh();
+            uitbetalingPanel.refresh();
         }
     }
 

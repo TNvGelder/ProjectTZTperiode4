@@ -27,7 +27,8 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
     private int koeriersID;
     private boolean isToevoeg;
     private KoeriersDienst koeriersDienst;
-
+    private KoerierToevoegenDialoog dialoog;
+    
     public KoeriersInfoPanel(KoeriersDienst koeriersdienst, DatabaseManager databasemanager, ContactOverzichtPanel contactOverzicht, boolean isToevoeg) {
         this.koeriersDienst = koeriersdienst;
         this.databasemanager = databasemanager;
@@ -108,6 +109,10 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
         jbBevestig.addActionListener(this);
     }
 
+    public void addDialoog(KoerierToevoegenDialoog dialoog){
+        this.dialoog = dialoog;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -117,18 +122,21 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
             String strTelnummer = jtfTelnummer.getText();
             String strEmail = jtfEmail.getText();
 
-            String strType = "4";
+            String strType = "koeriersdienst";
 
             //Check of Naam en Email zijn ingevuld
             if (jtfNaam.getText().isEmpty() || jtfEmail.getText().isEmpty() || jtfTelnummer.getText().isEmpty()) {
                 jlFoutmelding.setText("Een van de velden is niet ingevuld!");
+                return;
             } else {
                 jlFoutmelding.setText("");
-                System.out.println("afwesdfasd");
                 if (isToevoeg) {
                     //Maak de koerier aa nen voeg hem toe aan de database.
                     KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, koeriersID);
                     databasemanager.voegKoeriersdienstToe(koeriersdienst1);
+                    if (dialoog != null){
+                        dialoog.dispose();
+                    }
                 } else{
                     koeriersDienst.setEmail(strEmail);
                     koeriersDienst.setTelefoonnr(strTelnummer);

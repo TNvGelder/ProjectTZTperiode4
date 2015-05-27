@@ -12,10 +12,10 @@ public class UitbetalingsVerzoek {
     private Timestamp datum;
     private double bedrag;
     private boolean afgehandeld;
-    private AccountHouder koerier;
+    private TreinKoerier koerier;
     private boolean goedgekeurd;
 
-    public UitbetalingsVerzoek(Timestamp datum, double bedrag, boolean afgehandeld, AccountHouder koerier, boolean isGoedgekeurd) {
+    public UitbetalingsVerzoek(Timestamp datum, double bedrag, boolean afgehandeld, TreinKoerier koerier, boolean isGoedgekeurd) {
         this.datum = datum;
         this.bedrag = bedrag;
         this.afgehandeld = afgehandeld;
@@ -39,7 +39,7 @@ public class UitbetalingsVerzoek {
         return afgehandeld;
     }
 
-    public AccountHouder getKoerier() {
+    public TreinKoerier getKoerier() {
         return koerier;
     }
 
@@ -49,6 +49,9 @@ public class UitbetalingsVerzoek {
 
     public void setGoedgekeurd(boolean bool) {
         goedgekeurd = bool;
+        if (!bool){
+            koerier.setKrediet(koerier.getKrediet() + bedrag);
+        }
     }
 
     @Override

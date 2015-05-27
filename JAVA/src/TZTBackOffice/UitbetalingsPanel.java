@@ -20,10 +20,10 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
     private JPanel categoriePanel;
     private JComboBox cb;
     private JFrame hoofdscherm;
-    DatabaseManager databaseManager = new DatabaseManager();
+    DatabaseManager databaseManager;
 
     public UitbetalingsPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
-
+        this.databaseManager = databasemanager;
         setLayout(new BorderLayout());
 //        comboBoxPane.add(cb);
 
@@ -78,7 +78,6 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
                 tabelPanelNietAfgehandeld.voegVerzoekToe(verzoek);
             }
         }
-        System.out.println(verzoeken);
 
         cards.add(tabelPanelNietAfgehandeld, categorie1);
         cards.add(tabelPanelAfgehandeld, categorie2);
