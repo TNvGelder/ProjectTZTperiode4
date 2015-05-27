@@ -40,6 +40,7 @@ public class ProbleemPanel extends JPanel
     public ProbleemPanel() {
         this.setLayout(new GridLayout(1, 1));
 
+        //Opmaak van Panel
         lijst1 = new JList(imageNames);
         lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lijst1.setSelectedIndex(0);

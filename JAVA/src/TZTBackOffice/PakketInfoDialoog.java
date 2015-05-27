@@ -80,9 +80,10 @@ public class PakketInfoDialoog extends JDialog {
                 kleur = Color.WHITE;
             }
         }
-
+        //Maak JScrollPane
         JScrollPane routeScrollPane = new JScrollPane(routePanel);
 
+        //Opmaak van Dialoog
         routeLabel = new JLabel("Route");
 
         locatie1 = new JLabel();

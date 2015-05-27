@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
-    JPanel cards; //a panel that uses CardLayout
+    JPanel cards;
     private JPanel categoriePanel;
     private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     private JComboBox cb;
@@ -51,6 +51,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     }
 
     public void refresh() {
+        //Refresh de gegevens
         this.removeAll();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
@@ -64,7 +65,6 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         categoriePanel.add(cb);
         add(cards);
 
-        // Populate the JTable (TableModel) with data from ArrayList
         for (Pakket pakket : pakketten) {
             //Bekijk status van pakket
 
