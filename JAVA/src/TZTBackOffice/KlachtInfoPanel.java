@@ -24,6 +24,7 @@ public class KlachtInfoPanel {
         this.setLayout(null);
         event e = new event();
 
+        //Maak inhoud voor in Panel
         JLabel onderwerp = new JLabel("Onderwerp");
         JLabel klantnaam = new JLabel();
         JLabel probleemid = new JLabel();
@@ -39,7 +40,6 @@ public class KlachtInfoPanel {
         probleemid.setFont(probleemid.getFont().deriveFont(20.0f));
         datums.setFont(datums.getFont().deriveFont(20.0f));
 
-        //add(onderwerp);
     }
 
     private void setLayout(Object object) {

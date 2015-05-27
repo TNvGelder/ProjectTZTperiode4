@@ -34,7 +34,7 @@ public class DatabaseManager {
 
     // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
-
+        //Zet de url, username en password voor de server
         url = "jdbc:mysql://localhost:3307/mydb";
         username = "root";
         password = "usbw";
@@ -80,6 +80,7 @@ public class DatabaseManager {
     }
 
     public void voegKoeriersdienstToe(Contact contact1) {
+        //Voeg een koeriersdienst toe in de database
 
         Connection connection = null;
         Statement statement;
@@ -124,6 +125,7 @@ public class DatabaseManager {
     }
 
     private void maakTraject(Pakket p, ResultSet r) throws SQLException {
+        //Maak traject
         //t.trajectID, afhaaltijd, aflevertijd, r.beginlocatie, r.eindlocatie, r.koerierID, pr1.probleemID, pr2.probleemID
         int trajectID = r.getInt("t.trajectID");
         boolean geclaimd = r.getBoolean("geclaimd");
@@ -149,6 +151,7 @@ public class DatabaseManager {
     }
 
     public void voegTariefToe(Tarief tarief1) {
+        //Voeg tarief toe in de database
 
         Connection connection = null;
         Statement statement;
@@ -183,6 +186,7 @@ public class DatabaseManager {
     }
 
     public void updateContact(Contact c) {
+        //Update de gegevens van een contact
 
         Connection connection = null;
         Statement statement;
@@ -217,6 +221,7 @@ public class DatabaseManager {
     }
 
     public void updateUitbetalingsVerzoek(UitbetalingsVerzoek verzoek) {
+        //Update de gegevens van uitbetalingsverzoek
         Connection connection = null;
         Statement statement;
         //Probeer de statement uit te voeren
@@ -253,7 +258,7 @@ public class DatabaseManager {
     }
 
     public void updateLocatie(AccountHouder a) {
-
+        //Update de locatie gegevens
         Connection connection = null;
         Statement statement;
         //Probeer de statement uit te voeren
@@ -298,7 +303,7 @@ public class DatabaseManager {
     }
 
     public void deleteKoeriersdienst(TreinKoerier t) {
-
+        //Verwijder een koeriersdienst uit de database
         Connection connection = null;
         Statement statement;
         //Probeer de statement uit te voeren
@@ -331,7 +336,7 @@ public class DatabaseManager {
     //Maakt nieuwe pakketten aan met behulp van gegevens uit de order en resultset.
     //Bijbehorende trajecten worden ook aangemaakt.
     private void maakPakket(VerzendOrder order, ResultSet r) throws SQLException {
-
+        //Maak pakket
         int pakketID = r.getInt("p.pakketID");
         if (pakketID == 0) {
             return;
@@ -359,6 +364,7 @@ public class DatabaseManager {
     }
 
     public void maakTarief(KoeriersDienst koeriersDienst, ResultSet rs) throws SQLException {
+        //Maak tarief
         int km = rs.getInt("km");
         Double prijs = rs.getDouble("prijs");
         if (prijs == 0) {
@@ -371,7 +377,7 @@ public class DatabaseManager {
 
     //Haalt pakketten op uit de database en vult de array pakket objecten;
     public void haalDataOp() {
-
+        //Haal de data op uit de database
         Connection connection = null;
         Statement statement;
         vorigTraject = null;

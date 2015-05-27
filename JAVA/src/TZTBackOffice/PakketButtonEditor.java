@@ -28,7 +28,7 @@ public class PakketButtonEditor extends DefaultCellEditor {
 
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
-//
+        //Open PakketInfoDialoog bij indrukken van knop
         Pakket pakket = pakketten.get(row);
         PakketInfoDialoog dialoog = new PakketInfoDialoog(pakket, hoofdscherm);
         dialoog.setVisible(true);

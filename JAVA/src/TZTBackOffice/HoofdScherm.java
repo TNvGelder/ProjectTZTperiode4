@@ -33,6 +33,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
         super("BackOffice Applicatie");
         setLayout(new BorderLayout());
 
+        //Maak de inhoud voor in JFrame
         setSize(1280, 680);
         databaseManager = new DatabaseManager();
         tabbedPane = new JTabbedPane();

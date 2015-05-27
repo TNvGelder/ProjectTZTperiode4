@@ -62,10 +62,9 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     private ArrayList<Contact> contacten;
 
     public ContactOverzichtPanel(DatabaseManager databaseManager) {
-
         this.setLayout(new GridLayout(1, 1));
-
         this.databaseManager = databaseManager;
+
         //Layout scherm
         String comboBoxItems[] = {comboBoxItem1, comboBoxItem2, comboBoxItem3};
         jbNieuwKoerier = new JButton("Koeriersdienst toevoegen");
@@ -196,6 +195,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbNieuwKoerier) {
+            //Maak koeriertoevoegen dialoog bij druk op de knop
             KoerierToevoegenDialoog dialoog = new KoerierToevoegenDialoog(databaseManager, this);
             dialoog.setVisible(true);
         }

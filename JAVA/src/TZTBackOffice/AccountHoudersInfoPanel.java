@@ -40,14 +40,13 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         this.setLayout(null);
         this.a = accountHouder;
 
-        //Maak de knoppen Aanpassen en Goedkeuren
+        //Maak de inhoud aan
         jbAanpassen = new JButton("Aanpassen");
         this.add(jbAanpassen);
 
         jbGoedkeuren = new JButton("Goedkeuren");
         this.add(jbGoedkeuren);
 
-        //
         jlHead = new JLabel("Accounthouder");
         jlHead.setForeground(Color.blue);
         jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));

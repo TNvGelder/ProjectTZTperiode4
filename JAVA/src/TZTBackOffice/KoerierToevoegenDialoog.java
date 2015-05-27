@@ -36,7 +36,8 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     public KoerierToevoegenDialoog(DatabaseManager databasemanager, ContactOverzichtPanel contactOverzicht) {
         this.databasemanager = databasemanager;
         this.contactOverzicht = contactOverzicht;
-        //Opmaak van JDialoog
+
+//Opmaak van JDialoog
         setTitle("Toevoegen koeriersdienst");
         setSize(600, 400);
         setLayout(null);

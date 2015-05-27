@@ -18,6 +18,7 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
 
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
+        //Maak de opmaak van de knop
         String naam = this.getText();
         if (isSelected) {
             setForeground(table.getSelectionForeground());
