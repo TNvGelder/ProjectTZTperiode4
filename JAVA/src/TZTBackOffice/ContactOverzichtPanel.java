@@ -205,9 +205,9 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     public void toonContactInfo(Contact c) {
         infoPanel.removeAll();
         if (c instanceof TreinKoerier) {
-            infoPanel.add(new TreinKoeriersInfoPanel((TreinKoerier) c, databaseManager));
+            infoPanel.add(new TreinKoeriersInfoPanel((TreinKoerier) c, databaseManager, this));
         } else if (c instanceof AccountHouder) {
-            infoPanel.add(new AccountHoudersInfoPanel((AccountHouder) c, databaseManager));
+            infoPanel.add(new AccountHoudersInfoPanel((AccountHouder) c, databaseManager, this));
         } else if (c instanceof KoeriersDienst) {
             infoPanel.add(new KoeriersInfoPanel((KoeriersDienst) c, databaseManager, this, false));
         }

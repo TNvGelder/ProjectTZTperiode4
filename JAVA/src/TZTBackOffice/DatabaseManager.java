@@ -55,7 +55,7 @@ public class DatabaseManager {
     }
 
     public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
-        System.out.println("getUitbetalingsverzoeken: "+ uitbetalingsVerzoeken);
+        System.out.println("getUitbetalingsverzoeken: " + uitbetalingsVerzoeken);
         return uitbetalingsVerzoeken;
     }
 
@@ -67,6 +67,10 @@ public class DatabaseManager {
         return klachten;
     }
 
+    public HashMap<Integer, Contact> getContactMap(){
+        return contactHashmap;
+    }
+    
     public Pakket getPakket(int pakketID) {
         for (Pakket pakket : pakketten) {
             if (pakket.getPakketID() == pakketID) {
@@ -184,11 +188,11 @@ public class DatabaseManager {
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie voegTariefToe");
-            System.out.println(e);
+            Logger.getLogger("").log(Level.SEVERE, null, e);
         }
     }
 
-    public void updateContact(Contact c) {
+    public void updateContact(Contact contact) {
         //Update de gegevens van een contact
 
         Connection connection = null;
@@ -199,32 +203,63 @@ public class DatabaseManager {
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
 
-            String typenaam = c.getType();
+            String typenaam = contact.getType();
             int typeID = types.get(typenaam);
-            //Update statement maken
-            String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ?, type = ? WHERE stakeholderID = ?";
-            //Preparedstatement maken
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            int contactID = contact.getContactID();
+            String naam = contact.getNaam();
+            String telefoon = contact.getTelefoonnr();
+            if (contact instanceof KoeriersDienst) {
+                //Update statement maken
+                String query = " UPDATE stakeholder SET naam = ?, telefoonnr = ?, type = ? WHERE stakeholderID = ?";
+                //Preparedstatement maken
+                PreparedStatement preparedStmt = connection.prepareStatement(query);
 
+                preparedStmt.setString(1, naam);
+                preparedStmt.setString(2, telefoon);
+                preparedStmt.setInt(3, typeID);
+                preparedStmt.setInt(4, contact.getContactID());
 
-            preparedStmt.setString(1, c.getNaam());
-            preparedStmt.setString(2, c.getTelefoonnr());
-            preparedStmt.setInt(3, typeID);
-            
-            preparedStmt.setString(3, c.getType());
+                //Voer preparedstatement uit
+                preparedStmt.executeUpdate();
+            } else if (contact instanceof AccountHouder) {
+                AccountHouder account = (AccountHouder) contact;
+                String achternaam = account.getAchternaam();
+                if (contact instanceof TreinKoerier) {
+                    TreinKoerier koerier = (TreinKoerier) contact;
+                    double krediet = koerier.getKrediet();
+                    String rekeningnr = koerier.getRekeningnr();
+                    String query = "UPDATE stakeholder SET naam = ?, achternaam = ?, telefoonnr = ?, type = ?, rekeningnr = ?, krediet = ? WHERE stakeholderID = ?";
+                    //Preparedstatement maken
+                    PreparedStatement preparedStmt = connection.prepareStatement(query);
+                    preparedStmt.setString(1, naam);
+                    preparedStmt.setString(2, achternaam);
+                    preparedStmt.setString(3, telefoon);
+                    preparedStmt.setInt(4, typeID);
+                    preparedStmt.setString(5, rekeningnr);
+                    System.out.println(rekeningnr);
+                    preparedStmt.setDouble(6, krediet);
+                    preparedStmt.setInt(7, contact.getContactID());
+                    preparedStmt.executeUpdate();
+                } else {
+                    String query = "UPDATE stakeholder SET naam = ?, achternaam = ?, telefoonnr = ?, type = ? WHERE stakeholderID = ?";
+                    //Preparedstatement maken
+                    PreparedStatement preparedStmt = connection.prepareStatement(query);
+                    preparedStmt.setString(1, naam);
+                    preparedStmt.setString(2, achternaam);
+                    preparedStmt.setString(3, telefoon);
+                    preparedStmt.setInt(4, typeID);
+                    preparedStmt.setInt(5, contact.getContactID());
+                    preparedStmt.executeUpdate();
+                }
 
-            preparedStmt.setInt(4, c.getContactID());
-
-            //Voer preparedstatement uit
-            preparedStmt.executeUpdate();
-            System.out.println("accounthouder geupdate");
+            }
 
             //Sluit connectie
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateContact");
-            System.out.println(e);
+            Logger.getLogger("").log(Level.SEVERE, null, e);
         }
     }
 
@@ -264,10 +299,10 @@ public class DatabaseManager {
             Logger.getLogger("").log(Level.SEVERE, null, e);
         }
     }
-    
+
     //verwijdert een stakeholder uit de database die dezelfde ID heeft als contact
-    public void verwijderContact(Contact contact){
-         //Update de gegevens van uitbetalingsverzoek
+    public void verwijderContact(Contact contact) {
+        //Update de gegevens van uitbetalingsverzoek
         Connection connection = null;
         Statement statement;
         //Probeer de statement uit te voeren
@@ -463,7 +498,7 @@ public class DatabaseManager {
                 int newContactID = rs.getInt(1);
                 String typenaam = rs.getString("typenaam");
                 int typeID = rs.getInt("s.type");
-                if (!types.containsKey(typeID)){
+                if (!types.containsKey(typeID)) {
                     types.put(typenaam, typeID);
                 }
                 if (newContactID != contactID) {
@@ -550,7 +585,7 @@ public class DatabaseManager {
                 System.out.println(verzoek);
                 uitbetalingsVerzoeken.add(verzoek);
             }
-            System.out.println("Array na query "+ uitbetalingsVerzoeken);
+            System.out.println("Array na query " + uitbetalingsVerzoeken);
             System.out.println("Array van getter" + getUitbetalingsVerzoeken());
             statement.close();
             connection.close();

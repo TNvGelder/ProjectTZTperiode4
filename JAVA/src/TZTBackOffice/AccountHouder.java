@@ -11,10 +11,10 @@ public class AccountHouder extends Contact {
     private Locatie locatie;
     private String ovkaart;
     private String idkaart;
-    private String rekeningnr;
+    protected String rekeningnr;
 
     public AccountHouder(String voornaam, String type, String email, String telefoonnr, int contactID, String achternaam, Locatie locatie, String ovkaart, String idkaart, String rekeningnr) {
-        super(voornaam, type, email, telefoonnr, contactID, ovkaart, idkaart);
+        super(voornaam, type, email, telefoonnr, contactID);
         this.achternaam = achternaam;
         this.locatie = locatie;
         this.rekeningnr = rekeningnr;

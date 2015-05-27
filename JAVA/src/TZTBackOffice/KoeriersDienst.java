@@ -12,7 +12,7 @@ public class KoeriersDienst extends Contact {
     private ArrayList<Tarief> tarieven;
 
     public KoeriersDienst(String naam, String type, String email, String telefoonnr, int contactID) {
-        super(naam, type, email, telefoonnr, contactID, null, null);
+        super(naam, type, email, telefoonnr, contactID);
         tarieven = new ArrayList();
     }
 

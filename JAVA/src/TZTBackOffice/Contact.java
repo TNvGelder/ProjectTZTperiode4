@@ -12,17 +12,13 @@ public class Contact {
     private String telefoonnr;
     private String type;
     private int contactID;
-    private String linkIDKaart;
-    private String linkOVKaart;
 
-    public Contact(String naam, String type, String email, String telefoonnr, int contactID, String linkOVKaart, String linkIDKaart) {
+    public Contact(String naam, String type, String email, String telefoonnr, int contactID) {
         this.naam = naam;
         this.email = email;
         this.telefoonnr = telefoonnr;
         this.contactID = contactID;
         this.type = type;
-        this.linkOVKaart = linkOVKaart;
-        this.linkIDKaart = linkIDKaart;
     }
 
     public String getNaam() {
@@ -43,14 +39,6 @@ public class Contact {
 
     public int getContactID() {
         return contactID;
-    }
-
-    public String getLinkIDKaart() {
-        return linkIDKaart;
-    }
-
-    public String getLinkOVKaart() {
-        return linkOVKaart;
     }
 
     public void setNaam(String naam) {

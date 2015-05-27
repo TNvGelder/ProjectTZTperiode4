@@ -78,7 +78,6 @@ public class Pakket {
             Traject volgendeTraject = null;
             for (int i = 0; i < trajecten.size(); i++) {
                 Traject traject = trajecten.get(i);
-                System.out.println(traject.getBeginLocatie().getLocatieID() + " == " + beginLocatie.getLocatieID());
                 if (traject.getBeginLocatie().getLocatieID() == beginLocatie.getLocatieID()) {
                     trajecten.remove(i);
                     volgendeTraject = traject;

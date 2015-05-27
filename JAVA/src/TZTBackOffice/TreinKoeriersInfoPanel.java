@@ -19,29 +19,41 @@ public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements A
 
     private DatabaseManager databasemanager;
     private TreinKoerier t;
-
-    public TreinKoeriersInfoPanel(TreinKoerier treinKoerier, DatabaseManager databasemanager) {
-        super(treinKoerier, databasemanager);
+    private JTextField jtfRekening;
+    
+    
+    public TreinKoeriersInfoPanel(TreinKoerier treinKoerier, DatabaseManager databasemanager, ContactOverzichtPanel overzicht) {
+        
+        super(treinKoerier, databasemanager, overzicht);
         this.databasemanager = databasemanager;
         this.setLayout(null);
         this.t = treinKoerier;
 
         jlHead.setText("Treinkoerier");
+        jlRekeningnr.setText("Rekeningnr*: ");
+        jtfRekening = new JTextField(treinKoerier.getRekeningnr());
+        jtfRekening.setBounds(550, 190, 200, 30);
+        this.verplichteVelden.add(jtfRekening);
+        add(jtfRekening);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("dit is buiten source");
 
+        
         if (e.getSource() == jbAanpassen) {
-            System.out.println("ik ben geprint bij TreinKoeriersInfoPanel");
-            String strNaam = jtfNaam.getText();
-            String strTelefoonnummer = jtfTelnummer.getText();
-
-            t.setNaam(strNaam);
-            t.setTelefoonnr(strTelefoonnummer);
+            if (!isIngevuld()) {
+                jlFoutmelding.setText("Een van de verplichte velden is niet ingevuld!");
+                return;
+            } else {
+                jlFoutmelding.setText("");
+            }
+            veranderAccGegevens();
+            String rekening = jtfRekening.getText();
+            t.setRekeningnr(rekening);
             databasemanager.updateContact(t);
+            overzicht.refresh();
         }
     }
 }
