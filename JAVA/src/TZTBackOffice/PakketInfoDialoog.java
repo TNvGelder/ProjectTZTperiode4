@@ -127,25 +127,15 @@ public class PakketInfoDialoog extends JDialog {
         }
         routeScrollPane.setBounds(700, 115, routePanelX, routeScrollPaneY + 3);
 
-        this.add(idLabel);
         idLabel.setBounds(525, 20, 1000, 30);
-
-        this.add(aanmeldtijd);
         aanmeldtijd.setBounds(50, 80, 600, 30);
-        this.add(aflevertijd);
         aflevertijd.setBounds(50, 105, 600, 30);
-        this.add(afzender);
         afzender.setBounds(50, 130, 600, 30);
-        this.add(formaat);
         formaat.setBounds(50, 155, 600, 30);
-        this.add(gewicht);
         gewicht.setBounds(50, 180, 600, 30);
-
-        this.add(beschrijvingsLabel);
         beschrijvingsLabel.setBounds(50, 215, 600, 30);
-        this.add(beschrijvingsveld);
         beschrijvingsveld.setBounds(50, 245, 450, 310);
-
+        herbereken.setBounds(974, 80, 175, 30);
         routeLabel.setBounds(700, 80, 400, 30);
         locatie1.setBounds(700, 115, 550, 30);
         locatie2.setBounds(700, 140, 550, 30);
@@ -155,14 +145,23 @@ public class PakketInfoDialoog extends JDialog {
         panel.setBounds(300, 200, 100, 30);
         panel.setLocation(300, 200);
         panel.setPreferredSize(new Dimension(300, 300));
+
+        add(idLabel);
+        add(aanmeldtijd);
+        add(aflevertijd);
+        add(afzender);
+        add(formaat);
+        add(gewicht);
+        add(beschrijvingsLabel);
+        add(beschrijvingsveld);
+
         panel.add(routeLabel);
         panel.add(locatie1);
         panel.add(locatie2);
         panel.add(locatie3);
         panel.add(locatie4);
-        herbereken.setBounds(974, 80, 175, 30);
-        //panel.add(herbereken);
 
+        //panel.add(herbereken);
         panel.add(routeScrollPane);
 
         this.add(panel);
