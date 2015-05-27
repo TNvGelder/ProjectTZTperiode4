@@ -15,13 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class UitbetalingsPanel extends JPanel implements ItemListener {
-
+    
     JPanel cards;
     private JPanel categoriePanel;
     private JComboBox cb;
     private JFrame hoofdscherm;
     DatabaseManager databaseManager;
-
+    
     public UitbetalingsPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
         this.databaseManager = databasemanager;
         setLayout(new BorderLayout());
@@ -29,10 +29,10 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 
         //Create the "cards".
         refresh();
-
+        
         setVisible(true);
     }
-
+    
     public void maakCategorie(String categorieNaam) {
         ArrayList<Pakket> pakketArray;
         PakketTabelPanel card;
@@ -45,20 +45,20 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         cb.addItem(categorieNaam);
         //cards.add(card, categorieNaam);
     }
-
+    
     public void verzoekAfgehandeld(UitbetalingsVerzoek verzoek) {
         databaseManager.updateUitbetalingsVerzoek(verzoek);
         databaseManager.updateContact(verzoek.getKoerier());
         refresh();
     }
-
+    
     public void refresh() {
         this.removeAll();
         ArrayList<UitbetalingsVerzoek> verzoeken = databaseManager.getUitbetalingsVerzoeken();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
         cards = new JPanel(new CardLayout());
-
+        
         cb = new JComboBox();
         cb.setEditable(false);
         cb.addItemListener((ItemListener) this);
@@ -68,7 +68,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         maakCategorie(categorie2);
         categoriePanel.add(cb);
         add(cards);
-
+        
         UitbetalingsTabelPanel tabelPanelAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, false, this);
         UitbetalingsTabelPanel tabelPanelNietAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, true, this);
         for (UitbetalingsVerzoek verzoek : verzoeken) {
@@ -79,16 +79,16 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
                 tabelPanelNietAfgehandeld.voegVerzoekToe(verzoek);
             }
         }
-
+        
         cards.add(tabelPanelNietAfgehandeld, categorie1);
         cards.add(tabelPanelAfgehandeld, categorie2);
-
+        
     }
-
+    
     @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, (String) evt.getItem());
     }
-
+    
 }
