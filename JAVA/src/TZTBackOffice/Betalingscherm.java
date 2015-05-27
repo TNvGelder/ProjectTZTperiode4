@@ -1,3 +1,8 @@
+/*
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Laat de uitbetaling zien
+ */
 package TZTBackOffice;
 
 import java.awt.GridLayout;
@@ -20,10 +25,9 @@ public class Betalingscherm extends JFrame implements ActionListener {
     private String uitbetaling;
 
 //<<<<<<< HEAD
-    public Betalingscherm()
-         {
+    public Betalingscherm() {
 //=======
-  //  public Betalingscherm() {
+        //  public Betalingscherm() {
 //>>>>>>> fc014ddb3b819da0e2875ca25534bc0bdb6de4c6
         this.uitbetaling = uitbetaling;
         setTitle("Overzicht pakketten");

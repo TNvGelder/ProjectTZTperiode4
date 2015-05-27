@@ -1,18 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het aanmaken, wijzigen en verkrijgen van klachten
  */
 package TZTBackOffice;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author Twan
- */
 public class Klacht extends Probleem {
-    
+
     private Pakket pakket;
 
     public Klacht(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
@@ -27,6 +23,5 @@ public class Klacht extends Probleem {
     public void setPakket(Pakket pakket) {
         this.pakket = pakket;
     }
-    
-    
+
 }

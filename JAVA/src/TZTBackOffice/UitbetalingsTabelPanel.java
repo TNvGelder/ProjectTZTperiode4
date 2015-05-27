@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Laat de uitbetalingen zien in een tabel
  */
 package TZTBackOffice;
 
@@ -19,11 +19,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-/**
- *
- * @author Twan
- *
- */
 public class UitbetalingsTabelPanel extends JPanel {
 
     private DefaultTableModel tableModel;
@@ -84,9 +79,9 @@ public class UitbetalingsTabelPanel extends JPanel {
             Double bedrag = verzoek.getBedrag();
             String rekeningnr = koerier.getRekeningnr();
             String goedgekeurd;
-            if (verzoek.isGoedgekeurd()){
+            if (verzoek.isGoedgekeurd()) {
                 goedgekeurd = "Ja";
-            }else{
+            } else {
                 goedgekeurd = "Nee";
             }
             Object[] data = {datum, naam, bedrag, rekeningnr, goedgekeurd};

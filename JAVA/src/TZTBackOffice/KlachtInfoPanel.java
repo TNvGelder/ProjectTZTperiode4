@@ -1,3 +1,8 @@
+/*
+ * Gemaakt door: Twan, Michiel
+ * Aangepast door: -
+ * Functie: Laat klacht gegevens zien in panel
+ */
 package TZTBackOffice;
 
 import java.awt.event.ActionEvent;
@@ -7,11 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author Twan & Michiel
- */
-public class KlachtInfoPanel{
+public class KlachtInfoPanel {
 
     private Pakket pakket;
     private JLabel onderwerp, klantnaam, probleemid, datums;

@@ -1,24 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het aanmaken, wijzigen en verkrijgen van probleem gegevens
  */
 package TZTBackOffice;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author Richard
- */
 public class Probleem {
-    
+
     private int probleemID;
     private String titel;
     private String beschrijving;
     private Timestamp datum;
     private boolean afgehandeld;
-    
+
     public Probleem(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
         this.probleemID = probleemID;
         this.titel = titel;
@@ -30,7 +26,7 @@ public class Probleem {
     public int getProbleemID() {
         return probleemID;
     }
-    
+
     public String getTitel() {
         return titel;
     }
@@ -55,7 +51,5 @@ public class Probleem {
     public String toString() {
         return "Probleem{" + "probleemID=" + probleemID + ", titel=" + titel + ", beschrijving=" + beschrijving + ", datum=" + datum + ", afgehandeld=" + afgehandeld + '}';
     }
-    
-    
-    
+
 }

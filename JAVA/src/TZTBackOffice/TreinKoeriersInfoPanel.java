@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Richard, Twan
+ * Aangepast door: Jasper
+ * Functie: Laat de treinkoerier gegevens zien in een panel
  */
 package TZTBackOffice;
 
@@ -15,10 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Twan
- */
 public class TreinKoeriersInfoPanel extends AccountHoudersInfoPanel implements ActionListener {
 
     private DatabaseManager databasemanager;

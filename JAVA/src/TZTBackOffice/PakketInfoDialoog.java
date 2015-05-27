@@ -1,3 +1,8 @@
+/*
+ * Gemaakt door: Michiel
+ * Aangepast door: Twan
+ * Functie: Laat specifieke pakket gegevens zien in een dialoog. Dit dialoog wordt aangeroepen nadat er op een knop is gedrukt in de tabel met pakketten
+ */
 package TZTBackOffice;
 
 import java.awt.Color;
@@ -14,10 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author Michiel & Twan
- */
 public class PakketInfoDialoog extends JDialog {
 
     private JLabel idLabel, aanmeldtijd, aflevertijd, afzender, formaat, gewicht, koerier1, koerier2, treinkoerier, beschrijvingsLabel, routeLabel, locatie1, locatie2, locatie3, locatie4;
@@ -29,15 +30,14 @@ public class PakketInfoDialoog extends JDialog {
         this.setTitle("Pakket " + pakket.getPakketID());
         this.setSize(1280, 720);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         int routePanelX = 450;
         int trajectPanelY = 110;
-        
-        
+
         VerzendOrder order = pakket.getOrder();
         AccountHouder accounthouder = order.getKlant();
         ArrayList<Traject> trajectlijst = pakket.getTrajecten();
-        
+
         idLabel = new JLabel("Pakket " + pakket.getPakketID());
         aanmeldtijd = new JLabel("Aangemeld: " + order.getAanmeldTijd());
         aflevertijd = new JLabel("Status: " + pakket.getStatus());
@@ -99,7 +99,6 @@ public class PakketInfoDialoog extends JDialog {
         event e = new event();
         herbereken = new JButton("Herbereken Route");
         herbereken.addActionListener(e);
-
 
         //pakketInfo.getKl pakket
         //.setText("Pakket ");

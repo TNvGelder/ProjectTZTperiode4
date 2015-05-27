@@ -1,18 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het verkrijgen van traject gegevens
  */
 package TZTBackOffice;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author Richard
- */
 public class Traject {
-    
+
     private Timestamp afhaalTijdstip;
     private Timestamp afleverTijdstip;
     private Contact koerier;
@@ -32,7 +28,7 @@ public class Traject {
     public int getTrajectID() {
         return trajectID;
     }
-    
+
     public Timestamp getAfhaalTijdstip() {
         return afhaalTijdstip;
     }
@@ -52,20 +48,20 @@ public class Traject {
     public Locatie getEindLocatie() {
         return eindLocatie;
     }
-    
-    public String getStatus(){
-        if (afleverTijdstip != null){
+
+    public String getStatus() {
+        if (afleverTijdstip != null) {
             return "Afgeleverd om: " + afleverTijdstip;
-        }else if(afhaalTijdstip != null){
+        } else if (afhaalTijdstip != null) {
             return "Onderweg";
-        }else{
+        } else {
             return "";
         }
     }
-    
+
     @Override
     public String toString() {
         return "Traject{" + "afhaalTijdstip=" + afhaalTijdstip + ", afleverTijdstip=" + afleverTijdstip + ", koerier=" + koerier.getContactID() + ", trajectID=" + trajectID + ", beginLocatie=" + beginLocatie + ", eindLocatie=" + eindLocatie + '}';
     }
-        
+
 }

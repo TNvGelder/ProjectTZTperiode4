@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Zorgt voor een panel met de verschillende soorten contact types
  */
 package TZTBackOffice;
 
@@ -39,13 +39,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * Gemaakt door Twan.
- * Zorgt voor het panel met de verschillende soorten contact
- * types
- *
- */
 public class ContactOverzichtPanel extends JPanel implements ItemListener, ActionListener, ListSelectionListener {
 
     JPanel cards; //a panel that uses CardLayout
@@ -71,7 +64,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
     public ContactOverzichtPanel(DatabaseManager databaseManager) {
 
         this.setLayout(new GridLayout(1, 1));
-        
+
         this.databaseManager = databaseManager;
         //Layout scherm
         String comboBoxItems[] = {comboBoxItem1, comboBoxItem2, comboBoxItem3};
@@ -138,7 +131,7 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
 //        koeriersDiensten = databaseManager.getKoeriersDiensten();
 //        accountHouders = databaseManager.getAccountHouders();
 //        treinKoeriers = databaseManager.getTreinKoeriers();
-        
+
         DefaultListModel lijstModel = new DefaultListModel();
 //        for (AccountHouder accountHouder : accountHouders) {
 //            int contactID = accountHouder.getContactID();
@@ -161,24 +154,23 @@ public class ContactOverzichtPanel extends JPanel implements ItemListener, Actio
 //            String naam = koeriersDienst.getNaam();
 //            lijstModel3.addElement(contactID + " " + naam);
 //        }
-        
+
         contacten = databaseManager.getContacten();
-        for (Contact contact : contacten){
-            String text = contact.getContactID() + " " +contact.toString();
-            if (contact instanceof TreinKoerier){
+        for (Contact contact : contacten) {
+            String text = contact.getContactID() + " " + contact.toString();
+            if (contact instanceof TreinKoerier) {
                 lijstModel2.addElement(text);
                 treinKoeriers.add((TreinKoerier) contact);
             }
-            if (contact instanceof AccountHouder){
+            if (contact instanceof AccountHouder) {
                 lijstModel.addElement(text);
                 accountHouders.add((AccountHouder) contact);
-            }
-            else if (contact instanceof KoeriersDienst){
+            } else if (contact instanceof KoeriersDienst) {
                 lijstModel3.addElement(text);
                 koeriersDiensten.add((KoeriersDienst) contact);
             }
         }
-        
+
         lijst1.setModel(lijstModel);
         lijst2.setModel(lijstModel2);
         lijst3.setModel(lijstModel3);

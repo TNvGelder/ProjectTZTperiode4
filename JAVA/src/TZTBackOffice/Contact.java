@@ -1,14 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: Jasper
+ * Functie: Het aanmaken, wijzigen en verkrijgen van contact gegevens
  */
 package TZTBackOffice;
 
-/**
- *
- * @author Twan
- */
 public class Contact {
 
     private String naam;

@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Jasper - opzet gemaakt in oud document
+ * Aangepast door: Twan - bestand voornamelijk gemaakt door Twan
+ * Functie: Maakt een tabel waarin de verschillende pakketten getond worden
  */
 package TZTBackOffice;
 
@@ -26,10 +26,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author Twan
- */
 public class PakketTabelPanel extends JPanel {
 
     private DefaultTableModel tableModel;
@@ -37,18 +33,18 @@ public class PakketTabelPanel extends JPanel {
     private JFrame hoofdscherm;
     private ArrayList<Pakket> pakketten;
     private boolean vulArray = false;
-    
-    //Als 
+
+    //Als
     public PakketTabelPanel(JFrame hoofdscherm) {
         this(hoofdscherm, new ArrayList());
         vulArray = true;
     }
-    
-    public PakketTabelPanel(JFrame hoofdscherm, ArrayList<Pakket> pakketten){
+
+    public PakketTabelPanel(JFrame hoofdscherm, ArrayList<Pakket> pakketten) {
         this.pakketten = pakketten;
         this.hoofdscherm = hoofdscherm;
-        
-        String col[] = {"Ordernr","Pakketnr", "Status", "Aanmeldtijd", "Aflevertijd", "Afzender", "Formaat", "Gewicht", "Betaald", "Details"};
+
+        String col[] = {"Ordernr", "Pakketnr", "Status", "Aanmeldtijd", "Aflevertijd", "Afzender", "Formaat", "Gewicht", "Betaald", "Details"};
         tableModel = new DefaultTableModel(col, 0) {
             //Zorg dat de tabel niet te bewerken is
             @Override
@@ -76,7 +72,7 @@ public class PakketTabelPanel extends JPanel {
         detailColumn.setCellRenderer(new ButtonRenderer("meer"));
         detailColumn.setCellEditor(new PakketButtonEditor(new JCheckBox(), hoofdscherm, pakketten));
         detailColumn.setMinWidth(100);
-        
+
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(950, scrollPane.getPreferredSize().height));
         scrollPane.getViewport().setBackground(Color.WHITE);
@@ -84,11 +80,11 @@ public class PakketTabelPanel extends JPanel {
     }
 
     public void voegPakketToe(Pakket pakket) {
-        if (vulArray){
+        if (vulArray) {
             pakketten.add(pakket);
         }
         int strPakketnr = pakket.getPakketID();
-        
+
         VerzendOrder order = pakket.getOrder();
         Timestamp strAanmeldtijd = order.getAanmeldTijd();
 
@@ -113,8 +109,6 @@ public class PakketTabelPanel extends JPanel {
         Object[] data = {orderID, strPakketnr, status, strAanmeldtijd, aflevertijd, strOrganisatie, strFormaat,
             strGewicht, strBetaald};
         TableColumn column = table.getColumn("Details");
-        
-        
 
         tableModel.addRow(data);
         table.setModel(tableModel);

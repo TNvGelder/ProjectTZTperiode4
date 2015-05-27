@@ -1,12 +1,12 @@
+/*
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Deze class geeft een representatie van een uitbetalingsverzoek uit de database
+ */
 package TZTBackOffice;
 
 import java.sql.Timestamp;
 
-
-/**
- *
- * Deze class geeft een representatie van een uitbetalingsverzoek uit de database.
- */
 public class UitbetalingsVerzoek {
 
     private Timestamp datum;
@@ -46,8 +46,8 @@ public class UitbetalingsVerzoek {
     public boolean isGoedgekeurd() {
         return goedgekeurd;
     }
-    
-    public void setGoedgekeurd(boolean bool){
+
+    public void setGoedgekeurd(boolean bool) {
         goedgekeurd = bool;
     }
 
@@ -55,6 +55,5 @@ public class UitbetalingsVerzoek {
     public String toString() {
         return "UitbetalingsVerzoek{" + "datum=" + datum + ", bedrag=" + bedrag + ", afgehandeld=" + afgehandeld + ", koerier=" + koerier + ", goedgekeurd=" + goedgekeurd + '}';
     }
-    
-    
+
 }

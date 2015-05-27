@@ -1,3 +1,9 @@
+/*
+ * Gemaakt door: Twan
+ * Aangepast door: Jasper
+ * Functie: DatabaseManager zorgt voor de communicatie met de server. Dit zorgt ervoor dat er buiten de databasemanger niet met queries gewerkt hoeft te worden.
+ * De databasemanger zet data om naar java objecten en kan ook een rij in de database updaten aan de hand van bepaalde objecten.
+ */
 package TZTBackOffice;
 
 import java.sql.Connection;
@@ -12,11 +18,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * Gemaakt door Twan van Gelder en Jasper Folkertsma.
- * DatabaseManager zorgt voor de communicatie met de server. Dit zorgt ervoor dat er buiten de databasemanger niet met queries gewerkt hoeft te worden.
- * De databasemanger zet data om naar java objecten en kan ook een rij in de database updaten aan de hand van bepaalde objecten.
- */
 public class DatabaseManager {
 
     private HashMap<Integer, Locatie> locaties;
@@ -48,14 +49,13 @@ public class DatabaseManager {
 
     }
 
-    public ArrayList<Contact> getContacten(){
+    public ArrayList<Contact> getContacten() {
         return contactArray;
     }
-    
+
     public ArrayList<UitbetalingsVerzoek> getUitbetalingsVerzoeken() {
         return uitbetalingsVerzoeken;
     }
-
 
     public ArrayList<TrajectProbleem> getBezorgProblemen() {
         return bezorgProblemen;
@@ -215,8 +215,8 @@ public class DatabaseManager {
             System.out.println(e);
         }
     }
-    
-    public void updateUitbetalingsVerzoek(UitbetalingsVerzoek verzoek){
+
+    public void updateUitbetalingsVerzoek(UitbetalingsVerzoek verzoek) {
         Connection connection = null;
         Statement statement;
         //Probeer de statement uit te voeren
@@ -224,7 +224,7 @@ public class DatabaseManager {
             //Maak connectie met DB
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-            
+
             boolean afgehandeld = verzoek.isAfgehandeld();
             boolean goedgekeurd = verzoek.isGoedgekeurd();
             int treinkoeriersID = verzoek.getKoerier().getContactID();
@@ -479,10 +479,10 @@ public class DatabaseManager {
                     try {
                         KoeriersDienst koeriersDienst = (KoeriersDienst) contactArray.get(contactArray.size() - 1);
                         maakTarief(koeriersDienst, rs);
-                    }catch(ClassCastException ex){
-                        
+                    } catch (ClassCastException ex) {
+
                     }
-                    
+
                 }
 
             }

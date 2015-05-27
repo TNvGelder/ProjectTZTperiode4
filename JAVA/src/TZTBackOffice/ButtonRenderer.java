@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Jasper
+ * Aangepast door: Twan
+ * Functie: Zorgt voor de vormgeving van de knoppen in JTable
  */
 package TZTBackOffice;
 
@@ -9,10 +9,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-/**
- *  Gemaakt door Jasper en Twan
- *  Zorgt voor de vormgeving van de knop.
- */
 public class ButtonRenderer extends JButton implements TableCellRenderer {
 
     public ButtonRenderer(String naam) {

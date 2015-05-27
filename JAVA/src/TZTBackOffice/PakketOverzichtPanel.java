@@ -1,3 +1,8 @@
+/*
+ * Gemaakt door: Jasper
+ * Aangepast door: Twan
+ * Functie: Laat de pakketten in een tabel zien
+ */
 package TZTBackOffice;
 
 import java.awt.BorderLayout;
@@ -10,12 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Jasper
- */
 public class PakketOverzichtPanel extends JPanel implements ItemListener {
-
 
     JPanel cards; //a panel that uses CardLayout
     private JPanel categoriePanel;
@@ -29,7 +29,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
         setLayout(new BorderLayout());
 //        comboBoxPane.add(cb);
-        
+
         //Create the "cards".
         refresh();
 
@@ -39,12 +39,11 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     public void maakCategorie(String categorieNaam) {
         ArrayList<Pakket> pakketArray;
         PakketTabelPanel card;
-        if (!categorieNaam.equals("Alle Pakketten")){
+        if (!categorieNaam.equals("Alle Pakketten")) {
             card = new PakketTabelPanel(hoofdscherm, pakketten);
-        }else {
+        } else {
             card = new PakketTabelPanel(hoofdscherm);
         }
-        
 
         sorteerCategorieën.put(categorieNaam, card);
         cb.addItem(categorieNaam);
@@ -90,6 +89,5 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, (String) evt.getItem());
     }
-
 
 }

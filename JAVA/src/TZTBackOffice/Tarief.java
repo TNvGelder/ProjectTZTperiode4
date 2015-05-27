@@ -1,16 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het verkrijgen van tarief gegevens
  */
 package TZTBackOffice;
 
-/**
- *
- * @author Twan
- */
 public class Tarief {
-    
+
     private KoeriersDienst koeriersDienst;
     private int km;
     private Double prijs;
@@ -38,7 +34,5 @@ public class Tarief {
     public Double getExtraPrijs() {
         return extraPrijs;
     }
-    
-    
-    
+
 }

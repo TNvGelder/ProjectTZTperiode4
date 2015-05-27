@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Laat de gegevens zien van uitbetalen
  */
 package TZTBackOffice;
 
@@ -25,10 +25,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Jasper
- */
 public class UitbetalingsPanel extends JPanel implements ItemListener {
 
     JPanel cards; //a panel that uses CardLayout
@@ -61,12 +57,11 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         //cards.add(card, categorieNaam);
     }
 
-    
-    public void verzoekAfgehandeld(UitbetalingsVerzoek verzoek){
+    public void verzoekAfgehandeld(UitbetalingsVerzoek verzoek) {
         databaseManager.updateUitbetalingsVerzoek(verzoek);
         refresh();
     }
-    
+
     public void refresh() {
         this.removeAll();
         ArrayList<UitbetalingsVerzoek> verzoeken = databaseManager.getUitbetalingsVerzoeken();
@@ -83,19 +78,19 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
         maakCategorie(categorie2);
         categoriePanel.add(cb);
         add(cards);
-        
+
         UitbetalingsTabelPanel tabelPanelAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, false, this);
         UitbetalingsTabelPanel tabelPanelNietAfgehandeld = new UitbetalingsTabelPanel(hoofdscherm, true, this);
-        for(UitbetalingsVerzoek verzoek : verzoeken){
+        for (UitbetalingsVerzoek verzoek : verzoeken) {
             boolean afgehandeld = verzoek.isAfgehandeld();
-            if (afgehandeld){
+            if (afgehandeld) {
                 tabelPanelAfgehandeld.voegVerzoekToe(verzoek);
-            }else{
+            } else {
                 tabelPanelNietAfgehandeld.voegVerzoekToe(verzoek);
             }
         }
         System.out.println(verzoeken);
-        
+
         cards.add(tabelPanelNietAfgehandeld, categorie1);
         cards.add(tabelPanelAfgehandeld, categorie2);
 

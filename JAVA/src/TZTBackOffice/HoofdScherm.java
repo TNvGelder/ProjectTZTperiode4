@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Op het scherm dat opgebouwd wordt in deze klasse kunnen overzichtspanels getoond worden met behulp van tabs.
+ * Ook is er een refresh knop die ervoor zorgt dat de UI weer up to date is met de database.
  */
 package TZTBackOffice;
 
@@ -19,12 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * Gemaakt door Twan van Gelder
- * Op het scherm dat opgebouwd wordt in deze klasse kunnen overzichtspanels getoond worden met behulp van tabs.
- * Ook is er een refresh knop die ervoor zorgt dat de UI weer up to date is met de database.
- */
 public class HoofdScherm extends JFrame implements ActionListener {
 
     private ContactOverzichtPanel contactPanel;
@@ -37,7 +32,7 @@ public class HoofdScherm extends JFrame implements ActionListener {
     public HoofdScherm() {
         super("BackOffice Applicatie");
         setLayout(new BorderLayout());
-        
+
         setSize(1280, 680);
         databaseManager = new DatabaseManager();
         tabbedPane = new JTabbedPane();
@@ -51,15 +46,14 @@ public class HoofdScherm extends JFrame implements ActionListener {
         tabbedPane.addTab("Uitbetalingsverzoeken", uitbetalingPanel);
         jbRefresh = new JButton("Ververs gegevens");
         jbRefresh.addActionListener(this);
-        jbRefresh.setBounds(0,0,jbRefresh.getPreferredSize().width,30);
+        jbRefresh.setBounds(0, 0, jbRefresh.getPreferredSize().width, 30);
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        panel.setPreferredSize(new Dimension(30,30));
+        panel.setPreferredSize(new Dimension(30, 30));
         panel.add(jbRefresh);
         this.add(panel, BorderLayout.NORTH);
         this.add(tabbedPane);
 
-        
         setVisible(true);
 
     }

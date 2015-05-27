@@ -1,17 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het verkrijgen van verzendorder gegevens
  */
 package TZTBackOffice;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-/**
- *
- * @author Richard
- */
 class VerzendOrder {
 
     private AccountHouder klant;
@@ -27,7 +23,7 @@ class VerzendOrder {
         this.beginLocatie = beginLocatie;
         this.eindLocatie = eindlocatie;
     }
-        
+
     public int getOrderID() {
         return orderID;
     }
@@ -39,7 +35,7 @@ class VerzendOrder {
     public Timestamp getAanmeldTijd() {
         return aanmeldTijd;
     }
-    
+
     public Locatie getBeginLocatie() {
         return beginLocatie;
     }
@@ -52,6 +48,5 @@ class VerzendOrder {
     public String toString() {
         return "VerzendOrder{" + "klant=" + klant.getContactID() + ", aanmeldTijd=" + aanmeldTijd + ", orderID=" + orderID + ", beginLocatie=" + beginLocatie + ", eindLocatie=" + eindLocatie + '}';
     }
-    
-    
+
 }

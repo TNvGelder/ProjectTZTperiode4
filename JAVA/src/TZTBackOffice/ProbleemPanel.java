@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Jasper
+ * Aangepast door: Twan
+ * Functie: Laat de pakket gegevens zien in een tabel
  */
 package TZTBackOffice;
 
@@ -24,10 +24,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-/**
- *
- * @author Jasper
- */
 public class ProbleemPanel extends JPanel
         implements ListSelectionListener, ItemListener {
 
@@ -48,15 +44,15 @@ public class ProbleemPanel extends JPanel
         lijst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lijst1.setSelectedIndex(0);
         lijst1.addListSelectionListener(this);
-        
+
         lijst2 = new JList(afgehandeld);
         lijst2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lijst2.setSelectedIndex(0);
         lijst2.addListSelectionListener(this);
-        
+
         JPanel lijstPanel = new JPanel();
         lijstPanel.setLayout(new BorderLayout());
-        
+
         String comboBoxItems[] = {"Problemen", "Afgehandelde Problemen"};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
@@ -69,22 +65,20 @@ public class ProbleemPanel extends JPanel
         lijsten.validate();
         lijsten.setPreferredSize(lijst1.getPreferredSize());
         lijstPanel.setPreferredSize(lijst1.getPreferredSize());
-       
-        
+
         JScrollPane lijstScrollPane = new JScrollPane(lijsten);
         picture = new JLabel();
         picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
         picture.setHorizontalAlignment(JLabel.CENTER);
 
-        
         lijstPanel.add(cb, BorderLayout.NORTH);
         lijstPanel.add(lijstScrollPane);
-        
+
         JScrollPane pictureScrollPane = new JScrollPane(picture);
 
         //Create a split pane with the two scroll panes in it.
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        lijstPanel, pictureScrollPane);
+                lijstPanel, pictureScrollPane);
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(150);
 

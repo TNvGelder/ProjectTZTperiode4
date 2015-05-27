@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan, Richard
+ * Aangepast door: Jasper
+ * Functie: Laat de gegevens zien van accounthouders in het ContactOverzichtPanel
  */
 package TZTBackOffice;
 
@@ -25,10 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Richard en Jasper
- */
 public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
 
     protected JLabel jlHead, jlTelnummer, jlNaam, jlAchternaam, jlEmailBeschrijving, jlAccountIDBeschrijving, jlWoonplaats, jlPostcode, jlHuisnummer, jlAccountID, jlStraat, jlEmail;
@@ -43,13 +39,15 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         this.databasemanager = databasemanager;
         this.setLayout(null);
         this.a = accountHouder;
-        //add(jlHead);
+
+        //Maak de knoppen Aanpassen en Goedkeuren
         jbAanpassen = new JButton("Aanpassen");
         this.add(jbAanpassen);
 
         jbGoedkeuren = new JButton("Goedkeuren");
         this.add(jbGoedkeuren);
 
+        //
         jlHead = new JLabel("Accounthouder");
         jlHead.setForeground(Color.blue);
         jlHead.setFont(new Font("Roboto-Regular", Font.PLAIN, 22));
@@ -74,7 +72,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         jtfHuisnummer = new JTextField(accountHouder.getLocatie().getHuisnummer());
         jtfStraat = new JTextField(accountHouder.getLocatie().getStraat());
 
-        //jtfAchternaam, jtfWoonplaats, jtfPostcode, jtfHuisnummer, jtfToevoeging
+        //Zet de locatie van de labels, buttons en textfields
         jlHead.setBounds(80, 30, 400, 30);
 
         jlNaam.setBounds(80, 70, 200, 30);
@@ -104,6 +102,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         jlHuisnummer.setBounds(450, 230, 200, 30);
         jtfHuisnummer.setBounds(550, 230, 200, 30);
 
+        //Als een accounthouder geen IDkaart en OVkaart heeft, zullen de knoppen hoger op de pagina staan
         if (accountHouder.getLinkIDKaart() == null) {
             jbAanpassen.setBounds(228, 300, 150, 20);
             jbAanpassen.addActionListener(this);
@@ -118,7 +117,7 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             jbGoedkeuren.addActionListener(this);
         }
 
-        //Inhoud toevoegen
+        //Voeg de inhoud toe aan het panel
         add(jlHead);
         add(jlNaam);
         add(jlTelnummer);
@@ -143,7 +142,6 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
         add(jtfStraat);
 
         try {
-//            imageID = ImageIO.read(new File(accountHouder.getLinkIDKaart()));
             URL urlID = new URL(accountHouder.getLinkIDKaart());
             imageID = ImageIO.read(urlID);
             URL urlOV = new URL(accountHouder.getLinkOVKaart());
@@ -153,24 +151,20 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             System.out.println(ex);
         }
 
-//        add(new JButton(accountHouder.getNaam()));
-//        Locatie locatie = accountHouder.getLocatie();
-//
-//        add(new JTextField(accountHouder.getNaam()));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //Laat de afbeeldingen zien in panel
         g.drawImage(imageID, 80, 300, 300, 150, null);
         g.drawImage(imageOV, 450, 300, 300, 150, null);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        //Accounthouder aanpassen met de ingevuld gegevens
         if (e.getSource() == jbAanpassen) {
-            System.out.println("ik ben geprint bij accounthoudersinfopanel");
             String strNaam = jtfNaam.getText();
             String strAchternaam = jtfAchternaam.getText();
             String strTelefoonnummer = jtfTelnummer.getText();
@@ -191,13 +185,12 @@ public class AccountHoudersInfoPanel extends JPanel implements ActionListener {
             databasemanager.updateLocatie(a);
             databasemanager.updateContact(a);
         }
-
+        //Accounthouder omzetten naar Treinkoerier
         if (e.getSource() == jbGoedkeuren) {
             a.setType("2");
 
             databasemanager.updateContact(a);
         }
-        
 
     }
 

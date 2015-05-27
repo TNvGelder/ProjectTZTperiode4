@@ -1,17 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het aanmaken, wijzigen en verkrijgen van pakket gegevens
  */
 package TZTBackOffice;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Twan
- */
 public class Pakket {
+
     private int pakketID;
     private double gewicht;
     private String formaat;
@@ -31,7 +28,6 @@ public class Pakket {
         this.gesorteerd = false;
         trajecten = new ArrayList();
     }
-    
 
     public int getPakketID() {
         return pakketID;
@@ -56,14 +52,14 @@ public class Pakket {
     public String getStatus() {
         return status;
     }
-    
+
     //deze functie is hier omdat jasper m nog gebruikt
     public Boolean getDefinitief() {
         return true;
     }
 
     public ArrayList<Traject> getTrajecten() {
-        if (!gesorteerd){
+        if (!gesorteerd) {
             sorteerTrajecten();
         }
         return trajecten;
@@ -73,32 +69,32 @@ public class Pakket {
 
         this.trajecten = trajecten;
     }
-    
+
     //Sorteert de traject array zodat het van begin naar eindlocatie gesorteerd is.
-    public void sorteerTrajecten(){
+    public void sorteerTrajecten() {
         ArrayList<Traject> gesorteerdeTrajectArray = new ArrayList();
         Locatie beginLocatie = order.getBeginLocatie();
-        while (beginLocatie != null){
+        while (beginLocatie != null) {
             Traject volgendeTraject = null;
-            for (int i = 0; i< trajecten.size(); i++) {
+            for (int i = 0; i < trajecten.size(); i++) {
                 Traject traject = trajecten.get(i);
-                System.out.println(traject.getBeginLocatie().getLocatieID()+" == " + beginLocatie.getLocatieID() );
-                if (traject.getBeginLocatie().getLocatieID() == beginLocatie.getLocatieID()){
+                System.out.println(traject.getBeginLocatie().getLocatieID() + " == " + beginLocatie.getLocatieID());
+                if (traject.getBeginLocatie().getLocatieID() == beginLocatie.getLocatieID()) {
                     trajecten.remove(i);
                     volgendeTraject = traject;
                 }
             }
-            if (volgendeTraject != null){
+            if (volgendeTraject != null) {
                 beginLocatie = volgendeTraject.getEindLocatie();
                 gesorteerdeTrajectArray.add(volgendeTraject);
-            } else{
+            } else {
                 beginLocatie = null;
             }
         }
         setTrajecten(gesorteerdeTrajectArray);
     }
-    
-    public void voegTrajectToe(Traject traject){
+
+    public void voegTrajectToe(Traject traject) {
         trajecten.add(traject);
     }
 
@@ -106,9 +102,5 @@ public class Pakket {
     public String toString() {
         return "Pakket{" + "pakketID=" + pakketID + ", gewicht=" + gewicht + ", formaat=" + formaat + ", order=" + order + ", opmerking=" + opmerking + ", status=" + status + '}';
     }
-    
-    
-    
-    
-    
+
 }

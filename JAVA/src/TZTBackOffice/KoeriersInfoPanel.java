@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Richard
+ * Aangepast door: Jasper
+ * Functie: Laat de koeriersdienst gegevens zien in een JPanel
  */
 package TZTBackOffice;
 
@@ -15,14 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Richard
- */
 public class KoeriersInfoPanel extends JPanel implements ActionListener {
 
     private JLabel jlHead, jlTelnummer, jlNaam, jlEmail;
-        private JTextField jtfNaam, jtfTelnummer, jtfEmail;
+    private JTextField jtfNaam, jtfTelnummer, jtfEmail;
     //private JLabel jlStartTarief, jlWaardeOmslag, jlPrijsPerKm;
     //jtfStartTarief, jtfWaardeOmslag, jtfPrijsPerKm;
     //private JTextArea jtaTarieven;
@@ -117,7 +113,7 @@ public class KoeriersInfoPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+
     }
 
 }

@@ -1,16 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Twan
+ * Aangepast door: -
+ * Functie: Het aanmaken, wijzigen en verkrijgen van koeriersdienst gegevens
  */
 package TZTBackOffice;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Twan
- */
 public class KoeriersDienst extends Contact {
 
     private ArrayList<Tarief> tarieven;

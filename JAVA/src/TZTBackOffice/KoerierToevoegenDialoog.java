@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Gemaakt door: Richard
+ * Aangepast door: Jasper
+ * Functie: Maakt een dialoog om een nieuwe koeriersdienst in toe te voegen
  */
 package TZTBackOffice;
 
@@ -17,10 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Richard
- */
 public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 
     JTextArea textarea;
@@ -37,7 +33,6 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
     private ContactOverzichtPanel contactOverzicht;
 
     //start tarief, waarde omslag, prijs per km
-
     public KoerierToevoegenDialoog(DatabaseManager databasemanager, ContactOverzichtPanel contactOverzicht) {
         this.databasemanager = databasemanager;
         this.contactOverzicht = contactOverzicht;
@@ -144,7 +139,6 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
 //                int intStartTarief = Integer.parseInt(jtfStartTarief.getText());
 //                double doubleWaardeOmslag = Double.parseDouble(jtfWaardeOmslag.getText());
 //                double doublePrijsPerKm = Double.parseDouble(jtfPrijsPerKm.getText());
-
                 String strType = "4";
 
                 //Check of Naam en Email zijn ingevuld
@@ -158,8 +152,8 @@ public class KoerierToevoegenDialoog extends JDialog implements ActionListener {
                     //Maak contact en koerier aan
                     ArrayList<Contact> contacten = databasemanager.getContacten();
                     int nieuweContactID = 1;
-                    if (contacten.size() > 0){
-                        nieuweContactID = contacten.get(0).getContactID()+1;
+                    if (contacten.size() > 0) {
+                        nieuweContactID = contacten.get(0).getContactID() + 1;
                     }
                     KoeriersDienst koeriersdienst1 = new KoeriersDienst(strNaam, strType, strEmail, strTelnummer, nieuweContactID);
                     //Voeg de koerier toe in de DB
