@@ -48,6 +48,7 @@ public class UitbetalingsPanel extends JPanel implements ItemListener {
 
     public void verzoekAfgehandeld(UitbetalingsVerzoek verzoek) {
         databaseManager.updateUitbetalingsVerzoek(verzoek);
+        databaseManager.updateContact(verzoek.getKoerier());
         refresh();
     }
 
