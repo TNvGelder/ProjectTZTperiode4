@@ -7,24 +7,15 @@ package TZTBackOffice;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import static java.nio.file.Files.delete;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.RowSorter;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 public class PakketTabelPanel extends JPanel {
 
@@ -57,7 +48,6 @@ public class PakketTabelPanel extends JPanel {
             }
         };
 
-        System.out.println(table.getColumnCount());
         table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setMinWidth(75);
         table.getColumnModel().getColumn(1).setMinWidth(75);

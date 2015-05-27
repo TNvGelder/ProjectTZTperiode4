@@ -8,7 +8,6 @@ package TZTBackOffice;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -23,7 +22,6 @@ public class PakketButtonEditor extends DefaultCellEditor {
         this.pakketten = pakketten;
 
         this.hoofdscherm = hoofdscherm;
-        //button = new JButton("meer");
     }
 
     public Component getTableCellEditorComponent(JTable table, Object value,

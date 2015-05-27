@@ -32,9 +32,8 @@ public class DatabaseManager {
     private ArrayList<Contact> contactArray;
     private Traject vorigTraject;
 
-    // Aangemeld, verzonden, gearriveerd
     public DatabaseManager() {
-        //Zet de url, username en password voor de server
+        //Zet de url, username en password om connectie met database te maken
         url = "jdbc:mysql://localhost:3307/mydb";
         username = "root";
         password = "usbw";
@@ -113,14 +112,12 @@ public class DatabaseManager {
 
             //Voer preparedstatement uit
             preparedStmt.execute();
-            System.out.println("koerier aangemaakt");
 
             //Sluit connectie
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie voegKoeriersdienstToe");
-            System.out.println(e);
         }
     }
 
@@ -139,7 +136,6 @@ public class DatabaseManager {
                 Contact koerier = contactHashmap.get(r.getInt("r.koerierID"));
                 vorigTraject = new Traject(trajectID, afhaaltijd, aflevertijd, koerier, beginLocatie, eindLocatie);
                 p.voegTrajectToe(vorigTraject);
-                System.out.println(vorigTraject);
             }
             int probleemID = r.getInt("pr1.probleemID");
             if (probleemID != 0) {
@@ -174,14 +170,12 @@ public class DatabaseManager {
 
             //Voer preparedstatement uit
             preparedStmt.execute();
-            System.out.println("tarief aangemaakt");
 
             //Sluit connectie
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie voegTariefToe");
-            System.out.println(e);
         }
     }
 
@@ -209,14 +203,12 @@ public class DatabaseManager {
 
             //Voer preparedstatement uit
             preparedStmt.executeUpdate();
-            System.out.println("accounthouder geupdate");
 
             //Sluit connectie
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateContact");
-            System.out.println(e);
         }
     }
 
@@ -253,7 +245,6 @@ public class DatabaseManager {
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateUitbetalingsVerzoek");
-            System.out.println(e);
         }
     }
 
@@ -291,14 +282,12 @@ public class DatabaseManager {
 
             //Voer preparedstatement uit
             preparedStmt.executeUpdate();
-            System.out.println("locatie geupdate");
 
             //Sluit connectie
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie updateLocatie");
-            System.out.println(e);
         }
     }
 
@@ -322,14 +311,12 @@ public class DatabaseManager {
 
             //Voer preparedstatement uit
             preparedStmt.executeUpdate();
-            System.out.println("Treinkoerier verwijderd");
 
             //Sluit connectie
             connection.close();
         } catch (Exception e) {
             //Als de connectie of statement een error opleverd
             System.out.println("Er is iets misgegaan met de functie deleteKoeriersdienst");
-            System.out.println(e);
         }
     }
 
@@ -350,7 +337,6 @@ public class DatabaseManager {
             pakket = new Pakket(pakketID, gewicht, formaat, order, opmerking, status);
             pakketten.add(pakket);
             maakTraject(pakket, r);
-            System.out.println(pakket);
         } else {
             pakket = pakketten.get(pakketten.size() - 1);
             maakTraject(pakket, r);
@@ -416,7 +402,6 @@ public class DatabaseManager {
                 String postcode = rs.getString(5);
                 Locatie locatie = new Locatie(id, straat, huisnummer, plaats, postcode);
                 locaties.put(id, locatie);
-                System.out.println(locatie);
             }
 
             rs = statement.executeQuery("SELECT probleemID, beschrijving, datum, titel, afgehandeld, pakketID, trajectID FROM probleem");
@@ -437,7 +422,6 @@ public class DatabaseManager {
                     bezorgProblemen.add(bezorgprobleem);
                     probleem = bezorgprobleem;
                 }
-                System.out.println(probleem);
                 problemen.put(probleemID, probleem);
             }
 
@@ -476,7 +460,6 @@ public class DatabaseManager {
                     } else {
                         KoeriersDienst koeriersDienst = new KoeriersDienst(naam, typenaam, email, telefoonnr, contactID);
                         maakTarief(koeriersDienst, rs);
-                        System.out.println(typenaam + " " + koeriersDienst);
                         contact = koeriersDienst;
                     }
                     contactHashmap.put(contact.getContactID(), contact);
@@ -503,18 +486,15 @@ public class DatabaseManager {
             while (rs.next()) {
                 int orderID = rs.getInt("v.orderID");
                 boolean definitief = rs.getBoolean("definitief");
-                System.out.println(orderID);
                 //Check of er een definitieve order is die nog niet is toegevoegd.
                 if (definitief) {
                     if (pakketten.isEmpty() || (orderID != pakketten.get(pakketten.size() - 1).getOrder().getOrderID())) {
                         int klantID = rs.getInt("v.klantID");
                         AccountHouder klant = (AccountHouder) contactHashmap.get(klantID);
                         Timestamp aanmeldTijd = rs.getTimestamp("aanmeldtijd");
-                        System.out.println(rs.getInt("v.beginlocatie"));
                         Locatie beginLocatie = locaties.get(rs.getInt("v.beginlocatie"));
                         Locatie eindLocatie = locaties.get(rs.getInt("v.eindlocatie"));
                         VerzendOrder order = new VerzendOrder(klant, aanmeldTijd, orderID, beginLocatie, eindLocatie);
-                        System.out.println(order);
                         maakPakket(order, rs);
                     } else {
                         VerzendOrder order = pakketten.get(pakketten.size() - 1).getOrder();
@@ -531,7 +511,6 @@ public class DatabaseManager {
                 Boolean isafgehandeld = rs.getBoolean("isafgehandeld");
                 Boolean goedgekeurd = rs.getBoolean("goedgekeurd");
                 UitbetalingsVerzoek verzoek = new UitbetalingsVerzoek(datum, bedrag, isafgehandeld, treinKoerier, goedgekeurd);
-                System.out.println(verzoek);
                 uitbetalingsVerzoeken.add(verzoek);
             }
 

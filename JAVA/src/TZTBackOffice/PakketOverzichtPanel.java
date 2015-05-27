@@ -17,13 +17,13 @@ import javax.swing.JPanel;
 
 public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
-    JPanel cards;
     private JPanel categoriePanel;
-    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     private JComboBox cb;
     private JFrame hoofdscherm;
+    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     DatabaseManager databaseManager = new DatabaseManager();
     ArrayList<Pakket> pakketten = databaseManager.getPakketten();
+    JPanel cards;
 
     public PakketOverzichtPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
 
@@ -69,7 +69,6 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
             //Bekijk status van pakket
 
             String strStatus = pakket.getStatus();
-            System.out.println("status: " + strStatus);
             if (!sorteerCategorieën.containsKey(strStatus)) {
                 maakCategorie(strStatus);
             }

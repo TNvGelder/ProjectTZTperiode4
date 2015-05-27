@@ -7,27 +7,16 @@ package TZTBackOffice;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 public class UitbetalingsPanel extends JPanel implements ItemListener {
 
-    JPanel cards; //a panel that uses CardLayout
+    JPanel cards;
     private JPanel categoriePanel;
     private JComboBox cb;
     private JFrame hoofdscherm;

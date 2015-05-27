@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+//Niet af
 public class ProbleemPanel extends JPanel
         implements ListSelectionListener, ItemListener {
 

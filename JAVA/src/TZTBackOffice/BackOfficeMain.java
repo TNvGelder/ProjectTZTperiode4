@@ -7,10 +7,6 @@ package TZTBackOffice;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author Twan
- */
 public class BackOfficeMain {
 
     public static void main(String[] args) {

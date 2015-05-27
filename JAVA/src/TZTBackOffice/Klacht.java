@@ -13,7 +13,6 @@ public class Klacht extends Probleem {
 
     public Klacht(int probleemID, String titel, String beschrijving, Timestamp datum, boolean afgehandeld) {
         super(probleemID, titel, beschrijving, datum, afgehandeld);
-        this.pakket = pakket;
     }
 
     public Pakket getPakket() {
