@@ -46,7 +46,6 @@ public class UitbetalingsTabelPanel extends JPanel {
             }
         };
 
-        System.out.println(table.getColumnCount());
         table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setMinWidth(100);
         table.getColumnModel().getColumn(1).setMinWidth(100);

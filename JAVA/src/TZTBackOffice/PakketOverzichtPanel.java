@@ -17,13 +17,13 @@ import javax.swing.JPanel;
 
 public class PakketOverzichtPanel extends JPanel implements ItemListener {
 
-    JPanel cards; //a panel that uses CardLayout
     private JPanel categoriePanel;
-    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     private JComboBox cb;
     private JFrame hoofdscherm;
+    private HashMap<String, PakketTabelPanel> sorteerCategorieën;
     DatabaseManager databaseManager = new DatabaseManager();
     ArrayList<Pakket> pakketten = databaseManager.getPakketten();
+    JPanel cards;
 
     public PakketOverzichtPanel(DatabaseManager databasemanager, JFrame hoofdscherm) {
 
@@ -51,6 +51,7 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
     }
 
     public void refresh() {
+        //Refresh de gegevens
         this.removeAll();
         categoriePanel = new JPanel();
         add(categoriePanel, BorderLayout.NORTH);
@@ -64,12 +65,10 @@ public class PakketOverzichtPanel extends JPanel implements ItemListener {
         categoriePanel.add(cb);
         add(cards);
 
-        // Populate the JTable (TableModel) with data from ArrayList
         for (Pakket pakket : pakketten) {
             //Bekijk status van pakket
 
             String strStatus = pakket.getStatus();
-            System.out.println("status: " + strStatus);
             if (!sorteerCategorieën.containsKey(strStatus)) {
                 maakCategorie(strStatus);
             }

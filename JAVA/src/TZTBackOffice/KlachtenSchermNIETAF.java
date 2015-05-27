@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 //Niet af
-//Create a simple GUI window
 public class KlachtenSchermNIETAF extends JFrame {
 
     JTextArea textarea;
@@ -20,7 +19,6 @@ public class KlachtenSchermNIETAF extends JFrame {
     private JLabel labelHead, labelNaam, labelID, labelDatum;
     private JButton btnReageer;
     private JTextArea textOmschrijving;
-    //private JScrollPane scrollpane;
 
     public KlachtenSchermNIETAF() {
 
@@ -56,13 +54,10 @@ public class KlachtenSchermNIETAF extends JFrame {
         add(labelID);
         add(labelDatum);
         add(btnReageer);
-        //add (scrollPane);
         add(textOmschrijving);
 
         event e = new event();
         btnReageer.addActionListener(e);
-
-        //setVisible(true);
     }
 
     public class event implements ActionListener {
@@ -77,11 +72,4 @@ public class KlachtenSchermNIETAF extends JFrame {
             }
         }
     }
-
-//    public static void main(String[] args) {
-//        KlachtenSchermNIETAF gui = new KlachtenSchermNIETAF();
-//        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        gui.setSize(800, 500);
-//        gui.setVisible(true);
-//    }
 }

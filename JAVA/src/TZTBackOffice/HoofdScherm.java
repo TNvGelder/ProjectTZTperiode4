@@ -7,18 +7,13 @@
 package TZTBackOffice;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
 
 public class HoofdScherm extends JFrame implements ActionListener {
 
@@ -65,7 +60,6 @@ public class HoofdScherm extends JFrame implements ActionListener {
             databaseManager.haalDataOp();
             contactPanel.refresh();
             pakketPanel.refresh();
-            System.out.println("refresh");
         }
     }
 

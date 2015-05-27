@@ -7,7 +7,6 @@ package TZTBackOffice;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -22,7 +21,6 @@ public class KlachtInfoPanel {
     public KlachtInfoPanel(Klacht klacht) {
 
         this.setLayout(null);
-        event e = new event();
 
         //Maak inhoud voor in Panel
         JLabel onderwerp = new JLabel("Onderwerp");
@@ -43,14 +41,7 @@ public class KlachtInfoPanel {
     }
 
     private void setLayout(Object object) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public class event implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    }
 }
